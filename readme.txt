@@ -4,7 +4,7 @@ List of features:
 User can log in/ out
 User can create/read/update/delete a recipe
 User can view all recipes, search based on certain params
- User can add recipes to their favorite list
+User can add recipes to their favorite list
 User can comment below each recipe, user can upload their own photos to share ( possible to do?)
 User can score a recipe from 1 to 5 stars
 
