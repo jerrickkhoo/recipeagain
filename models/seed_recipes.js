@@ -44,6 +44,15 @@ const seed_recipes= [
         ],
         "imageURL": "http://img.sndimg.com/food/image/upload/w_266/v1/img/recipes/27/20/8/picVfzLZo.jpg",
         "originalURL": "http://www.food.com/recipe/to-die-for-crock-pot-roast-27208"
+        ,"author": 'Barry'
+        ,"description":"a brief decription of the recipe"
+        ,'servings':4
+        ,'rating': 4.9
+        ,"comments":[
+            {'author':'Chor', 'content': 'This tastes great!','createTime':'2022-07-02 13:00'},
+            {'author':'Jerr', 'content': 'This tastes nice!','createTime':'2022-07-24 19:00'},
+        ]
+        ,'tag':['main','30min','starter']
     },
     {
         "name": "Roasted Asparagus",
@@ -90,7 +99,17 @@ const seed_recipes= [
         ],
         "imageURL": "http://img.sndimg.com/food/image/upload/w_266/v1/img/recipes/50/84/7/picMcSyVd.jpg",
         "originalURL": "http://www.food.com/recipe/roasted-asparagus-50847"
+        ,"author": 'Barry'
+        ,"description":"a brief decription of the recipe"
+        ,'servings':4
+        ,'rating': 4.9
+        ,"comments":[
+            {'author':'Chor', 'content': 'This tastes great!','createTime':'2022-07-02 13:00'},
+            {'author':'Jerr', 'content': 'This tastes nice!','createTime':'2022-07-24 19:00'},
+        ]
+        ,'tag':['main','30min','starter']
     },
+
     {
         "name": "Curried Lentils and Rice",
         "ingredients": [
@@ -135,7 +154,17 @@ const seed_recipes= [
             0
         ],
         "imageURL": "http://dagzhsfg97k4.cloudfront.net/wp-content/uploads/2012/05/lentils3.jpg"
-    },
+        ,"author": 'Barry'
+        ,"description":"a brief decription of the recipe"
+        ,'servings':4
+        ,'rating': 4.9
+        ,"comments":[
+            {'author':'Chor', 'content': 'This tastes great!','createTime':'2022-07-02 13:00'},
+            {'author':'Jerr', 'content': 'This tastes nice!','createTime':'2022-07-24 19:00'},
+        ]
+        ,'tag':['main','30min','starter']
+    } ,
+
     {
         "name": "Big Night Pizza",
         "ingredients": [
@@ -199,7 +228,15 @@ const seed_recipes= [
             0
         ],
         "imageURL": "http://upload.wikimedia.org/wikipedia/commons/c/c7/Spinach_pizza.jpg"
-    },
+        ,"author": 'Barry'
+        ,"description":"a brief decription of the recipe"
+        ,'servings':4
+        ,'rating': 4.9
+        ,"comments":[
+            {'author':'Chor', 'content': 'This tastes great!','createTime':'2022-07-02 13:00'},
+            {'author':'Jerr', 'content': 'This tastes nice!','createTime':'2022-07-24 19:00'},
+        ]
+        ,'tag':['main','30min','starter']},
     {
         "name": "Cranberry and Apple Stuffed Acorn Squash Recipe",
         "ingredients": [
@@ -256,7 +293,15 @@ const seed_recipes= [
         ],
         "imageURL": "http://elanaspantry.com/wp-content/uploads/2008/10/acorn_squash_with_cranberry.jpg",
         "originalURL": ""
-    },
+        ,"author": 'Barry'
+        ,"description":"a brief decription of the recipe"
+        ,'servings':4
+        ,'rating': 4.9
+        ,"comments":[
+            {'author':'Chor', 'content': 'This tastes great!','createTime':'2022-07-02 13:00'},
+            {'author':'Jerr', 'content': 'This tastes nice!','createTime':'2022-07-24 19:00'},
+        ]
+        ,'tag':['main','30min','starter']},
     {
         "name": "Mic's Yorkshire Puds",
         "ingredients": [
@@ -305,7 +350,15 @@ const seed_recipes= [
         ],
         "imageURL": "http://upload.wikimedia.org/wikipedia/commons/f/f9/Yorkshire_Pudding.jpg",
         "originalURL": "http://upload.wikimedia.org/wikipedia/commons/f/f9/Yorkshire_Pudding.jpg"
-    },
+        ,"author": 'Barry'
+        ,"description":"a brief decription of the recipe"
+        ,'servings':4
+        ,'rating': 4.9
+        ,"comments":[
+            {'author':'Chor', 'content': 'This tastes great!','createTime':'2022-07-02 13:00'},
+            {'author':'Jerr', 'content': 'This tastes nice!','createTime':'2022-07-24 19:00'},
+        ]
+        ,'tag':['main','30min','starter']},
     {
         "name": "Old-Fashioned Oatmeal Cookies",
         "ingredients": [
@@ -396,7 +449,15 @@ const seed_recipes= [
         ],
         "imageURL": "http://s3.amazonaws.com/gmi-digital-library/65caecf7-a8f7-4a09-8513-2659cf92871e.jpg",
         "originalURL": "#"
-    },
+        ,"author": 'Barry'
+        ,"description":"a brief decription of the recipe"
+        ,'servings':4
+        ,'rating': 4.9
+        ,"comments":[
+            {'author':'Chor', 'content': 'This tastes great!','createTime':'2022-07-02 13:00'},
+            {'author':'Jerr', 'content': 'This tastes nice!','createTime':'2022-07-24 19:00'},
+        ]
+        ,'tag':['main','30min','starter']},
     {
         "name": "Blueberry Oatmeal Squares",
         "ingredients": [
@@ -473,7 +534,15 @@ const seed_recipes= [
         ],
         "imageURL": "http://www.canadianliving.com/img/photos/biz/blueberry-oatmeal-squares5801359401371.jpg",
         "originalURL": "http://www.canadianliving.com/food/blueberry_oatmeal_squares.php"
-    },
+        ,"author": 'Barry'
+        ,"description":"a brief decription of the recipe"
+        ,'servings':4
+        ,'rating': 4.9
+        ,"comments":[
+            {'author':'Chor', 'content': 'This tastes great!','createTime':'2022-07-02 13:00'},
+            {'author':'Jerr', 'content': 'This tastes nice!','createTime':'2022-07-24 19:00'},
+        ]
+        ,'tag':['main','30min','starter']},
     {
         "name": "Curried chicken salad",
         "ingredients": [
@@ -562,7 +631,16 @@ const seed_recipes= [
         ],
         "imageURL": "http://www.chatelaine.com/wp-content/uploads/2013/05/Curried-chicken-salad.jpg",
         "originalURL": "http://www.chatelaine.com/recipe/stovetop-cooking-method/curried-chicken-salad/"
-    }
+        ,"author": 'Barry'
+        ,"description":"a brief decription of the recipe"
+        ,'servings':4
+        ,'rating': 4.9
+        ,"comments":[
+            {'author':'Chor', 'content': 'This tastes great!','createTime':'2022-07-02 13:00'},
+            {'author':'Jerr', 'content': 'This tastes nice!','createTime':'2022-07-24 19:00'},
+        ]
+        ,'tag':['main','30min','starter']}
 ]
 
+//console.log(seed_recipes)
 module.exports = seed_recipes
