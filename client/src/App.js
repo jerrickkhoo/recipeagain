@@ -34,6 +34,9 @@ function App() {
             <Link className="item" to="/">
               Home
             </Link>
+            <Link className="item" to="/recipe/">
+              All Recipes
+            </Link>
             <Link className="item" to="/recipe/favourites">
               Favourites
             </Link>
@@ -46,11 +49,11 @@ function App() {
             <Link className="item" to="/recipe/post">
               Post Recipe
             </Link>
-          </div>
-        </div>
         <div className="ui action input">
           <input type="text" placeholder="Search..." />
           <button className="ui button teal">Search</button>
+        </div>
+          </div>
         </div>
 
         <Routes>
