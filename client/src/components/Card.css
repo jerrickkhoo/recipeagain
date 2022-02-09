@@ -1,0 +1,9 @@
+.unorderedList {
+  list-style-type: none;
+}
+
+.singleCard {
+  margin: auto;
+  width: 300px;
+  /* width: 50%; */
+}
