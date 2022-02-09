@@ -39,6 +39,8 @@ function App() {
     setSearchQuery(e.target.value);
   };
 
+
+
   const filterRecipes = (recipes, query) => {
     // if (!query) {
     //   return recipes;
