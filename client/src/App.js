@@ -1,26 +1,71 @@
-import { Link, Routes, Route } from "react-router-dom";
+import { Route, Routes, Link, Outlet } from "react-router-dom";
 import "./App.css";
-import Test from "./components/Test";
+import { useNavigate } from "react-router";
+import { useState, useEffect } from "react";
 import Home from "./components/Home";
+import Card from "./components/Card";
+import Favourites from "./components/Favourites";
+import Join from "./components/Join";
+import Post from "./components/Post";
+import Login from "./components/Login";
+
+function NotFound() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    navigate("/home");
+  });
+
+  return (
+    <div>
+      <h2>Not Found - 404</h2>
+      <button onClick={() => navigate("/home")}>Go Home</button>
+    </div>
+  );
+}
 
 function App() {
   return (
-    <>
-      <nav>
-        <Link to="/">
-          <h1>Home</h1>
-        </Link>
-        <Link to="/test">
-          <h2>test</h2>
-        </Link>
-      </nav>
-      <div className="App">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/test" element={<Test />} />
-        </Routes>
+    <div>
+      <div className="ui inverted segment">
+        <div className="ui inverted secondary pointing menu">
+          <Link className="active item" to="/">
+            Home
+          </Link>
+          <Link className="item" to="/recipe/favourites">
+            Favourites
+          </Link>
+          <Link className="item" to="/recipe/join">
+            Join
+          </Link>
+          <Link className="item" to="/recipe/login">
+            Login
+          </Link>
+          <Link className="item" to="/recipe/post">
+            Post Recipe
+          </Link>
+        </div>
       </div>
-    </>
+      <Routes>
+        {/* <Route path="/" /> */}
+        <Route path="/" element={<Home />} />
+        <Route path="/recipe/favourites" element={<Favourites />} />
+        {/* </Route> */}
+        <Route path="/recipe/join" element={<Join />} />
+        <Route path="/recipe/" element={<Login />} />
+        <Route path="/recipe/:id" element={<Card />} />
+        <Route path="/recipe/post" element={<Post />} />
+        <Route path="*" element={<NotFound />} />
+        {/* <Route
+          path="*"
+          element={
+            <main>
+              <p>There's nothing here!</p>
+            </main>
+          }
+        /> */}
+      </Routes>
+    </div>
   );
 }
 
