@@ -8,6 +8,7 @@ import Favourites from "./components/Favourites";
 import Join from "./components/Join";
 import Post from "./components/Post";
 import Login from "./components/Login";
+import AllCards from "./components/AllCards";
 
 function NotFound() {
   const navigate = useNavigate();
@@ -26,37 +27,43 @@ function NotFound() {
 
 function App() {
   return (
-    <div>
-      <div className="ui inverted segment">
-        <div className="ui inverted secondary pointing menu">
-          <Link className="active item" to="/">
-            Home
-          </Link>
-          <Link className="item" to="/recipe/favourites">
-            Favourites
-          </Link>
-          <Link className="item" to="/recipe/join">
-            Join
-          </Link>
-          <Link className="item" to="/recipe/login">
-            Login
-          </Link>
-          <Link className="item" to="/recipe/post">
-            Post Recipe
-          </Link>
+    <>
+      <div>
+        <div className="ui inverted segment">
+          <div className="ui inverted secondary pointing menu">
+            <Link className="item" to="/">
+              Home
+            </Link>
+            <Link className="item" to="/recipe/favourites">
+              Favourites
+            </Link>
+            <Link className="item" to="/recipe/join">
+              Join
+            </Link>
+            <Link className="item" to="/recipe/login">
+              Login
+            </Link>
+            <Link className="item" to="/recipe/post">
+              Post Recipe
+            </Link>
+          </div>
         </div>
-      </div>
-      <Routes>
-        {/* <Route path="/" /> */}
-        <Route path="/" element={<Home />} />
-        <Route path="/recipe/favourites" element={<Favourites />} />
-        {/* </Route> */}
-        <Route path="/recipe/join" element={<Join />} />
-        <Route path="/recipe/" element={<Login />} />
-        <Route path="/recipe/:id" element={<Card />} />
-        <Route path="/recipe/post" element={<Post />} />
-        <Route path="*" element={<NotFound />} />
-        {/* <Route
+        <div className="ui action input">
+          <input type="text" placeholder="Search..." />
+          <button className="ui button teal">Search</button>
+        </div>
+
+        <Routes>
+          {/* <Route path="/" /> */}
+          <Route path="/" element={<Home />} />
+          <Route path="/recipe/favourites" element={<Favourites />} />
+          {/* </Route> */}
+          <Route path="/recipe/join" element={<Join />} />
+          <Route path="/recipe/" element={<AllCards />} />
+          <Route path="/recipe/:id" element={<Card />} />
+          <Route path="/recipe/post" element={<Post />} />
+          <Route path="*" element={<NotFound />} />
+          {/* <Route
           path="*"
           element={
             <main>
@@ -64,8 +71,9 @@ function App() {
             </main>
           }
         /> */}
-      </Routes>
-    </div>
+        </Routes>
+      </div>
+    </>
   );
 }
 
