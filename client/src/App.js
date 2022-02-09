@@ -9,23 +9,53 @@ import Join from "./components/Join";
 import Post from "./components/Post";
 import Login from "./components/Login";
 import AllCards from "./components/AllCards";
+import seed from "./components/models/seed_recipes";
+import Search from "./components/Search";
 
 function NotFound() {
   const navigate = useNavigate();
-
   useEffect(() => {
-    navigate("/home");
+    navigate("/");
   });
-
   return (
     <div>
       <h2>Not Found - 404</h2>
-      <button onClick={() => navigate("/home")}>Go Home</button>
+      <button onClick={() => navigate("/")}>Go Home</button>
     </div>
   );
 }
 
 function App() {
+  const { search } = window.location;
+  const query = new URLSearchParams(search).get("s");
+  const [searchQuery, setSearchQuery] = useState(query || "");
+  const [recipes, setRecipes] = useState(seed);
+  // const [status, setStatus] = useState("");
+  const navigate = useNavigate();
+
+  const handleSearch = (e) => {
+    navigate("/recipe");
+    e.preventDefault();
+    setSearchQuery(e.target.value);
+  };
+
+  const filterRecipes = (recipes, query) => {
+    // if (!query) {
+    //   return recipes;
+    // }
+    return recipes.filter((recipe) => {
+      const recipeName = recipe.name.toLowerCase();
+      return recipeName.includes(query);
+    });
+  };
+
+  const filteringRecipes = () => {
+    if (searchQuery) {
+      const filteredRecipes = filterRecipes(recipes, searchQuery);
+      return filteredRecipes;
+    }
+  };
+
   return (
     <>
       <div>
@@ -33,9 +63,6 @@ function App() {
           <div className="ui inverted secondary pointing menu">
             <Link className="item" to="/">
               Home
-            </Link>
-            <Link className="item" to="/recipe/">
-              All Recipes
             </Link>
             <Link className="item" to="/recipe/favourites">
               Favourites
@@ -49,12 +76,19 @@ function App() {
             <Link className="item" to="/recipe/post">
               Post Recipe
             </Link>
-        <div className="ui action input">
-          <input type="text" placeholder="Search..." />
-          <button className="ui button teal">Search</button>
-        </div>
+            <Search searchQuery={searchQuery} handleSearch={handleSearch} />
           </div>
         </div>
+        <ul>
+          {filteringRecipes()
+            ? filteringRecipes()?.map((recipe, index) => (
+                <li>
+                  <AllCards {...recipe} key={index} />
+                </li>
+                // <li key={index}>{recipe.name}</li>
+              ))
+            : null}
+        </ul>
 
         <Routes>
           {/* <Route path="/" /> */}
@@ -65,15 +99,8 @@ function App() {
           <Route path="/recipe/" element={<AllCards />} />
           <Route path="/recipe/:id" element={<Card />} />
           <Route path="/recipe/post" element={<Post />} />
+          <Route path="/recipe/login" element={<Login />} />
           <Route path="*" element={<NotFound />} />
-          {/* <Route
-          path="*"
-          element={
-            <main>
-              <p>There's nothing here!</p>
-            </main>
-          }
-        /> */}
         </Routes>
       </div>
     </>
