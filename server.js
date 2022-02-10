@@ -1,7 +1,9 @@
 // Dependencies
 const express = require("express");
 const mongoose = require("mongoose");
+const session = require("express-session")
 const path = require("path");
+const user = require("./controllers/user")
 const recipeController = require("./controllers/recipes");
 
 //* CONFIG
@@ -29,8 +31,17 @@ mongoose.connection.once("open", () => {
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+app.use(
+  session({
+    secret: process.env.SECRET,
+    resave: false,
+    saveUninitialized:false
+  })
+)
+
 //* ROUTES MIDDLEWARE
 app.use("/recipes", recipeController);
+app.use('/user', user)
 
 // app.get("/*", (req, res) => {
 //   res.sendFile(path.join(__dirname, "./client/build", "index.html"));
