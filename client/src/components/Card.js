@@ -13,9 +13,7 @@ const Card = () => {
     return (
       <ul className="unorderedList" key={index}>
         <li>
-          <h3>
-            {item?.name} - {item?.quantity}
-          </h3>
+            <h3>{item?.name} - {item?.quantity}</h3>
         </li>
       </ul>
     );
@@ -25,7 +23,6 @@ const Card = () => {
     return (
       <div key={index} className="ui relaxed divided list">
         <div className="item">
-          <i className="large github middle aligned icon"></i>
           <div className="content">
             <p className="header">{item.author}</p>
             <div className="description">
@@ -48,52 +45,30 @@ const Card = () => {
   });
 
   return (
-    <div className="singleCard">
-      <div className="ui card">
-        <p className="image">
-          <img src={recipe?.imageURL} alt={recipe?.originalURL} />
-        </p>
-        <div className="content">
-          <div>
-            <span>
-              <i className="users icon"></i>Rating: {recipe?.rating}
-            </span>
-            {/* <div class="meta">
-          <h4></h4>
-        </div> */}
-            <span className="right floated star">
-              <i className="star icon large"></i>
-              Favorite
-            </span>
-          </div>
-          <h1>{recipe?.name}</h1>
-          <h3>{recipe?.description}</h3>
-          <h3>Servings: {recipe?.servings}</h3> <h2>Ingredients:</h2>
-          {ingredients}
-          <h2>Steps:</h2>
-          {steps}
-          <h3>Comments...</h3>
-          {comments}
+  
+    <div>
+      <div className="cardHeader">
+        <img
+          className="headerBackground"
+          src={recipe?.imageURL}
+          alt={recipe?.originalURL}
+        />
+        <div className="headerText">
+          <h1 id="cardName">{recipe?.name}</h1>
+          <h2 id="cardDescription">{recipe?.description}</h2>
+          <h2>Servings: {recipe?.servings}</h2>
         </div>
+      </div>
+      <div className='cardContent'>
+        <h2>Ingredients:</h2>
+        {ingredients}
+        <h2>Steps:</h2>
+        {steps}
+        <h3>Comments</h3>
+        {comments}
       </div>
     </div>
 
-    // {/* // <div style={{ textAlign: "center" }}>
-    //   <h1>{recipe?.name}</h1>
-    //   <h3>{recipe?.description}</h3>
-    //   <h3>Servings: {recipe?.servings}</h3>
-    //   <button>
-    //     {" "}
-    //     <i class="heart outline like icon huge"></i>
-    //   </button>
-
-    //   <h3>Rating: {recipe?.rating}</h3>
-    //   <img src={recipe?.imageURL} alt={recipe?.originalURL} />
-    //   <h2>Ingredients</h2>
-    //   {ingredients}
-    //   <h2>Steps:</h2>
-    //   {steps}
-    // </div> */}
   );
 };
 

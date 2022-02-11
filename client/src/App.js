@@ -30,21 +30,13 @@ function App() {
   const query = new URLSearchParams(search).get("s");
   const [searchQuery, setSearchQuery] = useState(query || "");
   const [recipes, setRecipes] = useState(seed);
-  // const [status, setStatus] = useState("");
+  const [status, setStatus] = useState("");
   const navigate = useNavigate();
 
-  const handleSearch = (e) => {
-    navigate("/recipe");
-    e.preventDefault();
-    setSearchQuery(e.target.value);
-  };
-
+ 
 
 
   const filterRecipes = (recipes, query) => {
-    // if (!query) {
-    //   return recipes;
-    // }
     return recipes.filter((recipe) => {
       const recipeName = recipe.name.toLowerCase();
       return recipeName.includes(query);
@@ -61,7 +53,7 @@ function App() {
   return (
     <>
       <div>
-        <div className="ui inverted segment">
+        <div className="ui inverted segment" id='nav'>
           <div className="ui inverted secondary pointing menu">
             <Link className="item" to="/">
               Home
@@ -78,7 +70,7 @@ function App() {
             <Link className="item" to="/recipe/post">
               Post Recipe
             </Link>
-            <Search searchQuery={searchQuery} handleSearch={handleSearch} />
+            <Search id='searchBar'/>
           </div>
         </div>
         <ul>
@@ -87,7 +79,6 @@ function App() {
                 <li>
                   <AllCards {...recipe} key={index} />
                 </li>
-                // <li key={index}>{recipe.name}</li>
               ))
             : null}
         </ul>
@@ -98,7 +89,7 @@ function App() {
           <Route path="/recipe/favourites" element={<Favourites />} />
           {/* </Route> */}
           <Route path="/recipe/join" element={<Join />} />
-          <Route path="/recipe/" element={<AllCards />} />
+          <Route path="/searchrecipe/" element={<AllCards />} />
           <Route path="/recipe/:id" element={<Card />} />
           <Route path="/recipe/post" element={<Post />} />
           <Route path="/recipe/login" element={<Login />} />
