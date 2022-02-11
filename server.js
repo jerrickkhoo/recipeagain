@@ -3,8 +3,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const session = require("express-session")
 const path = require("path");
-const user = require("./controllers/user")
-const recipeController = require("./controllers/recipes");
+const user = require("./controllers/userController")
+const recipeController = require("./controllers/recipeController");
 
 //* CONFIG
 require("dotenv").config();
