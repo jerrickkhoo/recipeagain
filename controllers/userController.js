@@ -5,6 +5,10 @@ const User = require("../models/users.js");
 
 //!please use async
 router.post("/create", async (req, res) => {
+
+  //TODO: add validate username length is >3, does not exist in the database already
+  // password must be at least 8 characters, consts of number and alphabets (how to make sure there is at least one special character?)
+
   req.body.password = bcrypt.hashSync(
     req.body.password,
     bcrypt.genSaltSync(10)
