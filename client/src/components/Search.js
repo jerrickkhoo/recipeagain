@@ -1,22 +1,37 @@
-import React from "react";
 
-const Search = ({ searchQuery, handleSearch }) => {
+import { useNavigate } from "react-router";
+
+
+
+const Search = (props) => {
+  const navigate = useNavigate();
+
+  const searchQuery = props.searchQuery
+  const setSearchQuery = props.setSearchQuery
+
+function searchText (e) {
+  setSearchQuery(e.target.value)
+}
+
+function handleClick () {
+  navigate(`/recipe/search/${searchQuery}`)
+}
+
+
   return (
     <>
-      <form action="/" method="get">
         <div className="ui action input">
           <input
             name="s"
             value={searchQuery}
-            onChange={handleSearch}
+            onChange={searchText}
             type="text"
             placeholder="Search..."
           />
-          <button type="submit" className="ui button teal">
+          <button className="ui button teal" onClick={handleClick}>
             Search
           </button>
         </div>
-      </form>
     </>
   );
 };
