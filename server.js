@@ -11,7 +11,7 @@ require("dotenv").config();
 const app = express();
 const port = process.env.PORT || 5000;
 const MONGODB_URI = process.env.MONGODB_URI;
-
+const SECRET = process.env.SECRET
 //* CONNECT MONGODB
 mongoose.connection.on("error", (err) =>
   console.log(err.message + " is Mongod not running?")
@@ -33,7 +33,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use(
   session({
-    secret: process.env.SECRET,
+    secret: SECRET,
     resave: false,
     saveUninitialized:false
   })
