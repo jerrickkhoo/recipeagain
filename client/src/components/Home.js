@@ -32,22 +32,24 @@ const Home = () => {
         <Link to={"/recipe/" + randomNumber[index]} key={index}>
           <div className="ui card">
             <div className="image">
-              <img src={item?.imageURL} alt={item?.originalURL} />
+              <img src={item?.imageURL} alt={item?.originalURL}/>
             </div>
-            <div className="content">
+            <div className="content" id='homeContent'>
               <div className="header">{item?.name}</div>
               <div className="meta">
                 <div>Servings: {item?.servings}</div>
-                <div>
-                  <br />
-                  <Rating
+                <div>Rating: {item?.rating}</div>
+                <div>{item?.description}</div>
+                {/* <div>
+                  <br /> */}
+                  {/* <Rating
                     icon="star"
                     defaultRating={5}
                     maxRating={8}
                     size="huge"
                     disabled
-                  />
-                </div>
+                  /> */}
+                {/* </div> */}
               </div>
             </div>
           </div>
@@ -56,7 +58,15 @@ const Home = () => {
     );
   });
 
-  return <div className="home">{randomCards}</div>;
+  return (
+  <div className='home'>
+    <h1>Popular</h1>
+  <div className="randomCards">
+    {randomCards}
+    </div>
+
+  </div>
+  )
 };
 
 export default Home;
