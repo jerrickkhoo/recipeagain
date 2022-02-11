@@ -9,26 +9,46 @@ const params = useParams()
 const searchQuery = props.searchQuery
 const setSearchQuery = props.setSearchQuery
 
-// let searchArray = []
 
-// for (let i = 0; i<seed.length; i++){
-//   if(seed[i].name.toLowerCase() === {searchQuery}){
-//     // searchArray.push(seed[i])  
-//     // console.log(searchArray);
-//     console.log(true)
-//   } else{
-//       console.log(false)
-//   }
-// }
-
-let searchArray = seed.filter(function(recipe){
-    console.log(recipe.name.toLowerCase().split(" "));
-    return recipe.name.toLowerCase().split('') === searchQuery
+let foundRecipes = seed.filter(function(recipe){
+    // return recipe.name.toLowerCase() === searchQuery
+    return recipe.name.toLowerCase().split(' ').includes(searchQuery)
 })
 
-console.log(searchArray)
+let recipeIndex = seed.filter(function (recipe) {
+  // return recipe.name.toLowerCase() === searchQuery
+  return seed.indexOf(recipe.name.toLowerCase().split(" ").includes(searchQuery));
+});
+
+
+
+
+const searchRecipes = foundRecipes.map((item, index) => {
   return (
-    <div>
+    <div className="homediv">
+      {/* <Link to={"/recipe/" + recipeIndex[index]} key={index}> */}
+        <div className="ui card">
+          <div className="image">
+            <img src={item?.imageURL} alt={item?.originalURL} />
+          </div>
+          <div className="content" id="homeContent">
+            <div className="header">{item?.name}</div>
+            <div className="meta">
+              <div>Servings: {item?.servings}</div>
+              <div>Rating: {item?.rating}</div>
+              <div>{item?.description}</div>
+            </div>
+          </div>
+        </div>
+      {/* </Link> */}
+    </div>
+  );
+});
+  return (
+    <div className='home'>
+    <div className='randomCards'>
+        {searchRecipes}
+    </div>
     </div>
   )
 }

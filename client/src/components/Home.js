@@ -40,16 +40,7 @@ const Home = () => {
                 <div>Servings: {item?.servings}</div>
                 <div>Rating: {item?.rating}</div>
                 <div>{item?.description}</div>
-                {/* <div>
-                  <br /> */}
-                  {/* <Rating
-                    icon="star"
-                    defaultRating={5}
-                    maxRating={8}
-                    size="huge"
-                    disabled
-                  /> */}
-                {/* </div> */}
+               
               </div>
             </div>
           </div>

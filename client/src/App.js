@@ -1,7 +1,7 @@
 import { Route, Routes, Link, Outlet } from "react-router-dom";
 import "./App.css";
 import { useNavigate } from "react-router";
-import { useState, useEffect } from "react";
+import { useState, useEffect, createContext } from "react";
 import Home from "./components/Home";
 import Card from "./components/Card";
 import Favourites from "./components/Favourites";
@@ -13,28 +13,28 @@ import SearchResults from './components/SearchResults'
 import seed from "./components/models/seed_recipes";
 import Search from "./components/Search";
 
-function NotFound() {
-  const navigate = useNavigate();
-  useEffect(() => {
-    navigate("/");
-  });
-  return (
-    <div>
-      <h2>Not Found - 404</h2>
-      <button onClick={() => navigate("/")}>Go Home</button>
-    </div>
-  );
-}
+
+export const AppContext = createContext();
 
 function App() {
   const { search } = window.location;
-  // const [searchQuery, setSearchQuery] = useState(query || "");
   const [searchQuery, setSearchQuery] = useState("");
-
-
- 
-
-
+  const [recipes, setRecipes] = useState(seed);
+  const [status, setStatus] = useState("");
+  const navigate = useNavigate();
+  const [login, setLogin] = useState(""); //not login = empty string | login = user_id/name
+  
+  function NotFound() {
+    useEffect(() => {
+    navigate("/");
+    });
+    return (
+      <div>
+        <h2>Not Found - 404</h2>
+        <button onClick={() => navigate("/")}>Go Home</button>
+      </div>
+    );
+  }
   // const filterRecipes = (recipes, query) => {
   //   return recipes.filter((recipe) => {
   //     const recipeName = recipe.name.toLowerCase();
@@ -52,7 +52,7 @@ function App() {
   return (
     <>
       <div>
-        <div className="ui inverted segment" id='nav'>
+        <div className="ui inverted segment" id="nav">
           <div className="ui inverted secondary pointing menu">
             <Link className="item" to="/">
               Home
