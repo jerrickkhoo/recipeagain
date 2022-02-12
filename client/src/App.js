@@ -6,13 +6,13 @@ import Home from "./components/Home";
 import Card from "./components/Card";
 import Favourites from "./components/Favourites";
 import Join from "./components/Join";
-import Post from "./components/Post";
+import MyAccount from "./components/MyAccount";
 import Login from "./components/Login";
+import Login2 from "./components/Login2";
 import AllCards from "./components/AllCards";
-import SearchResults from './components/SearchResults'
+import SearchResults from "./components/SearchResults";
 import seed from "./components/models/seed_recipes";
 import Search from "./components/Search";
-
 
 export const AppContext = createContext();
 
@@ -23,10 +23,10 @@ function App() {
   const [status, setStatus] = useState("");
   const navigate = useNavigate();
   const [login, setLogin] = useState(""); //not login = empty string | login = user_id/name
-  
+
   function NotFound() {
     useEffect(() => {
-    navigate("/");
+      navigate("/");
     });
     return (
       <div>
@@ -57,33 +57,38 @@ function App() {
             <Link className="item" to="/">
               Home
             </Link>
-            <Link className="item" to="/recipe/favourites">
+            <Link className="item" to="/favourites">
               Favourites
             </Link>
-            <Link className="item" to="/recipe/join">
-              Join
+            <Link className="item" to="/myaccount">
+              My Account
             </Link>
-            <Link className="item" to="/recipe/login">
-              Login
+            <Link className="item" to="/login">
+              <i class="user outline icon"></i>
             </Link>
-            <Link className="item" to="/recipe/post">
-              Post Recipe
-            </Link>
-            <Link className="item" to="/recipe/search">
-            <i class="search icon"></i>
+            <Link className="item" to="/search">
+              <i class="search icon"></i>
             </Link>
           </div>
         </div>
 
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/recipe/favourites" element={<Favourites />} />
-          <Route path="/recipe/join" element={<Join />} />
+          <Route path="/favourites" element={<Favourites />} />
+          <Route path="/join" element={<Join />} />
           <Route path="/searchrecipe/" element={<AllCards />} />
           <Route path="/recipe/:id" element={<Card />} />
-          <Route path="/recipe/post" element={<Post />} />
-          <Route path="/recipe/login" element={<Login />} />
-          <Route path='/recipe/search' element={<Search searchQuery={searchQuery} setSearchQuery={setSearchQuery}/>}/>
+          <Route path="/myaccount" element={<MyAccount />} />
+          <Route path="/login" element={<Login2 />} />
+          <Route
+            path="/search"
+            element={
+              <Search
+                searchQuery={searchQuery}
+                setSearchQuery={setSearchQuery}
+              />
+            }
+          />
           <Route
             path="/recipe/search/:search"
             element={

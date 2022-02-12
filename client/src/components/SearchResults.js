@@ -47,12 +47,11 @@ const searchRecipes = foundRecipes.map((item, index) => {
   );
 });
   return (
-    <div className='home'>
-    <div className='randomCards'>
-        {searchRecipes}
+    <div className="home" style={{ padding: "100px" }}>
+      <h1>Results</h1>
+      <div className="randomCards">{searchRecipes}</div>
     </div>
-    </div>
-  )
+  );
 }
 
 export default SearchResults;
