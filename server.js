@@ -3,15 +3,16 @@ const express = require("express");
 const mongoose = require("mongoose");
 const session = require("express-session")
 const path = require("path");
-const user = require("./controllers/userController")
+const userController = require("./controllers/userController")
 const recipeController = require("./controllers/recipeController");
 
 //* CONFIG
 require("dotenv").config();
 const app = express();
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 3001;
 const MONGODB_URI = process.env.MONGODB_URI;
 const SECRET = process.env.SECRET
+
 //* CONNECT MONGODB
 mongoose.connection.on("error", (err) =>
   console.log(err.message + " is Mongod not running?")
@@ -40,14 +41,12 @@ app.use(
 )
 
 //* ROUTES MIDDLEWARE
-app.use("/recipes", recipeController);
-app.use('/user', user)
+app.use("/api/recipes", recipeController);
+app.use('/api/users', userController)
 
 // app.get("/*", (req, res) => {
 //   res.sendFile(path.join(__dirname, "./client/build", "index.html"));
 // });
-
-
 
 app.listen(port, () => {
   console.log(`Server is now listening at http://localhost:${port}`);

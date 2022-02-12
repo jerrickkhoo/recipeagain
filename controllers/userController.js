@@ -3,28 +3,45 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/users.js");
 
-//!please use async
-router.post("/create", async (req, res) => {
+//CRUD for use model
+//CREATE
+router.post("/", async (req, res) => {
 
   //TODO: add validate username length is >3, does not exist in the database already
-  // password must be at least 8 characters, consts of number and alphabets (how to make sure there is at least one special character?)
+  // password must be at least 6 characters, consts of number and alphabets (how to make sure there is at least one special character?)
 
   req.body.password = bcrypt.hashSync(
     req.body.password,
     bcrypt.genSaltSync(10)
   );
-
-  // req.body.password = bcrypt.hash(req.body.password, 12)
-
+  const newUserInput = {
+    username: req.body.username,
+    email: req.body.email,
+    password: req.body.password
+  }
   try {
-    const createdUser = await User.create(req.body);
+    const createdUser = await User.create(newUserInput)
     console.log("created user is: ", createdUser);
-    res.json({ status: "ok", message: "user created" });
+    res.json({ status: "ok", message: "user created", data: createdUser});
   } catch (error) {
-    console.log(error);
+    res.json({ status: "not ok", message: "fail to create user ", error: error});
   }
 });
 
+//READ INDIVIDUAL USER
+router.get('/', async(req,res)=>{
+  try{
+    const foundUser = await User.findOne()
+  } catch{
+    
+  }
+
+  
+})
+//UPDATE
+//DELETE
+
+//Log in log out 
 router.post("/login", async (req, res) => {
   const { username, password } = req.body;
   const user = await User.findOne({ username });
@@ -42,6 +59,7 @@ router.post("/login", async (req, res) => {
     res.send("no");
   }
 });
+
 
 router.delete("/logout", (req, res) => {
     req.session.destroy(()=> {})
