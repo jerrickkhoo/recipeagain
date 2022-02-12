@@ -4,12 +4,10 @@ const router = express.Router();
 const User = require("../models/users.js");
 
 //CRUD for use model
-//CREATE
+//CREATE a new user
 router.post("/", async (req, res) => {
-
   //TODO: add validate username length is >3, does not exist in the database already
   // password must be at least 6 characters, consts of number and alphabets (how to make sure there is at least one special character?)
-
   req.body.password = bcrypt.hashSync(
     req.body.password,
     bcrypt.genSaltSync(10)
@@ -21,10 +19,10 @@ router.post("/", async (req, res) => {
   }
   try {
     const createdUser = await User.create(newUserInput)
-    console.log("created user is: ", createdUser);
-    res.json({ status: "ok", message: "user created", data: createdUser});
+    //console.log("created user is: ", createdUser);
+    res.status(200).json({ status: "ok", message: "user created", data: createdUser});
   } catch (error) {
-    res.json({ status: "not ok", message: "fail to create user ", error: error});
+    res.status(400).json({ status: "not ok", message: "fail to create user ", error: error});
   }
 });
 
@@ -33,13 +31,15 @@ router.get('/', async(req,res)=>{
   try{
     const foundUser = await User.findOne()
   } catch{
-    
+
   }
 
   
 })
-//UPDATE
-//DELETE
+//UPDATE a user
+
+//DELETE a user
+
 
 //Log in log out 
 router.post("/login", async (req, res) => {
