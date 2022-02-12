@@ -32,15 +32,14 @@ const Home = () => {
         <Link to={"/recipe/" + randomNumber[index]} key={index}>
           <div className="ui card">
             <div className="image">
-              <img src={item?.imageURL} alt={item?.originalURL}/>
+              <img src={item?.imageURL} alt={item?.originalURL} />
             </div>
-            <div className="content" id='homeContent'>
+            <div className="content" id="homeContent">
               <div className="header">{item?.name}</div>
               <div className="meta">
                 <div>Servings: {item?.servings}</div>
-                <div>Rating: {item?.rating}</div>
+                <Rating icon="star" defaultRating={item?.rating} maxRating={5} />
                 <div>{item?.description}</div>
-               
               </div>
             </div>
           </div>

@@ -69,10 +69,11 @@ function App() {
             <Link className="item" to="/recipe/post">
               Post Recipe
             </Link>
-            <Search searchQuery={searchQuery} setSearchQuery={setSearchQuery}/>
+            <Link className="item" to="/recipe/search">
+            <i class="search icon"></i>
+            </Link>
           </div>
         </div>
-   
 
         <Routes>
           <Route path="/" element={<Home />} />
@@ -82,7 +83,16 @@ function App() {
           <Route path="/recipe/:id" element={<Card />} />
           <Route path="/recipe/post" element={<Post />} />
           <Route path="/recipe/login" element={<Login />} />
-          <Route path='/recipe/search/:search' element={<SearchResults searchQuery={searchQuery} setSearchQuery={setSearchQuery}/>} />
+          <Route path='/recipe/search' element={<Search searchQuery={searchQuery} setSearchQuery={setSearchQuery}/>}/>
+          <Route
+            path="/recipe/search/:search"
+            element={
+              <SearchResults
+                searchQuery={searchQuery}
+                setSearchQuery={setSearchQuery}
+              />
+            }
+          />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
