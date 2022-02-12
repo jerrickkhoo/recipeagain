@@ -27,16 +27,17 @@ router.post("/", async (req, res) => {
 });
 
 //READ INDIVIDUAL USER
-router.get('/', async(req,res)=>{
+router.get('/:userID', async(req,res)=>{
+  const {userID} = req.params
   try{
-    const foundUser = await User.findOne()
+    const foundUser = await User.findOne({id:userID})
+    res.status(200).json({ status: "ok", message: "user found", data: foundUser})
   } catch{
-
+    res.status(400).json({ status: "not ok", message: "fail to find user ", error: error});
   }
-
-  
 })
 //UPDATE a user
+
 
 //DELETE a user
 
