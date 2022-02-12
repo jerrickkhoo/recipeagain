@@ -15,7 +15,7 @@ const SECRET = process.env.SECRET
 
 //* CONNECT MONGODB
 mongoose.connection.on("error", (err) =>
-  console.log(err.message + " is Mongod not running?")
+  console.log(err.message + " is Mongodb not running?")
 );
 mongoose.connection.on("disconnected", () => console.log("mongo disconnected"));
 

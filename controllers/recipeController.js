@@ -2,6 +2,7 @@ const express = require("express");
 const recipes = express.Router();
 const Recipe = require("../models/recipes.js");
 
+
 recipes.post("/", async (req, res) => {
   try {
     const createdRecipe = await Recipe.create(req.body);
