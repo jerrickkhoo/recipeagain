@@ -6,16 +6,16 @@ const User = require("../models/users.js");
 //CRUD for use model
 // to seed User
 const seedUsers = require("../models/seed/seedUsers")
-router.get("/seeduser", async (req,res)=>{
-  seedUsers.forEach((seedUser)=>{
-    seedUser.password = bcrypt.hashSync(seedUser.password,bcrypt.genSaltSync(10))
+router.get("/seeduser", async (req, res) => {
+  seedUsers.forEach((seedUser) => {
+    seedUser.password = bcrypt.hashSync(seedUser.password, bcrypt.genSaltSync(10))
   })
   //console.log(typeof seedUsers[0].favourites)
   try {
     const createdSeedUsers = await User.create(seedUsers)
-    res.status(200).json({ status: "ok", message: "seed users created", data: createdSeedUsers});
+    res.status(200).json({ status: "ok", message: "seed users created", data: createdSeedUsers });
   } catch (error) {
-    res.status(400).json({ status: "not ok", message: "fail to create seed user ", error: error});
+    res.status(400).json({ status: "not ok", message: "fail to create seed user ", error: error });
   }
 })
 
@@ -35,52 +35,52 @@ router.post("/", async (req, res) => {
   try {
     const createdUser = await User.create(newUserInput)
     //console.log("created user is: ", createdUser);
-    res.status(200).json({ status: "ok", message: "user created", data: createdUser});
+    res.status(200).json({ status: "ok", message: "user created", data: createdUser });
   } catch (error) {
-    res.status(400).json({ status: "not ok", message: "fail to create user ", error: error});
+    res.status(400).json({ status: "not ok", message: "fail to create user ", error: error });
   }
 });
 
 //READ INDIVIDUAL USER
-router.get('/:userID', async(req,res)=>{
-  const {userID} = req.params
-  try{
-    const foundUser = await User.findOne({id:userID})
-    res.status(200).json({ status: "ok", message: "user found", data: foundUser})
-  } catch(error){
-    res.status(400).json({ status: "not ok", message: "fail to find user ", error: error});
+router.get('/:userID', async (req, res) => {
+  const { userID } = req.params
+  try {
+    const foundUser = await User.findOne({ id: userID })
+    res.status(200).json({ status: "ok", message: "user found", data: foundUser })
+  } catch (error) {
+    res.status(400).json({ status: "not ok", message: "fail to find user ", error: error });
   }
 })
 
 //UPDATE a user credentials
-router.put('/:userID', async(req,res)=>{
-  const {userID} = req.params
+router.put('/:userID', async (req, res) => {
+  const { userID } = req.params
   console.log(req.body)
-  try{
-    const updatedUser = await User.findOneAndUpdate({id:userID},{
+  try {
+    const updatedUser = await User.findOneAndUpdate({ id: userID }, {
       username: req.body.username,
       email: req.body.email,
       password: req.body.password,
-      favourites:req.body.favourites, //FIXME: favourites array does not array properly 
+      favourites: req.body.favourites, //FIXME: favourites array does not array properly 
       //$$addToSet: {favorites: [req.body.favorites]},
     },
-    {new:true})
-    res.status(200).json({ status: "ok", message: "user info updated", data: updatedUser})
-  } catch(error){
-    res.status(400).json({ status: "not ok", message: "fail to update user info", error: error});
+      { new: true })
+    res.status(200).json({ status: "ok", message: "user info updated", data: updatedUser })
+  } catch (error) {
+    res.status(400).json({ status: "not ok", message: "fail to update user info", error: error });
   }
 })
 
 //UPDATE need a separate update route to update user favourite? 
 
 //DELETE a user
-router.delete('/:userID', async(req,res)=>{
-  const {userID} = req.params
-  try{
-    const updatedUser = await User.findOneAndDelete({id:userID})
-    res.status(200).json({ status: "ok", message: "user deleted", data: updatedUser})
-  } catch(error){
-    res.status(400).json({ status: "not ok", message: "fail to delete user ", error: error});
+router.delete('/:userID', async (req, res) => {
+  const { userID } = req.params
+  try {
+    const updatedUser = await User.findOneAndDelete({ id: userID })
+    res.status(200).json({ status: "ok", message: "user deleted", data: updatedUser })
+  } catch (error) {
+    res.status(400).json({ status: "not ok", message: "fail to delete user ", error: error });
   }
 })
 
@@ -89,26 +89,34 @@ router.delete('/:userID', async(req,res)=>{
 
 //Log in log out 
 router.post("/login", async (req, res) => {
-  const { username, password } = req.body;
-  const user = await User.findOne({ username });
+  const { username, email, password } = req.body;
+  //TODO: check email to be in regex xx@xx. and password in right format, else throw error
 
-  if (user === null) {
-    return res.send("no such user");
+  try {
+    const foundUser = await User.findOne({ email:email });
+    console.log(foundUser)
+    if (!foundUser) {
+      res.status(400).json({ status: "not ok", message: "user not found" });
+    } else {
+          const result = await bcrypt.compare(password, foundUser.password);
+          if (result) {
+            req.session.currentUser = foundUser;
+            res.status(200).json({ status: "ok", message: "password matched, user is loggedin" })
+          } else {
+            req.session.currentUser = null;
+            res.status(400).json({ status: "not ok", message:"password is not matched"})
+          }
+    }
+  } catch (error) {
+    res.status(400).json({ status: "not ok", message: "fail to log in user ", error: error });
   }
-
-  const result = await bcrypt.compare(password, user.password);
-  if (result) {
-    req.session.currentUser = user;
-    res.send("ok");
-  } else {
-    req.session.currentUser = null;
-    res.send("no");
-  }
-});
-
+}
+);
 
 router.delete("/logout", (req, res) => {
-    req.session.destroy(()=> {})
-  })
+  req.session.destroy(() => { })
+  res.status(200).json({ status: "ok", message: "user is deleted" })
+  //res.redirect("/")
+})
 
 module.exports = router;
