@@ -20,7 +20,7 @@ router.get("/seeduser", async (req, res) => {
 })
 
 //CREATE a new user
-router.post("/", async (req, res) => {
+router.post("/join", async (req, res) => {
   //TODO: add validate username length is >3, does not exist in the database already
   // password must be at least 6 characters, consts of number and alphabets (how to make sure there is at least one special character?)
   req.body.password = bcrypt.hashSync(
@@ -41,9 +41,56 @@ router.post("/", async (req, res) => {
   }
 });
 
+//  MIDDLEWARE
+const isLoggedIn = (req,res,next)=>{
+  if (req.session.currentUser){
+    return next()
+  } else {
+    //res.redirect("/login")
+  }
+}
+
+//Log in log out, this needs to be above other routes that use params
+router.post("/login", async (req, res) => {
+  const { username, email, password } = req.body;
+  //TODO: check email to be in regex xx@xx. and password in right format, else throw error
+  try {
+    const foundUser = await User.findOne({ email:email });
+    console.log(foundUser)
+    if (!foundUser) {
+      res.status(400).json({ status: "not ok", message: "user not found" });
+    } else {
+          const result = await bcrypt.compare(password, foundUser.password);
+          if (result) {
+            req.session.currentUser = foundUser;
+            res.status(200).json({ status: "ok", message: "password matched, user is loggedin" })
+          } else {
+            req.session.currentUser = null;
+            res.status(400).json({ status: "not ok", message:"password is not matched"})
+          }
+    }
+  } catch (error) {
+    res.status(400).json({ status: "not ok", message: "fail to log in user ", error: error });
+  }
+}
+);
+
+router.get("/logout",isLoggedIn, (req, res) => {
+  req.session.destroy((err) => { 
+    if (err){
+      res.status(400).json({ status: "not ok", message: "logout was unsuccessful", error: error })
+    } else{
+      res.status(200).json({ status: "ok", message: "logout was successful" })
+      //res.redirect("/")
+    }
+  })
+
+})
+
 //READ INDIVIDUAL USER
 router.get('/:userID', async (req, res) => {
   const { userID } = req.params
+  //TODO: add  a if condition req.session.currentUser.id === userID to make sure user can only access their own data, not other user
   try {
     const foundUser = await User.findOne({ id: userID })
     res.status(200).json({ status: "ok", message: "user found", data: foundUser })
@@ -85,38 +132,5 @@ router.delete('/:userID', async (req, res) => {
 })
 
 //DELETE a user favourite aka when the user remove a recipe from their favourite
-
-
-//Log in log out 
-router.post("/login", async (req, res) => {
-  const { username, email, password } = req.body;
-  //TODO: check email to be in regex xx@xx. and password in right format, else throw error
-
-  try {
-    const foundUser = await User.findOne({ email:email });
-    console.log(foundUser)
-    if (!foundUser) {
-      res.status(400).json({ status: "not ok", message: "user not found" });
-    } else {
-          const result = await bcrypt.compare(password, foundUser.password);
-          if (result) {
-            req.session.currentUser = foundUser;
-            res.status(200).json({ status: "ok", message: "password matched, user is loggedin" })
-          } else {
-            req.session.currentUser = null;
-            res.status(400).json({ status: "not ok", message:"password is not matched"})
-          }
-    }
-  } catch (error) {
-    res.status(400).json({ status: "not ok", message: "fail to log in user ", error: error });
-  }
-}
-);
-
-router.delete("/logout", (req, res) => {
-  req.session.destroy(() => { })
-  res.status(200).json({ status: "ok", message: "user is deleted" })
-  //res.redirect("/")
-})
 
 module.exports = router;
