@@ -19,8 +19,11 @@ function handleClick () {
 
 
   return (
-    <>
-        <div className="ui action input">
+    < div >
+    <div className='home' style={{padding:'100px'}}>
+        <h2>Search</h2>
+    </div>
+        <div className="ui action input" id='searchbar'>
           <input
             name="s"
             value={searchQuery}
@@ -32,7 +35,7 @@ function handleClick () {
             Search
           </button>
         </div>
-    </>
+    </div>
   );
 };
 

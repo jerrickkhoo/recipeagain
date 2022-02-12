@@ -2,6 +2,16 @@ const bcrypt = require("bcrypt");
 const express = require("express");
 const router = express.Router();
 const User = require("../models/users.js");
+const session = require("express-session");
+
+
+ const isAuth = (req, res, next) => {
+   if (req.session.isAuth) {
+     next();
+   } else {
+     res.redirect("/login");
+   }
+ };
 
 //CRUD for use model
 // to seed User
@@ -12,6 +22,7 @@ router.get("/seeduser", async (req, res) => {
   })
   //console.log(typeof seedUsers[0].favourites)
   try {
+    await User.deleteMany({})
     const createdSeedUsers = await User.create(seedUsers)
     res.status(200).json({ status: "ok", message: "seed users created", data: createdSeedUsers });
   } catch (error) {
@@ -75,7 +86,7 @@ router.post("/login", async (req, res) => {
 }
 );
 
-router.get("/logout",isLoggedIn, (req, res) => {
+router.post("/logout", (req, res) => {
   req.session.destroy((err) => { 
     if (err){
       res.status(400).json({ status: "not ok", message: "logout was unsuccessful", error: error })
@@ -88,11 +99,11 @@ router.get("/logout",isLoggedIn, (req, res) => {
 })
 
 //READ INDIVIDUAL USER
-router.get('/:userID', async (req, res) => {
+router.get('/:userID',isAuth, async (req, res) => {
   const { userID } = req.params
   //TODO: add  a if condition req.session.currentUser.id === userID to make sure user can only access their own data, not other user
   try {
-    const foundUser = await User.findOne({ id: userID })
+    const foundUser = await User.findOne({ email: userID })
     res.status(200).json({ status: "ok", message: "user found", data: foundUser })
   } catch (error) {
     res.status(400).json({ status: "not ok", message: "fail to find user ", error: error });

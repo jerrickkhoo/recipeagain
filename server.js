@@ -32,18 +32,20 @@ mongoose.connection.once("open", () => {
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+
 app.use(
   session({
     secret: SECRET,
     resave: false,
     saveUninitialized:false
   })
-)
-
-//* ROUTES MIDDLEWARE
-app.use("/api/recipes", recipeController);
-app.use('/api/users', userController)
-
+  )
+  
+  //* ROUTES MIDDLEWARE
+  app.use("/api/recipes", recipeController);
+  app.use('/api/users', userController)
+  
+ 
 // app.get("/*", (req, res) => {
 //   res.sendFile(path.join(__dirname, "./client/build", "index.html"));
 // });

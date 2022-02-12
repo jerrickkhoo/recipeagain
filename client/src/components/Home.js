@@ -49,14 +49,11 @@ const Home = () => {
   });
 
   return (
-  <div className='home'>
-    <h1>Popular</h1>
-  <div className="randomCards">
-    {randomCards}
+    <div className="home" style={{ padding: "100px 0px" }}>
+      <h1>Popular</h1>
+      <div className="randomCards">{randomCards}</div>
     </div>
-
-  </div>
-  )
+  );
 };
 
 export default Home;
