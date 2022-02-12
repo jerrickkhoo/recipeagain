@@ -32,13 +32,26 @@ router.get('/:userID', async(req,res)=>{
   try{
     const foundUser = await User.findOne({id:userID})
     res.status(200).json({ status: "ok", message: "user found", data: foundUser})
-  } catch{
+  } catch(error){
     res.status(400).json({ status: "not ok", message: "fail to find user ", error: error});
   }
 })
 //UPDATE a user
-
-
+router.put('/:userID', async(req,res)=>{
+  const {userID} = req.params
+  const updatedInfo = {
+    username: req.body.username,
+    email: req.body.email,
+    password: req.body.password,
+    favorites: req.body.favorites,
+  }
+  try{
+    const updatedUser = await User.findOneAndUpdate({id:userID},updatedInfo,{new:true})
+    res.status(200).json({ status: "ok", message: "user info updated", data: updatedUser})
+  } catch(error){
+    res.status(400).json({ status: "not ok", message: "fail to update user info", error: error});
+  }
+})
 //DELETE a user
 
 
