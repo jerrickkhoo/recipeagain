@@ -5,6 +5,8 @@ const session = require("express-session")
 const path = require("path");
 const userController = require("./controllers/userController")
 const recipeController = require("./controllers/recipeController");
+const ratingController = require("./controllers/ratingController");
+const commentController = require("./controllers/commentController")
 
 //* CONFIG
 require("dotenv").config();
@@ -43,6 +45,8 @@ app.use(
   //* ROUTES MIDDLEWARE
   app.use("/api/recipes", recipeController);
   app.use('/api/users', userController)
+  // app.use('/api/ratings', ratingController)
+  // app.use('/api/comments', commentController)
   
  
 app.get("/*", (req, res) => {
