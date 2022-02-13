@@ -3,24 +3,23 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/users.js");
 const session = require("express-session");
+const seedUsers = require("../models/seed/seedUsers")
 
-
- const isAuth = (req, res, next) => {
-   if (req.session.isAuth) {
-     next();
-   } else {
-     res.redirect("/login");
-   }
- };
+//  MIDDLEWARE
+const isLoggedIn = (req,res,next)=>{
+  if (req.session.currentUser){
+    return next()
+  } else {
+    res.redirect("/login")
+  }
+}
 
 //CRUD for use model
 // to seed User
-const seedUsers = require("../models/seed/seedUsers")
 router.get("/seeduser", async (req, res) => {
   seedUsers.forEach((seedUser) => {
     seedUser.password = bcrypt.hashSync(seedUser.password, bcrypt.genSaltSync(10))
   })
-  //console.log(typeof seedUsers[0].favourites)
   try {
     await User.deleteMany({})
     const createdSeedUsers = await User.create(seedUsers)
@@ -52,14 +51,7 @@ router.post("/join", async (req, res) => {
   }
 });
 
-//  MIDDLEWARE
-const isLoggedIn = (req,res,next)=>{
-  if (req.session.currentUser){
-    return next()
-  } else {
-    //res.redirect("/login")
-  }
-}
+
 
 //Log in log out, this needs to be above other routes that use params
 router.post("/login", async (req, res) => {
@@ -86,7 +78,7 @@ router.post("/login", async (req, res) => {
 }
 );
 
-router.post("/logout", (req, res) => {
+router.post("/logout",isLoggedIn,(req, res) => {
   req.session.destroy((err) => { 
     if (err){
       res.status(400).json({ status: "not ok", message: "logout was unsuccessful", error: error })
@@ -99,7 +91,7 @@ router.post("/logout", (req, res) => {
 })
 
 //READ INDIVIDUAL USER
-router.get('/:userID',isAuth, async (req, res) => {
+router.get('/:userID',isLoggedIn, async (req, res) => {
   const { userID } = req.params
   //TODO: add  a if condition req.session.currentUser.id === userID to make sure user can only access their own data, not other user
   try {
@@ -111,7 +103,7 @@ router.get('/:userID',isAuth, async (req, res) => {
 })
 
 //UPDATE a user credentials
-router.put('/:userID', async (req, res) => {
+router.put('/:userID', isLoggedIn,async (req, res) => {
   const { userID } = req.params
   console.log(req.body)
   try {
@@ -129,10 +121,10 @@ router.put('/:userID', async (req, res) => {
   }
 })
 
-//UPDATE need a separate update route to update user favourite? 
+//UPDATE need a separate update route to update a user favourite? 
 
 //DELETE a user
-router.delete('/:userID', async (req, res) => {
+router.delete('/:userID', isLoggedIn, async (req, res) => {
   const { userID } = req.params
   try {
     const updatedUser = await User.findOneAndDelete({ id: userID })

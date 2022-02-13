@@ -22,7 +22,7 @@ const userSchema = Schema({
     //TODO: add password validation
   },
   favorites:{
-    type:[String] //TODO: refer to recipeID in recipe model
+    type:[{ type: String }], //TODO: refer to recipeID in recipe model
   }
 }, {timeStamp: true});
 
