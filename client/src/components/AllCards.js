@@ -11,7 +11,7 @@ const AllCards = (props) => {
   console.log(props);
   // const cards = props.recipes.map((item, index) => {
   return (
-    <Link to={"/recipe/" + props.key}>
+    <Link to={`/recipe/${props.key}`}>
       <div className="ui card">
         <div className="image">
           <img src={props?.imageURL} alt={props?.originalURL} />

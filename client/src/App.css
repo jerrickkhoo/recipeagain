@@ -86,3 +86,9 @@ Search{
   margin-bottom: 0;
 }
 
+#searchbar{
+  display: flex;
+  margin: 0 auto;
+  flex-wrap: wrap;
+  width: 50%
+}
