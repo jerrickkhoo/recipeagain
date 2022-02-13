@@ -5,13 +5,7 @@ const User = require("../models/users.js");
 const session = require("express-session");
 
 
- const isAuth = (req, res, next) => {
-   if (req.session.isAuth) {
-     next();
-   } else {
-     res.redirect("/login");
-   }
- };
+ 
 
 //CRUD for use model
 // to seed User
@@ -54,10 +48,9 @@ router.post("/join", async (req, res) => {
 
 //  MIDDLEWARE
 const isLoggedIn = (req,res,next)=>{
-  if (req.session.currentUser){
+  if (req.session.isLoggedIn){
     return next()
   } else {
-    //res.redirect("/login")
   }
 }
 
@@ -69,7 +62,7 @@ router.post("/login", async (req, res) => {
     const foundUser = await User.findOne({ email:email });
     console.log(foundUser)
     if (!foundUser) {
-      res.status(400).json({ status: "not ok", message: "user not found" });
+      res.status(400).json({ status: "not ok", message: "user not found" })
     } else {
           const result = await bcrypt.compare(password, foundUser.password);
           if (result) {
@@ -92,14 +85,13 @@ router.post("/logout", (req, res) => {
       res.status(400).json({ status: "not ok", message: "logout was unsuccessful", error: error })
     } else{
       res.status(200).json({ status: "ok", message: "logout was successful" })
-      //res.redirect("/")
     }
   })
 
 })
 
 //READ INDIVIDUAL USER
-router.get('/:userID',isAuth, async (req, res) => {
+router.get('/:userID', async (req, res) => {
   const { userID } = req.params
   //TODO: add  a if condition req.session.currentUser.id === userID to make sure user can only access their own data, not other user
   try {
@@ -115,7 +107,7 @@ router.put('/:userID', async (req, res) => {
   const { userID } = req.params
   console.log(req.body)
   try {
-    const updatedUser = await User.findOneAndUpdate({ id: userID }, {
+    const updatedUser = await User.findOneAndUpdate({ email: userID }, {
       username: req.body.username,
       email: req.body.email,
       password: req.body.password,
@@ -135,7 +127,7 @@ router.put('/:userID', async (req, res) => {
 router.delete('/:userID', async (req, res) => {
   const { userID } = req.params
   try {
-    const updatedUser = await User.findOneAndDelete({ id: userID })
+    const updatedUser = await User.findOneAndDelete({ email: userID })
     res.status(200).json({ status: "ok", message: "user deleted", data: updatedUser })
   } catch (error) {
     res.status(400).json({ status: "not ok", message: "fail to delete user ", error: error });
