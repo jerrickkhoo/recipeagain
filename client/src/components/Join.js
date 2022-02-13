@@ -18,6 +18,7 @@ const handleSubmit = async (e) => {
 
   return (
     <div>
+      <div className='login' style={{padding:'100px'}}>
       <h2>Create Account</h2>
       <form class="ui form" onSubmit={handleSubmit}>
         <div class="field">
@@ -33,11 +34,12 @@ const handleSubmit = async (e) => {
           <input type="password" name="password" placeholder="Password" />
         </div>
 
-        <button class="ui button" type="submit">
+        <button class="ui button" type="submit" style={{marginBottom:'20px'}}>
           Submit
         </button>
       </form>
       <a href='/login'>Log In</a>
+    </div>
     </div>
   );
 };

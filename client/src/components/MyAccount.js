@@ -1,41 +1,79 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Link, useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 
 
-const MyAccount = () => {
+const MyAccount = (props) => {
   const navigate = useNavigate();
-    const { userID } = useParams();
+  
+  let setCurrentUser = props.setCurrentUser
+  let currentUser = props.currentUser;
 
-  const [currentUser, setCurrentUser] = useState({})
+  
+  // console.log(currentUser)
+  // console.log(props.user)
   useEffect(() => {
-      const fetchUser = async () => {
-          const fetchedUser = await axios.get(`/api/users/${userID}`)
-          // console.log(fetchedUser)
-          setCurrentUser(fetchedUser?.data?.data)
-      }
-      fetchUser()
-  },[userID])
+    const fetchUser = async () => {
+      const fetchedUser = await axios.get(`/api/users/${props.user}`)
+      setCurrentUser(fetchedUser?.data?.data)
+    }
+    fetchUser()
+  },[props.user])
+  
+ 
 
-  const handleSubmit = async (e) => {
+  const handleLogOut = async (e) => {
   e.preventDefault()
+  props.setUser('')
   await axios.post('/api/users/logout')
-  navigate(-1,{replace: true})
+  navigate('/login')
 }
 
+const handleDelete = async (e) => {
+  e.preventDefault();
+  await axios.delete(`/api/users/${props.user}`);
+  navigate("/login");
+};
+
+const handleEdit = () => {
+  navigate('/edit')
+}
 
   return (
     <div>
-      <h1>Account Details</h1>
-      <p>Username: {currentUser?.username}</p>
-      <p>E-Mail: {currentUser?.email}</p>
-    <form class="ui form" onSubmit={handleSubmit}>
-        <button class="ui button" type="submit">
-          Log Out
-        </button>
-      </form>
+      <div className="home" style={{ padding: "100px" }}>
+        <h1>Account Details</h1>
+        <h3>Username: {currentUser?.username}</h3>
+        <h3>E-Mail: {currentUser?.email}</h3>
+        <form
+          class="ui form"
+          onSubmit={handleLogOut}
+          style={{ paddingTop: "50px" }}
+        >
+          <button class="ui button" type="submit">
+            Log Out
+          </button>
+        </form>
+        <form
+          class="ui form"
+          onSubmit={handleEdit}
+          style={{ paddingTop: "50px" }}
+        >
+          <button class="ui button" type="submit">
+            Edit Account
+          </button>
+        </form>
+        <form
+          class="ui form"
+          onSubmit={handleDelete}
+          style={{ paddingTop: "50px" }}
+        >
+          <button class="ui button" type="submit">
+            Delete Account
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
