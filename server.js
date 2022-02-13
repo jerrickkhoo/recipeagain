@@ -27,10 +27,9 @@ mongoose.connection.once("open", () => {
 
 
 //* MIDDLEWARE
-// app.use(express.static(path.join(__dirname, "./client/build")));
+app.use(express.static(path.join(__dirname, "./client/build")));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-
 app.use(
   session({
     secret: SECRET,
@@ -43,9 +42,10 @@ app.use(
 app.use("/recipes", recipeController);
 app.use('/user', user)
 
-// app.get("/*", (req, res) => {
-//   res.sendFile(path.join(__dirname, "./client/build", "index.html"));
-// });
+// get(/*) here means 
+app.get("/*", (req, res) => { 
+  res.sendFile(path.join(__dirname, "./client/build", "index.html"));
+});
 
 
 
