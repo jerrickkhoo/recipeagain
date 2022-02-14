@@ -10,8 +10,7 @@ styleLink.href =
   "https://cdn.jsdelivr.net/npm/semantic-ui/dist/semantic.min.css";
 document.head.appendChild(styleLink);
 
-const Home = () => {
-  const [allRecipes, setAllRecipes] = useState({});
+const Home = ({allRecipes, setAllRecipes}) => {
   let indexArray = [];
   let randomRecipeArray = [];
   let randomIndexArray = [];
