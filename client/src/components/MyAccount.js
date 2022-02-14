@@ -4,24 +4,21 @@ import { useNavigate } from "react-router-dom";
 
 
 
-const MyAccount = (props) => {
+const MyAccount = ({props}) => {
   const navigate = useNavigate();
   
   let currentUser = props.currentUser;
 
-  
-  // console.log(currentUser)
   console.log(currentUser)
   useEffect(() => {
     const fetchUser = async () => {
       const fetchedUser = await axios.get(
-        `/api/users/${props?.currentUser?.email}`
+        `/api/users/${props?.currentUser?._id}`
       );
     };
     fetchUser();
   }, [props?.currentUser?.email]);
   
- 
 
   const handleLogOut = async (e) => {
   e.preventDefault()
