@@ -68,7 +68,7 @@ function App() {
           <Route path="/favourites" element={<Favourites />} />
           <Route path="/join" element={<Join />} />
           <Route path="/searchrecipe/" element={<AllCards />} />
-          <Route path="/newrecipe/" element={<NewRecipe />} />
+          <Route path="/recipes/new" element={<NewRecipe />} />
           <Route path="/recipes/:recipeID" element={<RecipeShowPage currentUser={currentUser}/>} />
           <Route
             path="/edit"

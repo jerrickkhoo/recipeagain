@@ -73,7 +73,7 @@ const Card = ({currentUser}) => {
       </div>
 
       <div className='cardContent'>
-        <AddToFavoriteBttn recipeID={recipeID} currentUser={currentUser} />
+        {/* <AddToFavoriteBttn recipeID={recipeID} currentUser={currentUser} /> */}
         <h2>Ingredients:</h2>{ingredients}
         <h2>Steps:</h2>{steps}
         <RatingButton />

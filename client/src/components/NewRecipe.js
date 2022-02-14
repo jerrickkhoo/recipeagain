@@ -1,88 +1,166 @@
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const NewRecipe = () => {
   const navigate = useNavigate();
 
+  const [newRecipe, setNewRecipe] = useState({
+    name: '',
+    description: '',
+    img: '',
+    servings: '',
+    duration: '',
+    tags: '',
+  })
+
+  const [ingreArr, setIngreArr] = useState([{ name: '', units: '', quantity: 1, type: '' }])
+  const [stepArr, setStepArr] = useState([''])
+
+  const handleChange = (e) => {
+    setNewRecipe({
+      ...newRecipe,
+      [e.target.name]: e.target.value
+    })
+  }
+
+  const handleChangeIngre = (e, i) => {
+    const { name, value } = e.target
+    const list = [...ingreArr] //make copy because we cant mutate state directly
+    list[i][name] = value
+    //console.log(list)
+    setIngreArr(list)
+  }
+
+  const handleAddIngre = () => {
+    setIngreArr([...ingreArr, { name: '', units: '', quantity: 1, type: '' }])
+  }
+
+  const handleRemoveIngre = (i) => {
+    const list = [...ingreArr]
+    list.splice(i, 1)
+    setIngreArr(list)
+  }
+
+  const ingreFormArray = ingreArr.map((ingre, i) => {
+    return (
+      <div key={i}>
+        <label>Ingredient #{i + 1}</label>
+        <input type="text" name="name" placeholder="Enter Ingredient Name" value={ingre.name} onChange={(e) => handleChangeIngre(e, i)} />
+        <input type="text" name="units" placeholder="Enter units of measurement. litres/grams" value={ingre.units} onChange={(e) => handleChangeIngre(e, i)} />
+        <input type="number" name="quantity" placeholder="Enter ingredient quantity in units" value={ingre.quantity} onChange={(e) => handleChangeIngre(e, i)} />
+        <input type="text" name="type" placeholder="Enter ingredient type eg. fruit/meat" value={ingre.type} onChange={(e) => handleChangeIngre(e, i)} />
+        {(i === ingreArr.length - 1) ? <button onClick={() => handleAddIngre(i)}>Add</button> : null}
+        {(ingreArr.length > 1) ? <button onClick={handleRemoveIngre}>Remove</button> : null}
+        <br /><br />
+      </div>
+    )
+  })
+
+  const handleChangeStep = (e, i) => {
+    const list = [...stepArr]
+    list[i] = e.target.value
+    setStepArr(list)
+  }
+
+  const handleAddStep = () => {
+    setStepArr([...stepArr, ''])
+  }
+
+  const handleRemoveStep = (i) => {
+    const list = [...stepArr]
+    list.splice(i, 1)
+    setStepArr(list)
+  }
+
+  const stepFormArray = stepArr.map((step, i) => {
+    return (
+      <div key={i}>
+        <label>Step {i + 1}</label>
+        <input type="text" name="step" placeholder="Enter a cooking step" value={step} onChange={(e) => handleChangeStep(e, i)} />
+        {(i === stepArr.length - 1) ? <button onClick={() => handleAddStep(i)}>Add</button> : null}
+        {(stepArr.length > 1) ? <button onClick={handleRemoveStep}>Remove</button> : null}
+        <br /><br />
+      </div>
+    )
+  })
+  console.log("ingreArr", ingreArr)
+  // console.log("newRecipe", newRecipe)
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const newRecipe = {
-      name: e.target.name.value,
-      description: e.target.description.value,
-      ingredients: [
-        {
-          quantity: e.target.ingredients.quantity.value,
-          units: e.target.ingredients.units.value,
-          name: e.target.ingredients.name.value,
-          type: e.target.ingredients.type.value,
-        },
-      ],
-      steps: [e.target.steps.value],
-      image: e.target.img.value,
-      servings: e.target.servings.value,
-      duration: e.target.duration.value,
-      tags: [e.target.tags.value],
-    };
-    await axios.post("/api/recipes/new", newRecipe);
-    alert("Recipe created.");
-    navigate('/');
+    try {
+      const createdRecipe = await axios.post("/api/recipes/new", {
+        name: newRecipe.name,
+        author:  '',//TODO: get currentUser.id
+        description: newRecipe.description,
+        ingredients: ingreArr, //FIXME:
+        steps: stepArr,
+        image: newRecipe.img,
+        servings: parseInt(newRecipe.servings),
+        duration: parseInt(newRecipe.duration),
+        tags: newRecipe.tags.split(",").map(tag=>tag.trim()),
+      });
+      alert("Recipe created.");
+      console.log("createdRecipe",createdRecipe)
+      navigate('/'); //TODO: direct to recipe show page put recipe ID in path
+    } catch (error) {
+      console.log(error)
+    }
+    
   };
+
 
   return (
     <div>
       <div className="login" style={{ padding: "100px" }}>
         <h2>New Recipe</h2>
-        <form class="ui form" onSubmit={handleSubmit}>
-          <div class="field">
-            <label>Name</label>
-            <input type="text" name="name" placeholder="Name" />
-            <label>Description</label>
-            <textarea
-              name="description"
-              placeholder="Describe your recipe"
-            ></textarea>
-            <label>Ingredients</label>
-            <label>Name</label>
-            <input type="text" name="ingredients.name" placeholder="Name" />
-            <label>Units</label>
-            <input
-              type="text"
-              name="ingredients.units"
-              placeholder="eg. litres/grams"
-            />
-            <label>Quantity</label>
-            <input
-              type="text"
-              name="ingredients.quantity"
-              placeholder="eg. 3"
-            />
-            <label>Type</label>
-            <input
-              type="text"
-              name="ingredients.type"
-              placeholder="eg. fruit/meat"
-            />
-            <label>Steps</label>
-            <textarea name="steps" placeholder="Step 1: "></textarea>
-            <label>Image URL</label>
-            <textarea name="img" placeholder='jpg/png'></textarea>
-            <label>Servings</label>
-            <input type="text" name="servings" placeholder="eg. 4" />
-            <label>Duration (in minutes)</label>
-            <input type="text" name="duration" placeholder="eg. 30" />
-            <label>Tags</label>
-            <input type="text" name="tags" placeholder="eg. Breakfast/Dinner" />
+        <form className="ui form" onSubmit={handleSubmit}>
+          <div className="field">
+
+            <label htmlFor='name' >Name*:</label>
+            <input type="text" name="name" id='name' placeholder="Name"
+              value={newRecipe.name}
+              onChange={handleChange}
+            /><br /><br />
+
+            <label htmlFor='description'>Description*:</label>
+            <textarea name="description" id='description' placeholder="Describe your recipe" value={newRecipe.description}
+              onChange={handleChange}
+            /><br /><br />
+
+            <label>Ingredients List:</label>
+            {ingreFormArray}
+
+            <label>Steps:</label>
+            {stepFormArray}
+
+            <label>Image URL:</label>
+            <input name="img" placeholder='jpg/png'
+              value={newRecipe.img}
+              onChange={handleChange} /><br /><br />
+
+            <label>Servings (persons):</label>
+            <input type="number" name="servings" placeholder="eg. 4"
+              value={newRecipe.servings}
+              onChange={handleChange}
+            /><br /><br />
+
+            <label>Duration (minutes):</label>
+            <input type="number" name="duration" placeholder="eg. 30"
+              value={newRecipe.duration}
+              onChange={handleChange}
+            /><br /><br />
+
+            <label>Tags (separated by comma):</label>
+            <input type="text" name="tags" placeholder="eg. starter, dessert, main"
+              value={newRecipe.tags}
+              onChange={handleChange} />
           </div>
 
-          <button
-            class="ui button"
-            type="submit"
-            style={{ marginBottom: "20px" }}
-          >
-            Submit
-          </button>
+          <button class="ui button" type="submit" style={{ marginBottom: "20px" }}> Submit </button>
         </form>
+        Fields with * are required.
       </div>
     </div>
   );

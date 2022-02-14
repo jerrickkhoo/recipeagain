@@ -14,7 +14,7 @@ const Login2 = ({setCurrentUser,currentUser}) => {
     await axios
       .post("/api/users/login", input)
       .then((response) => {
-        console.log(response.data.data)
+        console.log("response.data.data",response.data.data)
         setCurrentUser(response?.data?.data);
         navigate("/myaccount");
       })
