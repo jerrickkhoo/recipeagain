@@ -61,7 +61,7 @@ router.post("/login", async (req, res) => {
     const foundUser = await User.findOne({ email:email });
     console.log(foundUser)
     if (!foundUser) {
-      res.status(400).json({ status: "not ok", message: "user not found" })
+      res.status(400).json({ status: "not ok", message: "E-Mail Not Found" })
     } else {
           const result = await bcrypt.compare(password, foundUser.password);
           if (result) {
@@ -69,7 +69,7 @@ router.post("/login", async (req, res) => {
             res.status(200).json({ status: "ok", message: "password matched, user is loggedin" })
           } else {
             req.session.currentUser = null;
-            res.status(400).json({ status: "not ok", message:"password is not matched"})
+            res.status(400).json({ status: "not ok", message:"Wrong Password"})
           }
     }
   } catch (error) {

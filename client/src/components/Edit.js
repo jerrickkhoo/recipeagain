@@ -16,6 +16,7 @@ const navigate = useNavigate();
       };
       props.setUser(e.target.email.value)
       await axios.put(`/api/users/${props.user}`, editUser);
+      alert('Changes Saved')
       navigate('/myaccount');
     };
 
