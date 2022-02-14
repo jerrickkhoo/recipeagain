@@ -22,7 +22,9 @@ import { set } from "mongoose";
 export const AppContext = createContext();
 function App() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [currentUser, setCurrentUser] = useState({});
+  const [currentUser, setCurrentUser] = useState('');
+  const [allRecipes, setAllRecipes] = useState({});
+
 
 
 
@@ -31,6 +33,10 @@ function App() {
   const getCurrentUser = (user) => {
     setCurrentUser(user)
   }
+
+  const getAllRecipes = (recipe) => {
+    setAllRecipes(recipe);
+  };
 
   function NotFound() {
     useEffect(() => {
@@ -45,7 +51,7 @@ function App() {
   }
 
   function handleAccount() {
-    if (currentUser === {}) {
+    if (currentUser === '') {
       navigate("/login");
     } else {
       navigate("/myaccount");
@@ -73,13 +79,21 @@ function App() {
           </div>
         </div>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route
+            path="/"
+            element={
+              <Home allRecipes={allRecipes} setAllRecipes={getAllRecipes} />
+            }
+          />
           <Route path="/favourites" element={<Favourites />} />
           <Route path="/join" element={<Join />} />
           <Route path="/searchrecipe/" element={<AllCards />} />
           <Route path="/recipe/:id" element={<Card />} />
           <Route path="/newrecipe/" element={<NewRecipe />} />
-          <Route path="/recipes/:recipeID" element={<RecipeShowPage currentUser={currentUser}/>} />
+          <Route
+            path="/recipes/:recipeID"
+            element={<RecipeShowPage currentUser={currentUser} />}
+          />
           <Route
             path="/edit"
             element={
@@ -123,6 +137,8 @@ function App() {
               <SearchResults
                 searchQuery={searchQuery}
                 setSearchQuery={setSearchQuery}
+                allRecipes={allRecipes}
+                setAllRecipes={getAllRecipes}
               />
             }
           />

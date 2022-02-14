@@ -15,10 +15,10 @@ const Login2 = (props) => {
       password: e.target.password.value,
     };
     await axios.post("/api/users/login", user)
-      .then((response) => {
+    .then((response) => {
+        // localStorage.setItem("user", JSON.stringify(response?.data?.data));
         console.log(response)
         props.setCurrentUser(response?.data?.data)
-        // localStorage.setItem("data", JSON.stringify(response?.data?.data));
         console.log(props.currentUser)
         navigate("/myaccount");
     })

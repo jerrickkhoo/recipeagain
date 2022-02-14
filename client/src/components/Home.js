@@ -1,4 +1,4 @@
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import seed from "./models/seed_recipes";
 import { Link } from "react-router-dom";
 import { Rating } from "semantic-ui-react";
@@ -10,40 +10,43 @@ styleLink.href =
   "https://cdn.jsdelivr.net/npm/semantic-ui/dist/semantic.min.css";
 document.head.appendChild(styleLink);
 
-const Home = () => {
-  let numArray = [];
-  let randomArr = [];
-  let randomNumber = [];
-
-  for (let i = 0; i < seed.length; i++) {
-    numArray.push(i);
-  }
-
-  for (let i = 0; i < 6; i++) {
-    let num = Math.floor(Math.random() * numArray.length);
-    let randomRecipes = numArray[num];
-    randomArr.push(seed[randomRecipes]);
-    randomNumber.push(randomRecipes);
-    numArray.splice(numArray.indexOf(randomRecipes), 1);
-  }
-
-  // useEffect(() => {
-  //   const fetchrecipes = async () => {
-  //     const fetched = await axios.get(
-  //       `/api/recipes`
-  //     );
-  //   };
-  //   fetched();
-  // }, []);
+const Home = ({allRecipes, setAllRecipes}) => {
+  let indexArray = [];
+  let randomRecipeArray = [];
+  let randomIndexArray = [];
   
+  useEffect(() => {
+    const fetchrecipes = async () => {
+      const fetched = await axios.get("/api/recipes");
+      console.log(fetched);
+      setAllRecipes(fetched?.data?.data);
+    };
+    fetchrecipes();
+  }, []);
+  console.log(allRecipes);
+  
+    //arrayOfIndex = [0,1,2,3,4,5,6,7,8]
+    for (let i = 0; i < allRecipes.length; i++) {
+      indexArray.push(i);
+    }
+  
+    for (let i = 0; i < 6; i++) {
+      let randomIndex = Math.floor(Math.random() * indexArray.length);
+      let randomNumber = indexArray[randomIndex];
+      //randomArr = [allRecipes[randomNumber] * 6]
+      randomRecipeArray.push(allRecipes[randomNumber]);
+      //removes duplicates
+      indexArray.splice(randomIndex, 1);
+    }
 
-  const randomCards = randomArr.map((item, index) => {
+
+  const randomCards = randomRecipeArray.map((item, index) => {
     return (
       <div className="homediv">
-        <Link to={"/recipes/" + randomNumber[index]} key={index}>
+        <Link to={"/recipes/" + item?._id} key={index}>
           <div className="ui card">
             <div className="image">
-              <img src={item?.imageURL} alt={item?.originalURL} />
+              <img src={item?.image} alt=''/>
             </div>
             <div className="content" id="homeContent">
               <div className="header">{item?.name}</div>
