@@ -1,4 +1,4 @@
-import { Route, Routes, Link, Outlet } from "react-router-dom";
+import { Route, Routes, Link, Outlet, Navigate } from "react-router-dom";
 import "./App.css";
 import { useNavigate } from "react-router";
 import { useState, useEffect, createContext } from "react";
@@ -11,18 +11,17 @@ import Login from "./components/Login";
 import Login2 from "./components/Login2";
 import AllCards from "./components/AllCards";
 import SearchResults from "./components/SearchResults";
-import seed from "./components/models/seed_recipes";
 import Search from "./components/Search";
+import Edit from './components/Edit'
+import { set } from "mongoose";
 
 export const AppContext = createContext();
 
 function App() {
-  const { search } = window.location;
   const [searchQuery, setSearchQuery] = useState("");
-  const [recipes, setRecipes] = useState(seed);
-  const [status, setStatus] = useState("");
+  const [currentUser, setCurrentUser] = useState({});
+  const [user, setUser] = useState("");
   const navigate = useNavigate();
-  const [login, setLogin] = useState(""); //not login = empty string | login = user_id/name
 
   function NotFound() {
     useEffect(() => {
@@ -35,19 +34,14 @@ function App() {
       </div>
     );
   }
-  // const filterRecipes = (recipes, query) => {
-  //   return recipes.filter((recipe) => {
-  //     const recipeName = recipe.name.toLowerCase();
-  //     return recipeName.includes(query);
-  //   });
-  // };
 
-  // const filteringRecipes = () => {
-  //   if (searchQuery) {
-  //     const filteredRecipes = filterRecipes(recipes, searchQuery);
-  //     return filteredRecipes;
-  //   }
-  // };
+  function handleAccount() {
+    if (user === "") {
+      navigate("/login");
+    } else {
+      navigate("/myaccount");
+    }
+  }
 
   return (
     <>
@@ -55,31 +49,56 @@ function App() {
         <div className="ui inverted segment" id="nav">
           <div className="ui inverted secondary pointing menu">
             <Link className="item" to="/">
-              Home
+              <i class="home icon"></i>
             </Link>
             <Link className="item" to="/favourites">
-              Favourites
+              <i class="heart icon"></i>
             </Link>
-            <Link className="item" to="/myaccount">
-              My Account
-            </Link>
-            <Link className="item" to="/login">
-              <i class="user outline icon"></i>
-            </Link>
+            <div className="item" style={{ cursor: "pointer" }}>
+              <i className="user outline icon" onClick={handleAccount}></i>
+            </div>
+            {/* </Link> */}
             <Link className="item" to="/search">
               <i class="search icon"></i>
             </Link>
           </div>
         </div>
-
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/favourites" element={<Favourites />} />
           <Route path="/join" element={<Join />} />
           <Route path="/searchrecipe/" element={<AllCards />} />
           <Route path="/recipe/:id" element={<Card />} />
-          <Route path="/myaccount" element={<MyAccount />} />
-          <Route path="/login" element={<Login2 />} />
+          <Route
+            path="/edit"
+            element={
+              <Edit
+                user={user}
+                setUser={setUser}
+                currentUser={currentUser}
+                setCurrentUser={setCurrentUser}
+              />
+            }
+          />
+          {/* <Route
+            path="/myaccount"
+            element={<RequireAuth> <MyAccount user={user} setUser={setUser} /></RequireAuth>}
+          /> */}
+          <Route
+            path="/myaccount"
+            element={
+              <MyAccount
+                user={user}
+                setUser={setUser}
+                currentUser={currentUser}
+                setCurrentUser={setCurrentUser}
+              />
+            }
+          />
+          <Route
+            path="/login"
+            element={<Login2 user={user} setUser={setUser} />}
+          />
           <Route
             path="/search"
             element={
