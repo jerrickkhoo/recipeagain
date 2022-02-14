@@ -100,7 +100,7 @@ router.get('/:userID',isLoggedIn, async (req, res) => {
   const { userID } = req.params
   //TODO: add  a if condition req.session.currentUser.id === userID to make sure user can only access their own data, not other user
   try {
-    const foundUser = await User.findOne({ email: userID })
+    const foundUser = await User.findOne({ _id: userID })
     res.status(200).json({ status: "ok", message: "user found", data: foundUser })
   } catch (error) {
     res.status(400).json({ status: "not ok", message: "fail to find user ", error: error });
@@ -111,7 +111,8 @@ router.get('/:userID',isLoggedIn, async (req, res) => {
 router.put('/:userID', isLoggedIn,async (req, res) => {
   const { userID } = req.params
   try {
-    const updatedUser = await User.findOneAndUpdate({ userID: userID }, {
+
+    const updatedUser = await User.findOneAndUpdate({ _id: userID }, {
       username: req.body.username,
       email: req.body.email,
       password: bcrypt.hashSync(req.body.password,bcrypt.genSaltSync(10)),
@@ -143,7 +144,7 @@ router.put('/:userID/addFavorite', isLoggedIn,async (req, res) => {
 router.delete('/:userID', isLoggedIn, async (req, res) => {
   const { userID } = req.params
   try {
-    const updatedUser = await User.findOneAndDelete({ email: userID })
+    const updatedUser = await User.findOneAndDelete({ _id: userID })
     res.status(200).json({ status: "ok", message: "user deleted", data: updatedUser })
   } catch (error) {
     res.status(400).json({ status: "not ok", message: "fail to delete user ", error: error });

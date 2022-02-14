@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -7,32 +7,32 @@ import { useNavigate } from "react-router-dom";
 const MyAccount = (props) => {
   const navigate = useNavigate();
   
-  let setCurrentUser = props.setCurrentUser
   let currentUser = props.currentUser;
 
   
   // console.log(currentUser)
-  // console.log(props.user)
+  console.log(currentUser)
   useEffect(() => {
     const fetchUser = async () => {
-      const fetchedUser = await axios.get(`/api/users/${props.user}`)
-      setCurrentUser(fetchedUser?.data?.data)
-    }
-    fetchUser()
-  },[props.user])
+      const fetchedUser = await axios.get(
+        `/api/users/${props?.currentUser?.email}`
+      );
+    };
+    fetchUser();
+  }, [props?.currentUser?.email]);
   
  
 
   const handleLogOut = async (e) => {
   e.preventDefault()
-  props.setUser('')
   await axios.post('/api/users/logout')
+  props.setCurrentUser('')
   navigate('/login')
 }
 
 const handleDelete = async (e) => {
   e.preventDefault();
-  await axios.delete(`/api/users/${props.user}`);
+  await axios.delete(`/api/users/${props?.currentUser?._id}`);
   alert('Account deleted')
   navigate("/login");
 };
