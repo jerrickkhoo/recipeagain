@@ -4,22 +4,20 @@ import { useNavigate } from "react-router-dom";
 
 const Login2 = (props) => {
   const navigate = useNavigate();
-  
-
-  
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     const user = {
       email: e.target.email.value,
       password: e.target.password.value,
     };
+
     await axios.post("/api/users/login", user)
     .then((response) => {
         // localStorage.setItem("user", JSON.stringify(response?.data?.data));
         console.log(response)
         props.setCurrentUser(response?.data?.data)
         console.log(props.currentUser)
+
         navigate("/myaccount");
     })
     .catch((error) => {

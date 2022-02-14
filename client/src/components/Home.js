@@ -43,7 +43,9 @@ const Home = ({allRecipes, setAllRecipes}) => {
   const randomCards = randomRecipeArray.map((item, index) => {
     return (
       <div className="homediv">
+
         <Link to={"/recipes/" + item?._id} key={index}>
+
           <div className="ui card">
             <div className="image">
               <img src={item?.image} alt=''/>
