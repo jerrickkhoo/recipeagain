@@ -35,10 +35,9 @@ const recipeSchema = new mongoose.Schema({
     //     //ref: 'Comment' //TODO: refer to comment schema and filter for commentID that corresponds to recipeID
     // },
     tags: [String],
-    rating: {
-        type: Number,
-        default: 0
-    }
+    ratings: [{
+        type: mongoose.Schema.Types.ObjectId,ref:'Rating'
+    }]
 }, {timeStamp: true});
 
 module.exports = mongoose.model("Recipe", recipeSchema);
