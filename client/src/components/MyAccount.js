@@ -3,44 +3,39 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 
-
-const MyAccount = ({props}) => {
+const MyAccount = ({ setCurrentUser, currentUser }) => {
   const navigate = useNavigate();
-  
-  let currentUser = props.currentUser;
 
-  console.log(currentUser)
   useEffect(() => {
     const fetchUser = async () => {
       const fetchedUser = await axios.get(
-        `/api/users/${props?.currentUser?._id}`
+        `/api/users/${currentUser?._id}`
       );
     };
     fetchUser();
-  }, [props?.currentUser?._id]);
-  
+  }, [currentUser?._id]);
 
   const handleLogOut = async (e) => {
-  e.preventDefault()
-  await axios.post('/api/users/logout')
-  props.setCurrentUser('')
-  navigate('/login')
-}
+    e.preventDefault()
+    await axios.post('/api/users/logout')
+    setCurrentUser({})
+    navigate('/login')
+  }
 
-const handleDelete = async (e) => {
-  e.preventDefault();
-  await axios.delete(`/api/users/${props?.currentUser?._id}`);
-  alert('Account deleted')
-  navigate("/login");
-};
+  const handleDelete = async (e) => {
+    e.preventDefault();
+    await axios.delete(`/api/users/${currentUser?._id}`);
+    alert('Account deleted')
+    navigate("/login");
+  };
 
-const handleEdit = () => {
-  navigate('/edit')
-}
+  const handleEdit = () => {
+    navigate('/edit')
+  }
 
-const handleNewRecipe = () => {
-  navigate('/NewRecipe')
-}
+  const handleNewRecipe = () => {
+    navigate('/NewRecipe')
+  }
 
   return (
     <div>

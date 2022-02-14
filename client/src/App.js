@@ -16,7 +16,6 @@ import Edit from './components/Edit'
 
 import NewRecipe from "./components/NewRecipe";
 
-
 export const AppContext = createContext();
 
 function App() {
@@ -69,13 +68,8 @@ function App() {
           <Route path="/favourites" element={<Favourites />} />
           <Route path="/join" element={<Join />} />
           <Route path="/searchrecipe/" element={<AllCards />} />
-
-         
           <Route path="/newrecipe/" element={<NewRecipe />} />
-
           <Route path="/recipes/:recipeID" element={<RecipeShowPage currentUser={currentUser}/>} />
-
-
           <Route
             path="/edit"
             element={

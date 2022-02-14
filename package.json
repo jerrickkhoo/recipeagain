@@ -1,6 +1,9 @@
 {
   "name": "recipeagain",
   "version": "1.0.0",
+  "engines":{
+    "node":"v16.13.0"
+  },
   "description": "",
   "main": "server.js",
   "scripts": {
