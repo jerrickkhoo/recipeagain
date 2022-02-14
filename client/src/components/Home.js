@@ -31,14 +31,12 @@ const Home = ({allRecipes, setAllRecipes}) => {
     }
   
     for (let i = 0; i < 6; i++) {
-      let randomNumber = Math.floor(Math.random() * indexArray.length);
-      let randomIndex = indexArray[randomNumber];
+      let randomIndex = Math.floor(Math.random() * indexArray.length);
+      let randomNumber = indexArray[randomIndex];
       //randomArr = [allRecipes[randomNumber] * 6]
-      randomRecipeArray.push(allRecipes[randomIndex]);
-      //arrayOfRandomIndex = [randomIndex * 6]
-      randomIndexArray.push(randomIndex);
+      randomRecipeArray.push(allRecipes[randomNumber]);
       //removes duplicates
-      indexArray.splice(randomNumber, 1);
+      indexArray.splice(randomIndex, 1);
     }
 
 
