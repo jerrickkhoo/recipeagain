@@ -1,8 +1,9 @@
 
-# Created by https://www.toptal.com/developers/gitignore/api/windows,osx,node,visualstudiocode
-# Edit at https://www.toptal.com/developers/gitignore?templates=windows,osx,node,visualstudiocode
+# Created by https://www.toptal.com/developers/gitignore/api/osx,windows,visualstudiocode,node
+# Edit at https://www.toptal.com/developers/gitignore?templates=osx,windows,visualstudiocode,node
 
-### Node #
+### Node ###
+# Logs
 logs
 *.log
 npm-debug.log*
@@ -217,4 +218,4 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-# End of https://www.toptal.com/developers/gitignore/api/windows,osx,node,visualstudiocode
+# End of https://www.toptal.com/developers/gitignore/api/osx,windows,visualstudiocode,node
