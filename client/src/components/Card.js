@@ -4,26 +4,27 @@ import { useParams } from "react-router";
 import "./Card.css";
 import RatingButton from "./Rating";
 import axios from "axios";
+import AddToFavoriteBttn from "./addToFavoriteBttn";
 
-const Card = () => {
-  const {recipeID} = useParams();
+const Card = ({currentUser}) => {
+  const { recipeID } = useParams();
   const [currentRecipe, setCurrentRecipe] = useState({});
 
-  const fetchCurrentRecipe = async()=>{
+  const fetchCurrentRecipe = async () => {
     const foundRecipe = await axios.get(`/api/recipes/${recipeID}`)
     //console.log(foundRecipe.data.data)
     setCurrentRecipe(foundRecipe.data.data)
   }
-  useEffect(()=>{
+  useEffect(() => {
     fetchCurrentRecipe()
-  },[])
+  }, [])
 
 
   const ingredients = currentRecipe?.ingredients?.map((item, index) => {
     return (
       <ul className="unorderedList" key={index}>
         <li>
-            <h3>{item?.name} - {item?.quantity} {item?.units}</h3>
+          <h3>{item?.name} - {item?.quantity} {item?.units}</h3>
         </li>
       </ul>
     );
@@ -53,6 +54,7 @@ const Card = () => {
     );
   });
 
+  console.log(currentUser)
   return (
     <div>
       <div className="cardHeader">
@@ -71,12 +73,11 @@ const Card = () => {
       </div>
 
       <div className='cardContent'>
-        <h2>Ingredients:</h2>
-        {ingredients}
-        <h2>Steps:</h2>
-        {steps}
+        <AddToFavoriteBttn recipeID={recipeID} currentUser={currentUser} />
+        <h2>Ingredients:</h2>{ingredients}
+        <h2>Steps:</h2>{steps}
         <RatingButton />
-        
+
         {/* <h3>Comments</h3>
         {comments} */}
       </div>

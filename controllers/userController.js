@@ -110,14 +110,11 @@ router.get('/:userID',isLoggedIn, async (req, res) => {
 //UPDATE a user credentials
 router.put('/:userID', isLoggedIn,async (req, res) => {
   const { userID } = req.params
-  //console.log(req.body)
   try {
-    const updatedUser = await User.findOneAndUpdate({ email: userID }, {
+    const updatedUser = await User.findOneAndUpdate({ userID: userID }, {
       username: req.body.username,
       email: req.body.email,
       password: bcrypt.hashSync(req.body.password,bcrypt.genSaltSync(10)),
-      favourites: req.body.favourites, //FIXME: favourites array does not array properly 
-      //$$addToSet: {favorites: [req.body.favorites]},
     },
       { new: true })
     res.status(200).json({ status: "ok", message: "user info updated", data: updatedUser })
@@ -126,7 +123,21 @@ router.put('/:userID', isLoggedIn,async (req, res) => {
   }
 })
 
-//UPDATE need a separate update route to update a user favourite? 
+//UPDATE a user favourite
+router.put('/:userID/addFavorite', isLoggedIn,async (req, res) => {
+  const { userID } = req.params
+  //console.log(req.body)
+  try {
+    const updatedUser = await User.findByIdAndUpdate({ userID: userID }, {
+      favourites: req.body.favourites, //FIXME: favourites array does not array properly 
+      //$$addToSet: {favorites: [req.body.favorites]},
+    },
+      { new: true })
+    res.status(200).json({ status: "ok", message: "favourite added", data: updatedUser })
+  } catch (error) {
+    res.status(400).json({ status: "not ok", message: "fail to add favorite", error: error });
+  }
+})
 
 //DELETE a user
 router.delete('/:userID', isLoggedIn, async (req, res) => {

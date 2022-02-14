@@ -1,14 +1,11 @@
-//import "./Card.css";
-import RatingButton from "../components/Rating";
 //import Comment from "../components/Comment";
 import Card from "../components/Card";
 
-const RecipeShowPage = () => {
+const RecipeShowPage = ({currentUser}) => {
 
     return (
         <div>
-            <Card />
-            <RatingButton />
+            <Card currentUser={currentUser}/>
             {/* <Comment> */}
         </div>
     );
