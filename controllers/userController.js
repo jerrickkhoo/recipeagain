@@ -61,15 +61,15 @@ router.post("/login", async (req, res) => {
     const foundUser = await User.findOne({ email:email });
     console.log(foundUser)
     if (!foundUser) {
-      res.status(400).json({ status: "not ok", message: "user not found" })
+      res.status(400).json({ status: "not ok", message: "email and/or password is invalid" })
     } else {
           const result = await bcrypt.compare(password, foundUser.password);
           if (result) {
             req.session.currentUser = foundUser;
-            res.status(200).json({ status: "ok", message: "password matched, user is loggedin" })
+            res.status(200).json({ status: "ok", message: "user is loggedin", data:foundUser })
           } else {
             req.session.currentUser = null;
-            res.status(400).json({ status: "not ok", message:"password is not matched"})
+            res.status(400).json({ status: "not ok", message:"email and/or password is invalid"})
           }
     }
   } catch (error) {
@@ -110,7 +110,7 @@ router.put('/:userID', isLoggedIn,async (req, res) => {
     const updatedUser = await User.findOneAndUpdate({ email: userID }, {
       username: req.body.username,
       email: req.body.email,
-      password: bcrypt.hashSync(req.body.password,bcrypt.genSaltSync(10)), //FIXME: hash
+      password: bcrypt.hashSync(req.body.password,bcrypt.genSaltSync(10)),
       favourites: req.body.favourites, //FIXME: favourites array does not array properly 
       //$$addToSet: {favorites: [req.body.favorites]},
     },
