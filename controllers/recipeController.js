@@ -33,8 +33,8 @@ router.get("/", async (req, res) => {
   };
 })
 
-//Create a new recipe
-router.post("/", async (req, res) => {
+//Create a new recipe 
+router.post("/new", async (req, res) => {
   try {
     const createdRecipe = await Recipe.create(req.body);
     res.status(200).json({ status: "ok", message: "new recipe created", data: createdRecipe }); // .json() will send proper headers in response so client knows it's json coming back

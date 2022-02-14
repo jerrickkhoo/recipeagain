@@ -13,7 +13,12 @@ import AllCards from "./components/AllCards";
 import SearchResults from "./components/SearchResults";
 import Search from "./components/Search";
 import Edit from './components/Edit'
+<<<<<<< HEAD
+import NewRecipe from "./components/NewRecipe";
+import { set } from "mongoose";
+=======
 
+>>>>>>> fe9de5873a4fa42d8f8106c6fe9f2bb62dc0a0d8
 
 export const AppContext = createContext();
 
@@ -67,14 +72,16 @@ function App() {
           <Route path="/favourites" element={<Favourites />} />
           <Route path="/join" element={<Join />} />
           <Route path="/searchrecipe/" element={<AllCards />} />
+<<<<<<< HEAD
+          <Route path="/recipe/:id" element={<Card />} />
+          <Route path="/newrecipe/" element={<NewRecipe />} />
+=======
           <Route path="/recipes/:recipeID" element={<RecipeShowPage currentUser={currentUser}/>} />
+>>>>>>> fe9de5873a4fa42d8f8106c6fe9f2bb62dc0a0d8
           <Route
             path="/edit"
             element={
-              <Edit
-                currentUser={currentUser}
-                setCurrentUser={setCurrentUser}
-              />
+              <Edit currentUser={currentUser} setCurrentUser={setCurrentUser} />
             }
           />
           {/* <Route
@@ -92,7 +99,12 @@ function App() {
           />
           <Route
             path="/login"
-            element={<Login2 currentUser={currentUser} setCurrentUser={setCurrentUser} />}
+            element={
+              <Login2
+                currentUser={currentUser}
+                setCurrentUser={setCurrentUser}
+              />
+            }
           />
           <Route
             path="/search"

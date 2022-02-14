@@ -17,7 +17,7 @@ const MyAccount = ({props}) => {
       );
     };
     fetchUser();
-  }, [props?.currentUser?.email]);
+  }, [props?.currentUser?._id]);
   
 
   const handleLogOut = async (e) => {
@@ -36,6 +36,10 @@ const handleDelete = async (e) => {
 
 const handleEdit = () => {
   navigate('/edit')
+}
+
+const handleNewRecipe = () => {
+  navigate('/NewRecipe')
 }
 
   return (
@@ -69,6 +73,15 @@ const handleEdit = () => {
         >
           <button class="ui button" type="submit">
             Delete Account
+          </button>
+        </form>
+        <form
+          class="ui form"
+          onSubmit={handleNewRecipe}
+          style={{ paddingTop: "50px" }}
+        >
+          <button class="ui button" type="submit">
+            New Recipe
           </button>
         </form>
       </div>
