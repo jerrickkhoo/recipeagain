@@ -124,19 +124,33 @@ router.put('/:userID', isLoggedIn,async (req, res) => {
   }
 })
 
-//UPDATE a user favourite
-router.put('/:userID/addFavorite', isLoggedIn,async (req, res) => {
+//UPDATE user add a favourite
+router.put('/:userID/addFavorite',async (req, res) => {
   const { userID } = req.params
-  //console.log(req.body)
+  console.log(req.body)
   try {
-    const updatedUser = await User.findByIdAndUpdate({ userID: userID }, {
-      favourites: req.body.favourites, //FIXME: favourites array does not array properly 
-      //$$addToSet: {favorites: [req.body.favorites]},
+    const updatedUser = await User.findByIdAndUpdate(userID , {
+      $addToSet: {favorites: [req.body.recipeID]},
     },
       { new: true })
     res.status(200).json({ status: "ok", message: "favourite added", data: updatedUser })
   } catch (error) {
     res.status(400).json({ status: "not ok", message: "fail to add favorite", error: error });
+  }
+})
+
+//UPDATE user remove a favourite
+router.put('/:userID/removeFavorite',async (req, res) => {
+  const { userID } = req.params
+  console.log(req.body)
+  try {
+    const updatedUser = await User.findByIdAndUpdate(userID , {
+      $pull: {favorites: req.body.recipeID},
+    },
+      { new: true })
+    res.status(200).json({ status: "ok", message: "favourite removed", data: updatedUser })
+  } catch (error) {
+    res.status(400).json({ status: "not ok", message: "fail to remove favorite", error: error });
   }
 })
 
