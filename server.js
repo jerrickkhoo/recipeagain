@@ -42,10 +42,8 @@ app.use(
   )
   
   //* ROUTES MIDDLEWARE
-  app.use("/api/recipes", recipeController);
   app.use('/api/users', userController)
-
-
+  app.use("/api/recipes", recipeController);
  
 // app.get("/*", (req, res) => {
 //   res.sendFile(path.join(__dirname, "./client/build", "index.html"));

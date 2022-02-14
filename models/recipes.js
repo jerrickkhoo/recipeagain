@@ -6,30 +6,34 @@ const recipeSchema = new mongoose.Schema({
         unique: true, 
         required: true 
     },
-    author: { 
-        type: String, 
-        unique: true, 
-        required: true 
-    }, //TODO:refer to userschema
+    author: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
+    }
+    ,
     description: {
         type: String, 
     },
-    ingredients:{
+    ingredients:[{
         quantity: {type: Number},
         units: {type:String},
         name:{type:String},
         type:{type:String}
-    },
-    Steps:[String],
+    }],
+    steps:[String],
     image:{
         type: String
     },
-    Servings: {
+    servings: {
         type: Number
     },
-    Duration:{
+    duration:{
         type: Number
     },
+    // comments: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     //ref: 'Comment' //TODO: refer to comment schema
+    // },
     tags: [String]
 }, {timeStamp: true});
 

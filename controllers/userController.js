@@ -16,7 +16,7 @@ const isLoggedIn = (req,res,next)=>{
 
 //CRUD for use model
 // to seed User
-router.get("/seeduser", async (req, res) => {
+router.get("/seedUser", async (req, res) => {
   seedUsers.forEach((seedUser) => {
     seedUser.password = bcrypt.hashSync(seedUser.password, bcrypt.genSaltSync(10))
   })
