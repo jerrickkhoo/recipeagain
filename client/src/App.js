@@ -20,7 +20,6 @@ export const AppContext = createContext();
 function App() {
   const [searchQuery, setSearchQuery] = useState("");
   const [currentUser, setCurrentUser] = useState({});
-  const [user, setUser] = useState("");
   const navigate = useNavigate();
 
   function NotFound() {
@@ -36,7 +35,7 @@ function App() {
   }
 
   function handleAccount() {
-    if (user === "") {
+    if (currentUser === "") {
       navigate("/login");
     } else {
       navigate("/myaccount");
@@ -73,8 +72,6 @@ function App() {
             path="/edit"
             element={
               <Edit
-                user={user}
-                setUser={setUser}
                 currentUser={currentUser}
                 setCurrentUser={setCurrentUser}
               />
@@ -88,8 +85,6 @@ function App() {
             path="/myaccount"
             element={
               <MyAccount
-                user={user}
-                setUser={setUser}
                 currentUser={currentUser}
                 setCurrentUser={setCurrentUser}
               />
@@ -97,7 +92,7 @@ function App() {
           />
           <Route
             path="/login"
-            element={<Login2 user={user} setUser={setUser} />}
+            element={<Login2 currentUser={currentUser} setCurrentUser={setCurrentUser} />}
           />
           <Route
             path="/search"

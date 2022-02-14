@@ -14,10 +14,18 @@ const navigate = useNavigate();
         email: e.target.email.value,
         password: e.target.password.value,
       };
-      props.setUser(e.target.email.value)
-      await axios.put(`/api/users/${props.user}`, editUser);
-      alert('Changes Saved')
-      navigate('/myaccount');
+      await axios.put(`/api/users/${props?.currentUser?._id}`, editUser)
+      .then((response) => {
+        console.log(response)
+        props.setCurrentUser(response?.data?.data);
+        alert('Changes Saved')
+        navigate('/myaccount');
+        
+      })
+      .catch((error) => {
+        console.log(error.response.data.message);
+        alert(error.response.data.message);
+    });
     };
 
     console.log(props.currentUser)
@@ -58,7 +66,6 @@ const navigate = useNavigate();
             Submit
           </button>
         </form>
-        <a href="/login">Log In</a>
       </div>
     </div>
   );

@@ -11,11 +11,12 @@ const Login2 = (props) => {
       email: e.target.email.value,
       password: e.target.password.value,
     };
-    console.log(props.user);
     await axios
       .post("/api/users/login", user)
       .then((response) => {
-        props.setUser(e.target.email.value);
+        console.log(response)
+        props.setCurrentUser(response?.data?.data);
+        console.log(props.currentUser)
         navigate("/myaccount");
       })
       .catch((error) => {
