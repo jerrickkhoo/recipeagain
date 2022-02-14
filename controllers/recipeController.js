@@ -33,7 +33,7 @@ router.get("/", async (req, res) => {
   };
 })
 
-//Create a new recipe 
+//Create a new recipe
 router.post("/", async (req, res) => {
   try {
     const createdRecipe = await Recipe.create(req.body);

@@ -15,7 +15,7 @@ const RatingButton = (props) => {
     } else {
       setRating(rating);
       const res = await axios
-        .put("/api/rating", { rating: rating })
+        .put("/api/ratings", { rating: rating })
         .catch((err) => console.log(err));
     }
   };
