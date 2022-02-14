@@ -55,25 +55,30 @@ router.post("/join", async (req, res) => {
 
 //Log in log out, this needs to be above other routes that use params
 router.post("/login", async (req, res) => {
-  const { username, email, password } = req.body;
+  const {email, password } = req.body;
   //TODO: check email to be in regex xx@xx. and password in right format, else throw error
   try {
     const foundUser = await User.findOne({ email:email });
     console.log(foundUser)
     if (!foundUser) {
-      res.status(400).json({ status: "not ok", message: "E-Mail Not Found" })
+      res.status(400).json({ status: "not ok", message: "Email And/Or Password Is Invalid" })
     } else {
           const result = await bcrypt.compare(password, foundUser.password);
           if (result) {
             req.session.currentUser = foundUser;
-            res.status(200).json({ status: "ok", message: "password matched, user is loggedin" })
+            res.status(200).json({ status: "ok", message: "user is loggedin", data:foundUser })
           } else {
             req.session.currentUser = null;
-            res.status(400).json({ status: "not ok", message:"Wrong Password"})
+            res
+              .status(400)
+              .json({
+                status: "not ok",
+                message: "Email And/Or Password Is Invalid",
+              });
           }
     }
   } catch (error) {
-    res.status(400).json({ status: "not ok", message: "fail to log in user ", error: error });
+    res.status(400).json({ status: "not ok", message: "Fail To Log In User ", error: error });
   }
 }
 );
@@ -110,7 +115,7 @@ router.put('/:userID', isLoggedIn,async (req, res) => {
     const updatedUser = await User.findOneAndUpdate({ email: userID }, {
       username: req.body.username,
       email: req.body.email,
-      password: bcrypt.hashSync(req.body.password,bcrypt.genSaltSync(10)), //FIXME: hash
+      password: bcrypt.hashSync(req.body.password,bcrypt.genSaltSync(10)),
       favourites: req.body.favourites, //FIXME: favourites array does not array properly 
       //$$addToSet: {favorites: [req.body.favorites]},
     },

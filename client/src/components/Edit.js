@@ -46,7 +46,12 @@ const navigate = useNavigate();
           </div>
           <div class="field">
             <label>Password</label>
-            <input type="password" name="password" placeholder="Password" />
+            <input
+              type="password"
+              name="password"
+              placeholder="Please enter new password"
+            required
+            />
           </div>
 
           <button class="ui button" type="submit">

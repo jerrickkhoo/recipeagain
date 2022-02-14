@@ -38,7 +38,7 @@ const Home = () => {
               <div className="header">{item?.name}</div>
               <div className="meta">
                 <div>Servings: {item?.servings}</div>
-                <Rating icon="star" defaultRating={item?.rating} maxRating={5} />
+                <Rating icon="star" defaultRating={item?.rating} maxRating={5} disabled />
                 <div>{item?.description}</div>
               </div>
             </div>
