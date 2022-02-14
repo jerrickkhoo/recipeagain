@@ -1,3 +1,4 @@
+
 import React from 'react'
 import { useNavigate, useEffect } from 'react-router-dom';
 import axios from "axios";
@@ -8,7 +9,7 @@ const navigate = useNavigate();
 
 
     const handleSubmit = async (e) => {
-      e.preventDefault();
+        e.preventDefault();
       const editUser = {
         username: e.target.username.value,
         email: e.target.email.value,

@@ -9,23 +9,28 @@ import Join from "./components/Join";
 import MyAccount from "./components/MyAccount";
 import Login from "./components/Login";
 import Login2 from "./components/Login2";
+import Card from './components/Card'
 import AllCards from "./components/AllCards";
 import SearchResults from "./components/SearchResults";
 import Search from "./components/Search";
 import Edit from './components/Edit'
-<<<<<<< HEAD
 import NewRecipe from "./components/NewRecipe";
 import { set } from "mongoose";
-=======
 
->>>>>>> fe9de5873a4fa42d8f8106c6fe9f2bb62dc0a0d8
 
 export const AppContext = createContext();
 
 function App() {
   const [searchQuery, setSearchQuery] = useState("");
   const [currentUser, setCurrentUser] = useState({});
+
+
+
   const navigate = useNavigate();
+
+  const getCurrentUser = (user) => {
+    setCurrentUser(user)
+  }
 
   function NotFound() {
     useEffect(() => {
@@ -72,16 +77,12 @@ function App() {
           <Route path="/favourites" element={<Favourites />} />
           <Route path="/join" element={<Join />} />
           <Route path="/searchrecipe/" element={<AllCards />} />
-<<<<<<< HEAD
           <Route path="/recipe/:id" element={<Card />} />
           <Route path="/newrecipe/" element={<NewRecipe />} />
-=======
-          <Route path="/recipes/:recipeID" element={<RecipeShowPage currentUser={currentUser}/>} />
->>>>>>> fe9de5873a4fa42d8f8106c6fe9f2bb62dc0a0d8
           <Route
             path="/edit"
             element={
-              <Edit currentUser={currentUser} setCurrentUser={setCurrentUser} />
+              <Edit currentUser={currentUser} setCurrentUser={getCurrentUser} />
             }
           />
           {/* <Route
@@ -93,7 +94,7 @@ function App() {
             element={
               <MyAccount
                 currentUser={currentUser}
-                setCurrentUser={setCurrentUser}
+                setCurrentUser={getCurrentUser}
               />
             }
           />
@@ -102,7 +103,7 @@ function App() {
             element={
               <Login2
                 currentUser={currentUser}
-                setCurrentUser={setCurrentUser}
+                setCurrentUser={getCurrentUser}
               />
             }
           />

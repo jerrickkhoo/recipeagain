@@ -12,10 +12,10 @@ const NewRecipe = () => {
       description: e.target.description.value,
       ingredients: [
         {
-          quantity: e.target.ingredients.quantity.value,
-          units: e.target.ingredients.units.value,
-          name: e.target.ingredients.name.value,
-          type: e.target.ingredients.type.value,
+          quantity: e.target.quantity.value,
+          units: e.target.units.value,
+          name: e.target.ingName.value,
+          type: e.target.type.value,
         },
       ],
       steps: [e.target.steps.value],
@@ -44,23 +44,23 @@ const NewRecipe = () => {
             ></textarea>
             <label>Ingredients</label>
             <label>Name</label>
-            <input type="text" name="ingredients.name" placeholder="Name" />
+            <input type="text" name="ingName" placeholder="Name" />
             <label>Units</label>
             <input
               type="text"
-              name="ingredients.units"
+              name="units"
               placeholder="eg. litres/grams"
             />
             <label>Quantity</label>
             <input
               type="text"
-              name="ingredients.quantity"
+              name="quantity"
               placeholder="eg. 3"
             />
             <label>Type</label>
             <input
               type="text"
-              name="ingredients.type"
+              name="type"
               placeholder="eg. fruit/meat"
             />
             <label>Steps</label>

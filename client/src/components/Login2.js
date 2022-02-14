@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const Login2 = (props) => {
   const navigate = useNavigate();
+  
+
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -11,16 +14,15 @@ const Login2 = (props) => {
       email: e.target.email.value,
       password: e.target.password.value,
     };
-    await axios
-      .post("/api/users/login", user)
+    await axios.post("/api/users/login", user)
       .then((response) => {
         console.log(response)
-        props.setCurrentUser(response?.data?.data);
+        props.setCurrentUser(response?.data?.data)
+        // localStorage.setItem("data", JSON.stringify(response?.data?.data));
         console.log(props.currentUser)
         navigate("/myaccount");
-        //setCurrentUser(response.data.data)
-      })
-      .catch((error) => {
+    })
+    .catch((error) => {
         console.log(error.response.data.message);
         alert(error.response.data.message);
     });
