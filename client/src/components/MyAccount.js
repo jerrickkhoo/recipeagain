@@ -33,6 +33,7 @@ const MyAccount = (props) => {
 const handleDelete = async (e) => {
   e.preventDefault();
   await axios.delete(`/api/users/${props.user}`);
+  alert('Account deleted')
   navigate("/login");
 };
 

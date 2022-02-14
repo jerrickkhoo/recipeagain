@@ -1,27 +1,29 @@
-import React from 'react'
+import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-
 const Login2 = (props) => {
+  const navigate = useNavigate();
 
-const navigate = useNavigate();
-const handleSubmit = async (e) => {
-
-  e.preventDefault();
-  const user = {
-    email: e.target.email.value,
-    password: e.target.password.value,
-  };
-  console.log(props.user)
-  const foundUser = await axios.post("/api/users/login", user);
-  if (foundUser ==={}){
-    //TODO: add validate if foundUser is not found, pop a warning message
-  }
-  props.setUser(e.target.email.value)
-  navigate('/myaccount');
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const user = {
+      email: e.target.email.value,
+      password: e.target.password.value,
+    };
+    console.log(props.user);
+    await axios
+      .post("/api/users/login", user)
+      .then((response) => {
+        props.setUser(e.target.email.value);
+        navigate("/myaccount");
+      })
+      .catch((error) => {
+        console.log(error.response.data.message);
+        alert(error.response.data.message);
+    });
 };
-
+  
   return (
     <div>
       <div className="login" style={{ padding: "100px" }}>
@@ -48,6 +50,6 @@ const handleSubmit = async (e) => {
       </div>
     </div>
   );
-}
+};
 
-export default Login2
+export default Login2;

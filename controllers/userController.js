@@ -55,13 +55,13 @@ router.post("/join", async (req, res) => {
 
 //Log in log out, this needs to be above other routes that use params
 router.post("/login", async (req, res) => {
-  const { username, email, password } = req.body;
+  const {email, password } = req.body;
   //TODO: check email to be in regex xx@xx. and password in right format, else throw error
   try {
     const foundUser = await User.findOne({ email:email });
     console.log(foundUser)
     if (!foundUser) {
-      res.status(400).json({ status: "not ok", message: "email and/or password is invalid" })
+      res.status(400).json({ status: "not ok", message: "Email And/Or Password Is Invalid" })
     } else {
           const result = await bcrypt.compare(password, foundUser.password);
           if (result) {
@@ -69,11 +69,16 @@ router.post("/login", async (req, res) => {
             res.status(200).json({ status: "ok", message: "user is loggedin", data:foundUser })
           } else {
             req.session.currentUser = null;
-            res.status(400).json({ status: "not ok", message:"email and/or password is invalid"})
+            res
+              .status(400)
+              .json({
+                status: "not ok",
+                message: "Email And/Or Password Is Invalid",
+              });
           }
     }
   } catch (error) {
-    res.status(400).json({ status: "not ok", message: "fail to log in user ", error: error });
+    res.status(400).json({ status: "not ok", message: "Fail To Log In User ", error: error });
   }
 }
 );

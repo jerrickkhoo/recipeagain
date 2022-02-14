@@ -13,6 +13,7 @@ const handleSubmit = async (e) => {
     password: e.target.password.value,
   };
   await axios.post('/api/users/join', newUser)
+  alert('Account created, please log into your account.')
   navigate(-1,{replace: true})
 }
 
