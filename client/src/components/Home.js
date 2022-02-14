@@ -1,7 +1,8 @@
-import React from "react";
+import {useEffect} from "react";
 import seed from "./models/seed_recipes";
 import { Link } from "react-router-dom";
 import { Rating } from "semantic-ui-react";
+import axios from "axios";
 
 const styleLink = document.createElement("link");
 styleLink.rel = "stylesheet";
@@ -25,6 +26,16 @@ const Home = () => {
     randomNumber.push(randomRecipes);
     numArray.splice(numArray.indexOf(randomRecipes), 1);
   }
+
+  // useEffect(() => {
+  //   const fetchrecipes = async () => {
+  //     const fetched = await axios.get(
+  //       `/api/recipes`
+  //     );
+  //   };
+  //   fetched();
+  // }, []);
+  
 
   const randomCards = randomArr.map((item, index) => {
     return (
