@@ -1,23 +1,28 @@
+
 import React from 'react'
 import { useNavigate, useEffect } from 'react-router-dom';
 import axios from "axios";
 
 
-const Edit = (props) => {
+const Edit = ({currentUser, setCurrentUser}) => {
 const navigate = useNavigate();
+
+//    const user = JSON.parse(localStorage.getItem("data"));
+//   console.log(user)
+
 
 
     const handleSubmit = async (e) => {
-      e.preventDefault();
+        e.preventDefault();
       const editUser = {
         username: e.target.username.value,
         email: e.target.email.value,
         password: e.target.password.value,
       };
-      await axios.put(`/api/users/${props?.currentUser?._id}`, editUser)
+      await axios.put(`/api/users/${currentUser?._id}`, editUser)
       .then((response) => {
         console.log(response)
-        props.setCurrentUser(response?.data?.data);
+        setCurrentUser(response?.data?.data);
         alert('Changes Saved')
         navigate('/myaccount');
         
@@ -28,7 +33,7 @@ const navigate = useNavigate();
     });
     };
 
-    console.log(props.currentUser)
+    // console.log(props.currentUser)
   return (
     <div>
       <div className="login" style={{ padding: "100px" }}>
@@ -40,7 +45,7 @@ const navigate = useNavigate();
               type="text"
               name="username"
               placeholder="Username"
-              defaultValue={props?.currentUser?.username}
+              defaultValue={currentUser?.username}
             />
           </div>
           <div class="field">
@@ -49,7 +54,7 @@ const navigate = useNavigate();
               type="text"
               name="email"
               placeholder="E-Mail"
-              defaultValue={props?.currentUser?.email}
+              defaultValue={currentUser?.email}
             />
           </div>
           <div class="field">
@@ -58,7 +63,7 @@ const navigate = useNavigate();
               type="password"
               name="password"
               placeholder="Please enter new password"
-            required
+              required
             />
           </div>
 
@@ -66,6 +71,7 @@ const navigate = useNavigate();
             Submit
           </button>
         </form>
+        <a href="/myaccount">Back to MyAccount</a>
       </div>
     </div>
   );

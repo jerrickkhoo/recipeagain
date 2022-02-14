@@ -1,25 +1,27 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const Login2 = ({setCurrentUser,currentUser}) => {
+const Login2 = (props) => {
   const navigate = useNavigate();
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const input = {
+    const user = {
       email: e.target.email.value,
       password: e.target.password.value,
     };
-    await axios
-      .post("/api/users/login", input)
-      .then((response) => {
-        console.log("response.data.data",response.data.data)
-        setCurrentUser(response?.data?.data);
+
+    await axios.post("/api/users/login", user)
+    .then((response) => {
+        // localStorage.setItem("user", JSON.stringify(response?.data?.data));
+        console.log(response)
+        props.setCurrentUser(response?.data?.data)
+        console.log(props.currentUser)
+
         navigate("/myaccount");
-      })
-      .catch((error) => {
-        //console.log(error.response.data.message);
+    })
+    .catch((error) => {
+        console.log(error.response.data.message);
         alert(error.response.data.message);
     });
 };

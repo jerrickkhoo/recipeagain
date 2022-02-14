@@ -6,36 +6,41 @@ import { useNavigate } from "react-router-dom";
 const MyAccount = ({ setCurrentUser, currentUser }) => {
   const navigate = useNavigate();
 
+  // const user = JSON.parse(localStorage.getItem('user'));
+  // console.log(user)
+  
   useEffect(() => {
     const fetchUser = async () => {
       const fetchedUser = await axios.get(
         `/api/users/${currentUser?._id}`
-      );
-    };
-    fetchUser();
-  }, [currentUser?._id]);
+        );
+      };
+      fetchUser();
+    }, [currentUser?._id]);
 
   const handleLogOut = async (e) => {
-    e.preventDefault()
-    await axios.post('/api/users/logout')
-    setCurrentUser({})
-    navigate('/login')
-  }
+    e.preventDefault();
+    await axios.post("/api/users/logout");
+    // localStorage.removeItem("user");
+    setCurrentUser('');
+    navigate("/login");
+  };
 
   const handleDelete = async (e) => {
     e.preventDefault();
     await axios.delete(`/api/users/${currentUser?._id}`);
-    alert('Account deleted')
+    alert("Account deleted");
     navigate("/login");
   };
 
   const handleEdit = () => {
-    navigate('/edit')
-  }
+    navigate("/edit");
+  };
 
   const handleNewRecipe = () => {
-    navigate('/NewRecipe')
-  }
+    navigate("/NewRecipe");
+  };
+
 
   return (
     <div>

@@ -45,7 +45,7 @@ app.use(
   //* ROUTES MIDDLEWARE
   app.use('/api/users', userController)
   app.use("/api/recipes", recipeController);
-  // app.use('/api/ratings', ratingController)
+  app.use('/api/ratings', ratingController)
   // app.use('/api/comments', commentController)
  
 app.get("/*", (req, res) => {

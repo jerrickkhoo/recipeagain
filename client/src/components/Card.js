@@ -19,7 +19,6 @@ const Card = ({currentUser}) => {
     fetchCurrentRecipe()
   }, [])
 
-
   const ingredients = currentRecipe?.ingredients?.map((item, index) => {
     return (
       <ul className="unorderedList" key={index}>
@@ -76,7 +75,7 @@ const Card = ({currentUser}) => {
         {/* <AddToFavoriteBttn recipeID={recipeID} currentUser={currentUser} /> */}
         <h2>Ingredients:</h2>{ingredients}
         <h2>Steps:</h2>{steps}
-        <RatingButton />
+        <RatingButton currentUser={currentUser} recipeID={recipeID} />
 
         {/* <h3>Comments</h3>
         {comments} */}
