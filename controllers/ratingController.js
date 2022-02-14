@@ -5,16 +5,27 @@ const Recipe = require("../models/recipes.js");
 const User = require("../models/users.js");
 
 //!create
+//TODO extra: validation
 router.post("/new", async (req, res) => {
-  console.log(req.body);
-  const userId = req.body?.userId;
+  console.log("calling new",req.body);
+  const userId = req.body?.recipeId;
   const recipeId = req.body?.recipeId;
+  const rating = req.body?.rating;
+
   try {
     const newRating = await Rating.create({
       userId: userId,
       recipeId: recipeId,
-      rating: req.body.rating,
+      rating: rating,
     });
+
+    const updatedRecipe = await Recipe.findByIdAndUpdate(
+      recipeId,
+      { "$push": { ratings: newRating._id } },
+      { new: true,"upsert": true }
+    ).populate('ratings','rating');
+    console.log(updatedRecipe)
+    
     res.status(200).json({
       status: "ok",
       message: "rating successfully created",
@@ -45,12 +56,16 @@ router.delete("/:id", async (req, res) => {
 
 //!update
 router.put("/", async (req, res) => {
-  console.log("req body", req.body)
+  console.log("req body", req.body);
   const { id, rating } = req.body;
   try {
-    const editedRating = await Rating.findByIdAndUpdate(id, {rating:rating}, {
-      new: true,
-    });
+    const editedRating = await Rating.findByIdAndUpdate(
+      id,
+      { rating: rating },
+      {
+        new: true,
+      }
+    );
     res.status(200).json({
       status: "ok",
       message: "update rating route is working",
@@ -69,7 +84,7 @@ router.put("/", async (req, res) => {
 router.post("/", async (req, res) => {
   const userId = req.body?.userId;
   const recipeId = req.body?.recipeId;
-  console.log(req.body);
+  // console.log(req.body);
   try {
     const foundRating = await Rating.findOne({
       userId: userId,
@@ -82,7 +97,7 @@ router.post("/", async (req, res) => {
         message: "rating successfully found",
         data: foundRating,
       });
-    }else{
+    } else {
       res.status(400).json({
         status: "not ok",
         message: "rating not found",
