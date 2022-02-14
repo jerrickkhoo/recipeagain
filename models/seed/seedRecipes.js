@@ -49,50 +49,49 @@ const seed_recipes = [
         //comments: [],//array of comment id which is referred to comment schema, use populate later
         tags: ["main", "30min", "starter"],
     },
-    // {
-    //     name: "Roasted Asparagus",
-    //     //author:"",
-    //     ingredients: [
-    //         {
-    //             quantity: 1,
-    //             units: "lb",
-    //             name: " asparagus",
-    //             type: "Produce",
-    //         },
-    //         {
-    //             quantity: 1.5,
-    //             units:"tbsp",
-    //             name: "olive oil",
-    //             type: "Condiments",
-    //         },
-    //         {
-    //             quantity: 0.5,
-    //             units:'tsp',
-    //             name: "kosher salt",
-    //             type: "Baking",
-    //         },
-    //     ],
-    //     steps: [
-    //         "Preheat oven to 425°F.",
-    //         "Cut off the woody bottom part of the asparagus spears and discard.",
-    //         'With a vegetable peeler, peel off the skin on the bottom 2-3 inches of the spears (this keeps the asparagus from being all.",string.", and if you eat asparagus you know what I mean by that).',
-    //         "Place asparagus on foil-lined baking sheet and drizzle with olive oil.",
-    //         "Sprinkle with salt.",
-    //         "With your hands, roll the asparagus around until they are evenly coated with oil and salt.",
-    //         "Roast for 10-15 minutes, depending on the thickness of your stalks and how tender you like them.",
-    //         "They should be tender when pierced with the tip of a knife.",
-    //         "The tips of the spears will get very brown but watch them to prevent burning.",
-    //         "They are great plain, but sometimes I serve them with a light vinaigrette if we need something acidic to balance out our meal.",
-    //     ],
-    //     duration: 10,
-    //     image:
-    //         "http://img.sndimg.com/food/image/upload/w_266/v1/img/recipes/50/84/7/picMcSyVd.jpg",
-    //     description: "a brief decription of the recipe",
-    //     servings: 4,
-    //     //comments: ["commentID1","commentID2"],
-    //     tags: ["main", "30min", "starter"],
-    // },
-
+    {
+        name: "Roasted Asparagus",
+        //author:"",
+        ingredients: [
+            {
+                quantity: 1,
+                units: "lb",
+                name: " asparagus",
+                type: "Produce",
+            },
+            {
+                quantity: 1.5,
+                units:"tbsp",
+                name: "olive oil",
+                type: "Condiments",
+            },
+            {
+                quantity: 0.5,
+                units:'tsp',
+                name: "kosher salt",
+                type: "Baking",
+            },
+        ],
+        steps: [
+            "Preheat oven to 425°F.",
+            "Cut off the woody bottom part of the asparagus spears and discard.",
+            'With a vegetable peeler, peel off the skin on the bottom 2-3 inches of the spears (this keeps the asparagus from being all.",string.", and if you eat asparagus you know what I mean by that).',
+            "Place asparagus on foil-lined baking sheet and drizzle with olive oil.",
+            "Sprinkle with salt.",
+            "With your hands, roll the asparagus around until they are evenly coated with oil and salt.",
+            "Roast for 10-15 minutes, depending on the thickness of your stalks and how tender you like them.",
+            "They should be tender when pierced with the tip of a knife.",
+            "The tips of the spears will get very brown but watch them to prevent burning.",
+            "They are great plain, but sometimes I serve them with a light vinaigrette if we need something acidic to balance out our meal.",
+        ],
+        duration: 10,
+        image:
+            "http://img.sndimg.com/food/image/upload/w_266/v1/img/recipes/50/84/7/picMcSyVd.jpg",
+        description: "a brief decription of the recipe",
+        servings: 4,
+        //comments: ["commentID1","commentID2"],
+        tags: ["main", "30min", "starter"],
+    },
     // {
     //     name: "Curried Lentils and Rice",
     //     //author: "",

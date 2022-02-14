@@ -3,14 +3,13 @@ const mongoose = require("mongoose");
 const recipeSchema = new mongoose.Schema({
     name: { 
         type: String, 
-        unique: true, 
-        required: true 
+        required: true,
     },
-    author: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User"
-    }
-    ,
+    // author: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: "User"
+    // }
+    // ,
     description: {
         type: String, 
     },
@@ -32,9 +31,13 @@ const recipeSchema = new mongoose.Schema({
     },
     // comments: {
     //     type: mongoose.Schema.Types.ObjectId,
-    //     //ref: 'Comment' //TODO: refer to comment schema
+    //     //ref: 'Comment' //TODO: refer to comment schema and filter for commentID that corresponds to recipeID
     // },
-    tags: [String]
+    tags: [String],
+    rating: {
+        type: Number,
+        default: 0
+    }
 }, {timeStamp: true});
 
 module.exports = mongoose.model("Recipe", recipeSchema);
