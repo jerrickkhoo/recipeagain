@@ -105,12 +105,12 @@ router.get('/:userID',isLoggedIn, async (req, res) => {
 //UPDATE a user credentials
 router.put('/:userID', isLoggedIn,async (req, res) => {
   const { userID } = req.params
-  console.log(req.body)
+  //console.log(req.body)
   try {
     const updatedUser = await User.findOneAndUpdate({ email: userID }, {
       username: req.body.username,
       email: req.body.email,
-      password: req.body.password,
+      password: bcrypt.hashSync(req.body.password,bcrypt.genSaltSync(10)), //FIXME: hash
       favourites: req.body.favourites, //FIXME: favourites array does not array properly 
       //$$addToSet: {favorites: [req.body.favorites]},
     },

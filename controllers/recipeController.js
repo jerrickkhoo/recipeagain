@@ -3,17 +3,15 @@ const router = express.Router();
 const Recipe = require("../models/recipes.js");
 const seedRecipes = require("../models/seed/seedRecipes")
 
+//MIDDLEWARE
+const isLoggedIn = (req,res,next)=>{
+  if (req.session.currentUser){
+    return next()
+  } else {
+    res.redirect("/login")
+  }
+}
 
-//  MIDDLEWARE
-// const isLoggedIn = (req,res,next)=>{
-//   if (req.session.currentUser){
-//     return next()
-//   } else {
-//     res.redirect("/login")
-//   }
-// }
-
-//READ all recipes
 //to seed recipes
 
 router.get("/seedRecipe", async (req, res) => {
@@ -25,6 +23,8 @@ router.get("/seedRecipe", async (req, res) => {
     res.status(400).json({ status: "not ok", message: "fail to create seed recipes ", error: error });
   };
 });
+
+//READ all recipe
 
 // router.post("/",isLoggedIn,  async (req, res) => {
 //   try {
