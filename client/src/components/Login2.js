@@ -14,7 +14,10 @@ const handleSubmit = async (e) => {
     password: e.target.password.value,
   };
   console.log(props.user)
-  await axios.post("/api/users/login", user);
+  const foundUser = await axios.post("/api/users/login", user);
+  if (foundUser ==={}){
+    //TODO: add validate if foundUser is not found, pop a warning message
+  }
   props.setUser(e.target.email.value)
   navigate('/myaccount');
 };
