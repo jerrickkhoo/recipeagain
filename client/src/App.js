@@ -13,6 +13,7 @@ import AllCards from "./components/AllCards";
 import SearchResults from "./components/SearchResults";
 import Search from "./components/Search";
 import Edit from './components/Edit'
+import NewRecipe from "./components/NewRecipe";
 import { set } from "mongoose";
 
 export const AppContext = createContext();
@@ -68,13 +69,11 @@ function App() {
           <Route path="/join" element={<Join />} />
           <Route path="/searchrecipe/" element={<AllCards />} />
           <Route path="/recipe/:id" element={<Card />} />
+          <Route path="/newrecipe/" element={<NewRecipe />} />
           <Route
             path="/edit"
             element={
-              <Edit
-                currentUser={currentUser}
-                setCurrentUser={setCurrentUser}
-              />
+              <Edit currentUser={currentUser} setCurrentUser={setCurrentUser} />
             }
           />
           {/* <Route
@@ -92,7 +91,12 @@ function App() {
           />
           <Route
             path="/login"
-            element={<Login2 currentUser={currentUser} setCurrentUser={setCurrentUser} />}
+            element={
+              <Login2
+                currentUser={currentUser}
+                setCurrentUser={setCurrentUser}
+              />
+            }
           />
           <Route
             path="/search"

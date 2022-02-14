@@ -15,11 +15,11 @@ const MyAccount = (props) => {
   useEffect(() => {
     const fetchUser = async () => {
       const fetchedUser = await axios.get(
-        `/api/users/${props?.currentUser?.email}`
+        `/api/users/${props?.currentUser?._id}`
       );
     };
     fetchUser();
-  }, [props?.currentUser?.email]);
+  }, [props?.currentUser?._id]);
   
  
 
@@ -39,6 +39,10 @@ const handleDelete = async (e) => {
 
 const handleEdit = () => {
   navigate('/edit')
+}
+
+const handleNewRecipe = () => {
+  navigate('/NewRecipe')
 }
 
   return (
@@ -72,6 +76,15 @@ const handleEdit = () => {
         >
           <button class="ui button" type="submit">
             Delete Account
+          </button>
+        </form>
+        <form
+          class="ui form"
+          onSubmit={handleNewRecipe}
+          style={{ paddingTop: "50px" }}
+        >
+          <button class="ui button" type="submit">
+            New Recipe
           </button>
         </form>
       </div>
