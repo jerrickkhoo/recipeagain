@@ -14,12 +14,12 @@ import AllCards from "./components/AllCards";
 import SearchResults from "./components/SearchResults";
 import Search from "./components/Search";
 import Edit from './components/Edit'
-import NewRecipe from "./components/NewRecipe";
+import NewRecipe from './components/NewRecipe'
 import { set } from "mongoose";
 
 
-export const AppContext = createContext();
 
+export const AppContext = createContext();
 function App() {
   const [searchQuery, setSearchQuery] = useState("");
   const [currentUser, setCurrentUser] = useState({});
@@ -45,7 +45,7 @@ function App() {
   }
 
   function handleAccount() {
-    if (currentUser === "") {
+    if (currentUser === {}) {
       navigate("/login");
     } else {
       navigate("/myaccount");
@@ -79,6 +79,7 @@ function App() {
           <Route path="/searchrecipe/" element={<AllCards />} />
           <Route path="/recipe/:id" element={<Card />} />
           <Route path="/newrecipe/" element={<NewRecipe />} />
+          <Route path="/recipes/:recipeID" element={<RecipeShowPage currentUser={currentUser}/>} />
           <Route
             path="/edit"
             element={

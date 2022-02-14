@@ -2,12 +2,15 @@ import { useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+
 const MyAccount = ({ setCurrentUser, currentUser }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUser = async () => {
-      const fetchedUser = await axios.get(`/api/users/${currentUser?._id}`);
+      const fetchedUser = await axios.get(
+        `/api/users/${currentUser?._id}`
+      );
     };
     fetchUser();
   }, [currentUser?._id]);
@@ -33,6 +36,7 @@ const MyAccount = ({ setCurrentUser, currentUser }) => {
   const handleNewRecipe = () => {
     navigate("/NewRecipe");
   };
+
 
   return (
     <div>

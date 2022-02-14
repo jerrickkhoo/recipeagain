@@ -83,7 +83,7 @@ router.post("/login", async (req, res) => {
 }
 );
 
-router.post("/logout",isLoggedIn,(req, res) => {
+router.post("/logout",(req, res) => {
   req.session.destroy((err) => { 
     if (err){
       res.status(400).json({ status: "not ok", message: "logout was unsuccessful", error: error })
@@ -127,7 +127,6 @@ router.put('/:userID', isLoggedIn,async (req, res) => {
 //UPDATE user add a favourite
 router.put('/:userID/addFavorite',async (req, res) => {
   const { userID } = req.params
-  console.log(req.body)
   try {
     const updatedUser = await User.findByIdAndUpdate(userID , {
       $addToSet: {favorites: [req.body.recipeID]},
@@ -142,7 +141,6 @@ router.put('/:userID/addFavorite',async (req, res) => {
 //UPDATE user remove a favourite
 router.put('/:userID/removeFavorite',async (req, res) => {
   const { userID } = req.params
-  console.log(req.body)
   try {
     const updatedUser = await User.findByIdAndUpdate(userID , {
       $pull: {favorites: req.body.recipeID},
