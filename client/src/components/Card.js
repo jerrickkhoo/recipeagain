@@ -3,6 +3,7 @@ import seed from "./models/seed_recipes";
 import { useState } from "react";
 import { useParams } from "react-router";
 import "./Card.css";
+import RatingButton from "./Rating";
 
 const Card = () => {
   const params = useParams();
@@ -55,6 +56,7 @@ const Card = () => {
         />
         <div className="headerText">
           <h1 id="cardName">{recipe?.name}</h1>
+          
           <h2 id="cardDescription">{recipe?.description}</h2>
           <h2>Servings: {recipe?.servings}</h2>
         </div>
@@ -64,6 +66,7 @@ const Card = () => {
         {ingredients}
         <h2>Steps:</h2>
         {steps}
+        <RatingButton />
         <h3>Comments</h3>
         {comments}
       </div>
