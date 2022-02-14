@@ -127,7 +127,6 @@ router.put('/:userID', isLoggedIn,async (req, res) => {
 //UPDATE user add a favourite
 router.put('/:userID/addFavorite',async (req, res) => {
   const { userID } = req.params
-  console.log(req.body)
   try {
     const updatedUser = await User.findByIdAndUpdate(userID , {
       $addToSet: {favorites: [req.body.recipeID]},
@@ -142,7 +141,6 @@ router.put('/:userID/addFavorite',async (req, res) => {
 //UPDATE user remove a favourite
 router.put('/:userID/removeFavorite',async (req, res) => {
   const { userID } = req.params
-  console.log(req.body)
   try {
     const updatedUser = await User.findByIdAndUpdate(userID , {
       $pull: {favorites: req.body.recipeID},
