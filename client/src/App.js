@@ -22,7 +22,7 @@ import { set } from "mongoose";
 export const AppContext = createContext();
 function App() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [currentUser, setCurrentUser] = useState({});
+  const [currentUser, setCurrentUser] = useState('');
 
 
 
@@ -45,7 +45,7 @@ function App() {
   }
 
   function handleAccount() {
-    if (currentUser === {}) {
+    if (currentUser === '') {
       navigate("/login");
     } else {
       navigate("/myaccount");

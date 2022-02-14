@@ -59,7 +59,7 @@ const navigate = useNavigate();
               type="password"
               name="password"
               placeholder="Please enter new password"
-            required
+              required
             />
           </div>
 
@@ -67,6 +67,7 @@ const navigate = useNavigate();
             Submit
           </button>
         </form>
+        <a href="/myaccount">Back to MyAccount</a>
       </div>
     </div>
   );

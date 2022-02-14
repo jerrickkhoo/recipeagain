@@ -18,7 +18,7 @@ const MyAccount = ({ setCurrentUser, currentUser }) => {
   const handleLogOut = async (e) => {
     e.preventDefault();
     await axios.post("/api/users/logout");
-    setCurrentUser({});
+    setCurrentUser('');
     navigate("/login");
   };
 
