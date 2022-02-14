@@ -5,11 +5,12 @@ const recipeSchema = new mongoose.Schema({
         type: String, 
         required: true,
     },
-    // author: {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: "User"
-    // }
-    // ,
+    author: {
+        type: String //this will be userID gotten from res.session.currentUser
+        //type: mongoose.Schema.Types.ObjectId,
+        //ref: "User"
+    }
+    ,
     description: {
         type: String, 
     },

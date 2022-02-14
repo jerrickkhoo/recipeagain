@@ -18,6 +18,7 @@ const Login2 = (props) => {
         props.setCurrentUser(response?.data?.data);
         console.log(props.currentUser)
         navigate("/myaccount");
+        //setCurrentUser(response.data.data)
       })
       .catch((error) => {
         console.log(error.response.data.message);

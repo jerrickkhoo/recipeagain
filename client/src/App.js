@@ -3,7 +3,7 @@ import "./App.css";
 import { useNavigate } from "react-router";
 import { useState, useEffect, createContext } from "react";
 import Home from "./components/Home";
-import Card from "./components/Card";
+import RecipeShowPage from "./pages/RecipeShowPage";
 import Favourites from "./components/Favourites";
 import Join from "./components/Join";
 import MyAccount from "./components/MyAccount";
@@ -13,7 +13,7 @@ import AllCards from "./components/AllCards";
 import SearchResults from "./components/SearchResults";
 import Search from "./components/Search";
 import Edit from './components/Edit'
-import { set } from "mongoose";
+
 
 export const AppContext = createContext();
 
@@ -67,7 +67,7 @@ function App() {
           <Route path="/favourites" element={<Favourites />} />
           <Route path="/join" element={<Join />} />
           <Route path="/searchrecipe/" element={<AllCards />} />
-          <Route path="/recipe/:id" element={<Card />} />
+          <Route path="/recipes/:recipeID" element={<RecipeShowPage currentUser={currentUser}/>} />
           <Route
             path="/edit"
             element={
