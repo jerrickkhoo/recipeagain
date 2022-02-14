@@ -4,13 +4,11 @@ import { useNavigate } from "react-router-dom";
 
 
 
-const MyAccount = (props) => {
+const MyAccount = ({props}) => {
   const navigate = useNavigate();
   
   let currentUser = props.currentUser;
 
-  
-  // console.log(currentUser)
   console.log(currentUser)
   useEffect(() => {
     const fetchUser = async () => {
@@ -21,7 +19,6 @@ const MyAccount = (props) => {
     fetchUser();
   }, [props?.currentUser?._id]);
   
- 
 
   const handleLogOut = async (e) => {
   e.preventDefault()
