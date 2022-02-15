@@ -2,10 +2,9 @@ import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-const RecipeEditPage = () => {
+const RecipeEditPage = (currentUser) => {
   const navigate = useNavigate();
   const {recipeID} = useParams()
-  //const [currentRecipe, setCurrentRecipe] = useState({})
 
   const [newRecipe, setNewRecipe] = useState({
     name: '',
@@ -19,10 +18,11 @@ const RecipeEditPage = () => {
   const [ingreArr, setIngreArr] = useState([{ name: '', units: '', quantity: 1, type: '' }])
   const [stepArr, setStepArr] = useState([''])
 
-
+  //Fetch currentRecipe and pre populate form
   const fetchCurrentRecipe = async () => {
     const foundRecipeObj = await axios.get(`/api/recipes/${recipeID}`)
     const existingRecipe =  foundRecipeObj.data.data
+    //TODO: add security check if (existingRecipe.author === currentUser.currentUser._id) else alert and navigate home
     setNewRecipe({
         name: existingRecipe.name,
         description: existingRecipe.description,
@@ -32,14 +32,13 @@ const RecipeEditPage = () => {
         tags: existingRecipe.tags.join(", "),
     })
     console.log('foundRecipe.data.data.ingredients',foundRecipeObj.data.data.ingredients)
-    setIngreArr([...ingreArr,foundRecipeObj.data.data.ingredients])
-    // setStepArr([
-
-    // ])
+    setIngreArr(foundRecipeObj.data.data.ingredients)
+    setStepArr(foundRecipeObj.data.data.steps)
   }
   useEffect(() => {
     fetchCurrentRecipe()
   }, [])
+
 
   const handleChange = (e) => {
     setNewRecipe({
@@ -47,7 +46,6 @@ const RecipeEditPage = () => {
       [e.target.name]: e.target.value
     })
   }
-
   const handleChangeIngre = (e, i) => {
     const { name, value } = e.target
     const list = [...ingreArr] //make copy because we cant mutate state directly
@@ -108,17 +106,15 @@ const RecipeEditPage = () => {
       </div>
     )
   })
-  //console.log("ingreArr", ingreArr)
-  // console.log("newRecipe", newRecipe)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const updatedRecipe = await axios.put("/api/recipes/new", {
+      const updatedRecipe = await axios.put(`/api/recipes/${recipeID}`, {
         name: newRecipe.name,
-        author:  '',//TODO: get currentUser.id
+        //author:  '',//dont need to update author because it is unchanged, by right only author can edit
         description: newRecipe.description,
-        ingredients: ingreArr, //FIXME:
+        ingredients: ingreArr, 
         steps: stepArr,
         image: newRecipe.image,
         servings: parseInt(newRecipe.servings),
@@ -127,7 +123,7 @@ const RecipeEditPage = () => {
       });
       alert("Recipe updated.");
       console.log("updatedRecipe",updatedRecipe)
-      navigate('/'); //TODO: direct to recipe show page put recipe ID in path
+      navigate(`/recipes/${recipeID}`)
     } catch (error) {
       console.log(error)
     }
