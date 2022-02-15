@@ -60,8 +60,8 @@ function App() {
       return isLoggedIn ? children : <Navigate to={redirectTo} />
   }
   
-  console.log('app',allRecipes)
-
+  //console.log('allRecipes',allRecipes)
+  console.log('currentUser',currentUser)
   return (
     <>
       <div>
@@ -70,7 +70,7 @@ function App() {
             <Link className="item" to="/">
               <i class="home icon"></i>
             </Link>
-            <Link className="item" to="/favourites">
+            <Link className="item" to="/favorites">
               <i class="heart icon"></i>
             </Link>
             <div className="item" style={{ cursor: "pointer" }}>
