@@ -70,8 +70,7 @@ const Home = ({allRecipes, setAllRecipes}) => {
 
   return (
     <div className="home" style={{ padding: "100px 0px" }}>
-      <h1>Popular</h1>
-      <Link to={"/recipes/new"}>Create a New Recipe</Link>
+      <h1>Featured</h1>
       <div className="randomCards">{randomCards}</div>
     </div>
   );
