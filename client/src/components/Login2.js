@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const Login2 = ({setCurrentUser, currentUser, setIsLoggedIn}) => {
+const Login2 = ({currentUser, setCurrentUser, setIsLoggedIn}) => {
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -14,11 +14,10 @@ const Login2 = ({setCurrentUser, currentUser, setIsLoggedIn}) => {
     await axios.post("/api/users/login", user)
     .then((response) => {
         // localStorage.setItem("user", JSON.stringify(response?.data?.data));
-        console.log(response)
+        // console.log(response)
         setCurrentUser(response?.data?.data)
         setIsLoggedIn(true)
-        console.log(currentUser)
-
+        // console.log(currentUser)
         navigate("/myaccount");
     })
     .catch((error) => {

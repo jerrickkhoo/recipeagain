@@ -1,9 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const Comment = require("../models/comments.js");
-const Recipe = require("../models/recipes.js");
-const User = require("../models/users.js");
-const Reply = require("../models/replies.js");
 
 //!create
 router.post("/new", async (req, res) => {
@@ -15,10 +12,11 @@ router.post("/new", async (req, res) => {
       recipeId: recipeId,
       comment: req.body.comment,
     });
-
+    const populatedComment = await Comment.findById(newComment._id).populate("userId","username")
     res.status(200).json({
       status: "ok",
       message: "comment successfully created",
+      data:populatedComment
     });
   } catch (error) {
     res.status(400).json({
@@ -71,7 +69,7 @@ router.post("/", async (req, res) => {
   try {
     const foundComment = await Comment.find({
       recipeId: recipeId,
-    })
+    }).populate("userId","username")
     console.log(foundComment);
     let message = "comments retrieved";
     if (!foundComment) {
