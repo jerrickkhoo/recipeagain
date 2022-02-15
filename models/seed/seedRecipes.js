@@ -136,7 +136,7 @@ const seed_recipes = [
         ],
         duration: 40,
         image:
-            "http://dagzhsfg97k4.cloudfront.net/wp-content/uploads/2012/05/lentils3.jpg",
+            "https://www.recipetineats.com/wp-content/uploads/2020/03/Lentil-Soup-6-SQ.jpg",
         
         description: "a brief decription of the recipe",
         servings: 4,
@@ -490,7 +490,7 @@ const seed_recipes = [
         ],
         duration:120,
         image:
-            "http://www.canadianliving.com/img/photos/biz/blueberry-oatmeal-squares5801359401371.jpg",
+            "https://static01.nyt.com/images/2010/01/28/health/28recipehealth_600/28recipehealth_600-articleLarge-v2.jpg",
         description: "a brief decription of the recipe",
         servings: 4,
         //comments: [],

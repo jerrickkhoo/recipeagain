@@ -3,7 +3,7 @@ import "./App.css";
 import { useState, useEffect, createContext } from "react";
 import Home from "./components/Home";
 import RecipeShowPage from "./pages/RecipeShowPage";
-import Favourites from "./components/Favourites";
+import FavoritesPage from "./pages/FavoritesPage";
 import Join from "./components/Join";
 import MyAccount from "./components/MyAccount";
 import Login2 from "./components/Login2";
@@ -78,7 +78,7 @@ function App() {
               <Home allRecipes={allRecipes} setAllRecipes={getAllRecipes} />
             }
           />
-          <Route path="/favourites" element={<Favourites />} />
+          <Route path="/favorites" element={<FavoritesPage currentUser={currentUser}/>} />
           <Route path="/join" element={<Join />} />
           <Route path="/searchrecipe/" element={<AllCards />} />
           <Route path="/recipes/tags/:tagID" element={<TagsPage />} />
