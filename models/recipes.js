@@ -7,7 +7,7 @@ const recipeSchema = new mongoose.Schema({
         unique: true,
     },
     author: {
-        type: String
+        type: mongoose.Schema.Types.ObjectId,ref:'User'
     }
     ,
     description: {
@@ -37,6 +37,6 @@ const recipeSchema = new mongoose.Schema({
     ratings: [{
         type: mongoose.Schema.Types.ObjectId, ref:'Rating'
     }]
-}, {timeStamp: true});
+}, { timestamps: true })
 
 module.exports = mongoose.model("Recipe", recipeSchema);
