@@ -1,32 +1,43 @@
 import axios from "axios"
 import { useState } from "react";
+import { useNavigate } from "react-router";
 
 const AddToFavoriteBttn = ({ recipeID, currentUser })=> {
-    
-    console.log(currentUser)
 
     const [fill, setFill] = useState('none')
-    //get the list of all favourites of the current user
-    const isfavoriteAlr = currentUser.favorites.includes(recipeID)
-    if (isfavoriteAlr){
-        setFill('yellow')
-    }
-   
+    const navigate = useNavigate();
+    let favoriteList = currentUser.favorites
+    let isfavoriteAlr =favoriteList?.includes(recipeID)
+ 
+    if (isfavoriteAlr){setFill('yellow')}
+    
     const handleClickFavorite = async() => {
         console.log('favourite clicked')
+        if (!currentUser){
+            alert('Please login to add to favorites')
+            navigate('/login')
+        }
         if (isfavoriteAlr){
             await axios.put(`/api/${currentUser._id}/addFavorite`, {recipeID: recipeID})
+            setFill('yellow') //FIXME: why 404 calling local host 3000??
         } else {
             await axios.put(`/api/${currentUser._id}/removeFavorite`, {recipeID: recipeID})
+            setFill('none')
         }
-
     }
 
+    const toggleHover =()=>{
+        if (fill==='none'){
+            setFill("yellow")
+        } else setFill('none')
+    }
     return (
         <>
             <h4>Add/Remove Favourite</h4>
             <svg onClick={handleClickFavorite}
                 fill={fill}
+                onMouseEnter={toggleHover}
+                onMouseLeave={toggleHover}
                 height='40px'
                 stroke="currentColor"
                 viewBox="0 0 24 24"

@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import seed from "./models/seed_recipes";
+import seed from "../unusedComponents/models/seed_recipes";
 import { Link } from "react-router-dom";
 import { Rating } from "semantic-ui-react";
 import axios from "axios";
