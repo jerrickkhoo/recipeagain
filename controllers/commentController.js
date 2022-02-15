@@ -71,7 +71,7 @@ router.post("/", async (req, res) => {
   try {
     const foundComment = await Comment.find({
       recipeId: recipeId,
-    })
+    }).populate("userId","username")
     console.log(foundComment);
     let message = "comments retrieved";
     if (!foundComment) {

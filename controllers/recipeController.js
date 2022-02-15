@@ -46,7 +46,7 @@ router.post("/new", async (req, res) => {
 //READ a recipe 
 router.get("/:id", async (req, res) => {
   try {
-    const foundRecipe = await Recipe.findById(req.params.id);
+    const foundRecipe = await Recipe.findById(req.params.id).populate("author","username");
     res.status(200).json({ status: "ok", message: "one recipe fetched ", data: foundRecipe });
   } catch (error) {
     res.status(400).json({ status: "not ok", message: "fail to fetch the requested recipe ", error: error });
