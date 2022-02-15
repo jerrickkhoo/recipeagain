@@ -52,7 +52,8 @@ const Card = ({currentUser, recipeID}) => {
     );
   });
 
-  console.log(currentUser)
+  console.log('currentUser',currentUser)
+  //TODO: check if currentUser.id ===currentRecipe author else do not render link edit
   return (
     <div>
       <div className="cardHeader">
