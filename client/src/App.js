@@ -1,4 +1,4 @@
-import { Route, Routes, Link, Outlet,useNavigate } from "react-router-dom";
+import { Route, Routes, Link, Outlet,useNavigate, Navigate } from "react-router-dom";
 import "./App.css";
 import { useState, useEffect, createContext } from "react";
 import Home from "./components/Home";
@@ -20,6 +20,7 @@ function App() {
   const [searchQuery, setSearchQuery] = useState("");
   const [currentUser, setCurrentUser] = useState('');
   const [allRecipes, setAllRecipes] = useState({});
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
 
   const navigate = useNavigate();
 
@@ -31,6 +32,11 @@ function App() {
     setAllRecipes(recipe);
   };
 
+  const getIsLoggedIn = (status) => {
+    setIsLoggedIn(status)
+  }
+
+  
   function NotFound() {
     useEffect(() => {
       navigate("/");
@@ -42,7 +48,7 @@ function App() {
       </div>
     );
   }
-
+  
   function handleAccount() {
     if (currentUser === '') {
       navigate("/login");
@@ -50,6 +56,11 @@ function App() {
       navigate("/myaccount");
     }
   }
+  const ProtectedRoute = ( {children, redirectTo}) => {
+      return isLoggedIn ? children : <Navigate to={redirectTo} />
+  }
+  
+  console.log('app',allRecipes)
 
   return (
     <>
@@ -81,11 +92,35 @@ function App() {
           <Route path="/favorites" element={<FavoritesPage currentUser={currentUser}/>} />
           <Route path="/join" element={<Join />} />
           <Route path="/searchrecipe/" element={<AllCards />} />
-          <Route path="/recipes/tags/:tagID" element={<TagsPage />} />
-          <Route path="/recipes/new" element={<RecipeCreatePage currentUser={currentUser}/>} />
-          <Route path="/recipes/:recipeID" element={<RecipeShowPage currentUser={currentUser}/>} />
-          <Route path="/recipes/:recipeID/edit" element={<RecipeEditPage currentUser={currentUser}/>} /> 
-          <Route path="/edit" element={<Edit currentUser={currentUser} setCurrentUser={getCurrentUser} />
+          <Route
+            path="/recipes/new"
+            element={
+              <ProtectedRoute redirectTo="/login">
+                <RecipeCreatePage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/recipes/:recipeID"
+            element={<RecipeShowPage currentUser={currentUser} />}
+          />
+          <Route
+            path="/recipes/:recipeID/edit"
+            element={
+              <ProtectedRoute redirectTo="/login">
+                <RecipeEditPage currentUser={currentUser} />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/edit"
+            element={
+              <ProtectedRoute redirectTo="/login">
+                <Edit
+                  currentUser={currentUser}
+                  setCurrentUser={getCurrentUser}
+                />
+              </ProtectedRoute>
             }
           />
           {/* <Route
@@ -95,10 +130,13 @@ function App() {
           <Route
             path="/myaccount"
             element={
-              <MyAccount
-                currentUser={currentUser}
-                setCurrentUser={getCurrentUser}
-              />
+              <ProtectedRoute redirectTo="/login">
+                <MyAccount
+                  currentUser={currentUser}
+                  setCurrentUser={getCurrentUser}
+                  setIsLoggedIn={getIsLoggedIn}
+                />
+              </ProtectedRoute>
             }
           />
           <Route
@@ -107,6 +145,7 @@ function App() {
               <Login2
                 currentUser={currentUser}
                 setCurrentUser={getCurrentUser}
+                setIsLoggedIn={getIsLoggedIn}
               />
             }
           />
@@ -116,11 +155,13 @@ function App() {
               <Search
                 searchQuery={searchQuery}
                 setSearchQuery={setSearchQuery}
+                allRecipes={allRecipes}
+                setAllRecipes={getAllRecipes}
               />
             }
           />
           <Route
-            path="/recipe/search/:search"
+            path="/search/:searchID"
             element={
               <SearchResults
                 searchQuery={searchQuery}

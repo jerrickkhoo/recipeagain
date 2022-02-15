@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const Login2 = (props) => {
+const Login2 = ({setCurrentUser, currentUser, setIsLoggedIn}) => {
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -15,8 +15,10 @@ const Login2 = (props) => {
     .then((response) => {
         // localStorage.setItem("user", JSON.stringify(response?.data?.data));
         console.log(response)
-        props.setCurrentUser(response?.data?.data)
-        console.log(props.currentUser)
+        setCurrentUser(response?.data?.data)
+        setIsLoggedIn(true)
+        console.log(currentUser)
+
         navigate("/myaccount");
     })
     .catch((error) => {

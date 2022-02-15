@@ -76,7 +76,7 @@ const Card = ({currentUser, recipeID}) => {
         <AddToFavoriteBttn recipeID={recipeID} currentUser={currentUser} />
         <h2>Ingredients:</h2>{ingredients}
         <h2>Steps:</h2>{steps}
-        <RatingButton currentUser={currentUser} recipeID={recipeID} />
+        <RatingButton currentUser={currentUser} />
       </div>
     </div>
 

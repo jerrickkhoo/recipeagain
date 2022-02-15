@@ -38,9 +38,13 @@ const Home = ({allRecipes, setAllRecipes}) => {
       //removes duplicates
       indexArray.splice(randomIndex, 1);
     }
-
+    const reducer = (prev,curr,index,array) => prev+curr.rating;
 
   const randomCards = randomRecipeArray.map((item, index) => {
+    let rating = 0;
+    if(item?.ratings){
+      rating = item.ratings.reduce(reducer,0);
+    }
     return (
       <div className="homediv"  key={index}>
         
@@ -54,7 +58,7 @@ const Home = ({allRecipes, setAllRecipes}) => {
               <div className="header">{item?.name}</div>
               <div className="meta">
                 <div>Servings: {item?.servings}</div>
-                <Rating icon="star" defaultRating={item?.rating} maxRating={5} disabled />
+                <Rating icon="star" defaultRating={rating} maxRating={5} disabled />
                 <div>{item?.description}</div>
               </div>
             </div>
@@ -66,8 +70,7 @@ const Home = ({allRecipes, setAllRecipes}) => {
 
   return (
     <div className="home" style={{ padding: "100px 0px" }}>
-      <h1>Popular</h1>
-      <Link to={"/recipes/new"}>Create a New Recipe</Link>
+      <h1>Featured</h1>
       <div className="randomCards">{randomCards}</div>
     </div>
   );
