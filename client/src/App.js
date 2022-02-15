@@ -19,7 +19,7 @@ export const AppContext = createContext();
 function App() {
   const [searchQuery, setSearchQuery] = useState("");
   const [currentUser, setCurrentUser] = useState('');
-  const [allRecipes, setAllRecipes] = useState({});
+  const [allRecipes, setAllRecipes] = useState([{}]);
   const [isLoggedIn, setIsLoggedIn] = useState(false)
 
   const navigate = useNavigate();

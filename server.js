@@ -46,11 +46,11 @@ app.use(
   app.use('/api/users', userController)
   app.use("/api/recipes", recipeController);
   app.use('/api/ratings', ratingController)
-  // app.use('/api/comments', commentController)
+  app.use('/api/comments', commentController)
  
-app.get("/*", (req, res) => {
-  res.sendFile(path.join(__dirname, "./client/build", "index.html"));
-});
+// app.get("/*", (req, res) => {
+//   res.sendFile(path.join(__dirname, "./client/build", "index.html"));
+// });
 
 app.listen(port, () => {
   console.log(`Server is now listening at http://localhost:${port}`);
