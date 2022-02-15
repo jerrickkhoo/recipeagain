@@ -5,7 +5,7 @@ const Recipe = require("../models/recipes.js");
 const User = require("../models/users.js");
 
 //!create
-//TODO extra: validation
+//TODO: extra: validation
 router.post("/new", async (req, res) => {
   console.log("calling new", req.body);
   const userId = req.body?.userId;
@@ -25,7 +25,7 @@ router.post("/new", async (req, res) => {
       { new: true, upsert: true }
     ).populate("ratings", "rating");
     console.log(updatedRecipe);
-
+    
     res.status(200).json({
       status: "ok",
       message: "rating successfully created",

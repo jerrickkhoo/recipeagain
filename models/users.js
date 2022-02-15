@@ -22,7 +22,8 @@ const userSchema = Schema({
     //TODO: add password validation
   },
   favorites:{
-    type:[{ type: String }], //TODO: refer to recipeID in recipe model
+    type:[{ type: mongoose.Schema.Types.ObjectId, ref:'Recipe'
+   }], //TODO: refer to recipeID in recipe model
   }
 }, {timeStamp: true});
 

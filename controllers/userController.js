@@ -56,10 +56,9 @@ router.post("/join", async (req, res) => {
 //Log in log out, this needs to be above other routes that use params
 router.post("/login", async (req, res) => {
   const {email, password } = req.body;
-  //TODO: check email to be in regex xx@xx. and password in right format, else throw error
   try {
     const foundUser = await User.findOne({ email:email });
-    console.log(foundUser)
+    console.log('foundUser',foundUser)
     if (!foundUser) {
       res.status(400).json({ status: "not ok", message: "Email And/Or Password Is Invalid" })
     } else {
@@ -151,6 +150,18 @@ router.put('/:userID/removeFavorite',isLoggedIn,async (req, res) => {
     res.status(400).json({ status: "not ok", message: "fail to remove favorite", error: error });
   }
 })
+
+router.get('/:userID/favorite',async (req,res)=>{
+  const {userID} = req.params
+  try {
+    const favRecipes = await User.findById({_id:userID}).populate('favorites')
+    //console.log('favRecipes',favRecipes)
+    res.status(200).json({ status: "ok", message: "favorite recipes details fetched", data: favRecipes })
+  } catch (error) {
+    res.status(400).json({ status: "not ok", message: "fail to fetch favorite recipes", error: error });
+  }
+  }
+)
 
 //DELETE a user
 router.delete('/:userID', isLoggedIn, async (req, res) => {

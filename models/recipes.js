@@ -36,7 +36,7 @@ const recipeSchema = new mongoose.Schema({
     // },
     tags: [String],
     ratings: [{
-        type: mongoose.Schema.Types.ObjectId,ref:'Rating'
+        type: mongoose.Schema.Types.ObjectId, ref:'Rating'
     }]
 }, {timeStamp: true});
 
