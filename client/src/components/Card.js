@@ -4,6 +4,7 @@ import "./Card.css";
 import RatingButton from "./Rating";
 import axios from "axios";
 import AddToFavoriteBttn from "./addToFavoriteBttn";
+import dayjs from "dayjs";
 
 const Card = ({ currentUser, recipeID }) => {
   //const { recipeID } = useParams();
@@ -63,7 +64,7 @@ const Card = ({ currentUser, recipeID }) => {
         <div className="headerText">
           <h1 id="cardName">{currentRecipe?.name}</h1>
           <h3>Created by {currentRecipe?.author?.username}</h3>
-          <h3>Created at {}</h3>
+          <h3>Created on {dayjs(currentRecipe?.createdAt).format("DD-MMM-YYYY")}</h3>
           <h2 id="cardDescription">{currentRecipe?.description}</h2>
           <h2>Servings: {currentRecipe?.servings}</h2>
         </div>
