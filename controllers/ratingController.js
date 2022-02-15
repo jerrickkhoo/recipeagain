@@ -90,7 +90,7 @@ router.post("/", async (req, res) => {
       userId: userId,
       recipeId: recipeId,
     });
-    console.log(foundRating);
+    // console.log(foundRating);
     let message = "rating found"
     if(!foundRating){
       message ="no rating found for this recipe & user"

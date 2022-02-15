@@ -30,9 +30,9 @@ const recipeSchema = new mongoose.Schema({
     duration:{
         type: Number
     },
-    comments: [{
-        type: mongoose.Schema.Types.ObjectId,ref:'Comment'
-    }],
+    // comments: [{
+    //     type: mongoose.Schema.Types.ObjectId,ref:'Comment'
+    // }],
     tags: [String],
     ratings: [{
         type: mongoose.Schema.Types.ObjectId,ref:'Rating'

@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 
 const ratingSchema = new mongoose.Schema({
-    userId: { type: String, required: true },
-    recipeId: { type: String, required: true },
+    userId: { type: mongoose.Schema.Types.ObjectId, required: true },
+    recipeId: { type: mongoose.Schema.Types.ObjectId, required: true },
     rating:{type:Number, required:true},
 }, {timestamps: true});
 

@@ -3,10 +3,10 @@ const router = express.Router();
 const Comment = require("../models/comments.js");
 const Recipe = require("../models/recipes.js");
 const User = require("../models/users.js");
-const Reply = require("..models/replies.js");
+const Reply = require("../models/replies.js");
 
 //!create
-router.post("/", async (req, res) => {
+router.post("/new", async (req, res) => {
   const userId = req.body?.userId;
   const recipeId = req.body?.recipeId;
   try {
@@ -15,6 +15,7 @@ router.post("/", async (req, res) => {
       recipeId: recipeId,
       comment: req.body.comment,
     });
+
     res.status(200).json({
       status: "ok",
       message: "comment successfully created",
@@ -60,6 +61,33 @@ router.put("/:id", async (req, res) => {
     res.status(400).json({
       status: "not ok",
       message: "failed to update Comment",
+    });
+  }
+});
+
+//!getAllComments
+router.post("/", async (req, res) => {
+  const recipeId = req.body?.recipeId;
+  try {
+    const foundComment = await Comment.find({
+      recipeId: recipeId,
+    })
+    console.log(foundComment);
+    let message = "comments retrieved";
+    if (!foundComment) {
+      message = "no comments";
+    }
+
+    res.status(200).json({
+      status: "ok",
+      message: message,
+      data: foundComment,
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: "not ok",
+      message: "error when finding comments",
+      error: error,
     });
   }
 });
