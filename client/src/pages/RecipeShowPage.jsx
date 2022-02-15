@@ -6,7 +6,7 @@ const RecipeShowPage = ({currentUser}) => {
     return (
         <div>
             <Card currentUser={currentUser}/>
-            {/* <Comment> */}
+            {/* <Comment > */}
         </div>
     );
 };

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import seed from "./models/seed_recipes";
+import seed from "../unusedComponents/models/seed_recipes";
 import { Rating } from "semantic-ui-react";
 import axios from "axios";
 

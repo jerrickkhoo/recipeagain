@@ -94,7 +94,7 @@ const seed_recipes = [
     },
     {
         name: "Curried Lentils and Rice",
-        //author: "",
+        author: "",
         ingredients: [
             {
                 quantity: 1,
