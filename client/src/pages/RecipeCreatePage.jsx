@@ -105,7 +105,7 @@ const RecipeCreatePage = (currentUser) => {
                 tags: newRecipe.tags.split(",").map(tag => tag.trim()),
             })
                 .then((response) => {
-                    console.log("createdRecipe", response.data.data._id)
+                    //console.log("createdRecipe", response.data.data._id)
                     alert("Recipe created!");
                     navigate(`/recipes/${response.data.data._id}`)
                 }

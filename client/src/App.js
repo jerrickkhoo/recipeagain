@@ -13,6 +13,7 @@ import Search from "./components/Search";
 import Edit from './components/Edit'
 import RecipeCreatePage from './pages/RecipeCreatePage'
 import RecipeEditPage from './pages/RecipeEditPage'
+import TagsPage from "./pages/TagsPage";
 
 export const AppContext = createContext();
 function App() {
@@ -80,6 +81,7 @@ function App() {
           <Route path="/favourites" element={<Favourites />} />
           <Route path="/join" element={<Join />} />
           <Route path="/searchrecipe/" element={<AllCards />} />
+          <Route path="/recipes/tags/:tagID" element={<TagsPage />} />
           <Route path="/recipes/new" element={<RecipeCreatePage currentUser={currentUser}/>} />
           <Route path="/recipes/:recipeID" element={<RecipeShowPage currentUser={currentUser}/>} />
           <Route path="/recipes/:recipeID/edit" element={<RecipeEditPage currentUser={currentUser}/>} /> 

@@ -43,7 +43,7 @@ const Home = ({allRecipes, setAllRecipes}) => {
   const randomCards = randomRecipeArray.map((item, index) => {
     return (
       <div className="homediv">
-        <Link to={"/recipes/new"}>Create a New Recipe</Link>
+        
         <Link to={"/recipes/" + item?._id} key={index}>
 
           <div className="ui card">
@@ -67,6 +67,7 @@ const Home = ({allRecipes, setAllRecipes}) => {
   return (
     <div className="home" style={{ padding: "100px 0px" }}>
       <h1>Popular</h1>
+      <Link to={"/recipes/new"}>Create a New Recipe</Link>
       <div className="randomCards">{randomCards}</div>
     </div>
   );
