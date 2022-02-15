@@ -17,19 +17,22 @@ const FavoritesPage = ({ currentUser }) => {
       navigate('/login')
     } else
       fetchFavRecipes()
-  }, [currentUser])
+  }, [currentUser,favRecipes])
 
   console.log('favRecipes', favRecipes)
 
-  const handleClickRvFav=()=>{
-    //post
+  const handleClickRvFav= async (recipeID)=>{
+    console.log('removedrecipeID',recipeID)
+    await axios.put(`/api/users/${currentUser._id}/removeFavorite`, { recipeID: recipeID })
+    setFavRecipes(favRecipes.filter((fav) => fav !== recipeID))
+
   }
   const favArray = favRecipes?.map((fav, i) => {
     return (
       <div key={i}>
         <li>
           <Link to={`/recipes/${fav._id}`}><h4>{fav.name}</h4></Link>
-          <button onClick = {handleClickRvFav}>Remove Favorite</button>
+          <button onClick = {()=>handleClickRvFav(fav._id)}>Remove Favorite</button>
           <p>{fav.description}</p>
           <div>
             <img src={fav.image} alt='' width='500px'></img>
