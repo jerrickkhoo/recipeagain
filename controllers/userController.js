@@ -154,7 +154,11 @@ router.put('/:userID/removeFavorite',isLoggedIn,async (req, res) => {
 router.get('/:userID/favorite',async (req,res)=>{
   const {userID} = req.params
   try {
-    const favRecipes = await User.findById({_id:userID}).populate('favorites')
+    const favRecipes = await User.findById({_id:userID})
+                              .populate({
+                                path:'favorites', 
+                                select: ['name', 'description','image']
+                              })
     //console.log('favRecipes',favRecipes)
     res.status(200).json({ status: "ok", message: "favorite recipes details fetched", data: favRecipes })
   } catch (error) {

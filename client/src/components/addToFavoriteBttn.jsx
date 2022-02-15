@@ -1,18 +1,32 @@
 import axios from "axios"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 
 const AddToFavoriteBttn = ({ recipeID, currentUser }) => {
 
-    const [currFavorites, setCurrFavorites] = useState(currentUser.favorites)
-
-    const [fill, setFill] = useState((currFavorites?.includes(recipeID)) ? 'yellow' : 'none')
-
+    const [currFavorites, setCurrFavorites] = useState([])
+    const [fill, setFill] = useState('')
     const navigate = useNavigate();
-    console.log('currentUser.favorites',currentUser.favorites)
-    // console.log('recipeID',currentUser.favorites.includes(recipeID))
+
+    //TODO:fetch fav recipes of the currentUser to fetch if user if loggedin
+
+    const fetchFavRecipes = async () => {
+        console.log('currentUser', currentUser)
+        const foundFavRecipes = await axios.get(`/api/users/${currentUser._id}/favorite`)
+        //const favRecipeIArr = foundFavRecipes.map(x=>x._id)
+        console.log('foundFavRecipes',foundFavRecipes.data.data.favorites.map(x=>x._id))
+        setCurrFavorites(foundFavRecipes.data.data.favorites.map(x=>x._id))
+        await setFill((currFavorites.includes(recipeID)) ? 'yellow' : 'none')
+      }
+
+    useEffect(()=>{
+        fetchFavRecipes()
+    },[])
+
+    console.log('currFavorites.includes(recipeID)',currFavorites.includes(recipeID))
 
     const handleClickFavorite = async () => {
+        console.log('currentUser',currentUser)
         console.log('favourite clicked')
         if (!currentUser) {
             alert('Please login to add to favorites')
