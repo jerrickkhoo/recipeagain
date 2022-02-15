@@ -4,11 +4,10 @@ const recipeSchema = new mongoose.Schema({
     name: { 
         type: String, 
         required: true,
+        unique: true,
     },
     author: {
-        type: String //this will be userID gotten from res.session.currentUser
-        //type: mongoose.Schema.Types.ObjectId,
-        //ref: "User"
+        type: String
     }
     ,
     description: {
@@ -18,7 +17,7 @@ const recipeSchema = new mongoose.Schema({
     ingredients:[{
         quantity: {type: Number},
         units: {type:String},
-        name:{type:String},
+        name:{type:String, required:true},
         type:{type:String}
     }],
     steps:[String],

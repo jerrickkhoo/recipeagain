@@ -1,8 +1,6 @@
 
 import { useNavigate } from "react-router";
 
-
-
 const Search = (props) => {
   const navigate = useNavigate();
 

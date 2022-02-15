@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import {Link} from 'react-router-dom'
 import "./Card.css";
 import RatingButton from "./Rating";
 import axios from "axios";
@@ -70,7 +71,7 @@ const Card = ({currentUser, recipeID}) => {
       </div>
 
       <div className='cardContent'>
-      <a href={`/recipes/${recipeID}/edit`}>Edit</a>
+      <Link to={`/recipes/${recipeID}/edit`}>Edit</Link>
         <AddToFavoriteBttn recipeID={recipeID} currentUser={currentUser} />
         <h2>Ingredients:</h2>{ingredients}
         <h2>Steps:</h2>{steps}
