@@ -48,7 +48,7 @@ router.post("/join", async (req, res) => {
     //console.log("created user is: ", createdUser);
     res.status(200).json({ status: "ok", message: "user created", data: createdUser });
   } catch (error) {
-    res.status(400).json({ status: "not ok", message: "fail to create user ", error: error });
+    res.status(400).json({ status: "not ok", message: "Failed to create account, kindly check if you are already a member. ", error: error });
   }
 });
 

@@ -20,10 +20,13 @@ const Home = ({allRecipes, setAllRecipes}) => {
       const fetched = await axios.get("/api/recipes");
       console.log(fetched);
       setAllRecipes(fetched?.data?.data);
+      localStorage.setItem("recipes", JSON.stringify(fetched?.data?.data));
     };
     fetchrecipes();
   }, []);
   console.log(allRecipes);
+
+
   
     //arrayOfIndex = [0,1,2,3,4,5,6,7,8]
     for (let i = 0; i < allRecipes.length; i++) {

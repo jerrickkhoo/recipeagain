@@ -12,9 +12,16 @@ const handleSubmit = async (e) => {
     email: e.target.email.value,
     password: e.target.password.value,
   };
-  await axios.post('/api/users/join', newUser)
-  alert('Account created, please log into your account.')
-  navigate(-1,{replace: true})
+  await axios
+    .post("/api/users/join", newUser)
+    .then((response) => {
+     alert("Account created, please log into your account.");
+     navigate(-1, { replace: true });
+    })
+    .catch((error) => {
+      console.log(error.response.data.message);
+      alert(error.response.data.message);
+    });
 }
 
   return (
@@ -24,15 +31,15 @@ const handleSubmit = async (e) => {
       <form class="ui form" onSubmit={handleSubmit}>
         <div class="field">
           <label>Username</label>
-          <input type="text" name="username" placeholder="Username" />
+          <input type="text" name="username" placeholder="Username" required />
         </div>
         <div class="field">
           <label>E-Mail</label>
-          <input type="text" name="email" placeholder="E-Mail" />
+          <input type="text" name="email" placeholder="E-Mail" required />
         </div>
         <div class="field">
           <label>Password</label>
-          <input type="password" name="password" placeholder="Password" />
+          <input type="password" name="password" placeholder="Password" required/>
         </div>
 
         <button class="ui button" type="submit" style={{marginBottom:'20px'}}>
