@@ -13,37 +13,37 @@ const AddToFavoriteBttn = ({ recipeID, currentUser }) => {
     const fetchFavRecipes = async () => {
         console.log('currentUser', currentUser)
         const foundFavRecipes = await axios.get(`/api/users/${currentUser._id}/favorite`)
-        //const favRecipeIArr = foundFavRecipes.map(x=>x._id)
-        console.log('foundFavRecipes',foundFavRecipes.data.data.favorites.map(x=>x._id))
-        setCurrFavorites(foundFavRecipes.data.data.favorites.map(x=>x._id))
-        await setFill((currFavorites.includes(recipeID)) ? 'yellow' : 'none')
-      }
+        const favRecipeIArr = foundFavRecipes.data.data.favorites.map(x => x._id)
+        console.log('foundFavRecipes', favRecipeIArr)
+        setCurrFavorites(favRecipeIArr)
+        setFill((favRecipeIArr.includes(recipeID)) ? 'yellow' : 'none')
+    }
 
-    useEffect(()=>{
+    useEffect(() => {
         fetchFavRecipes()
     },[])
 
-    console.log('currFavorites.includes(recipeID)',currFavorites.includes(recipeID))
+    console.log('currFavorites.includes(recipeID)', currFavorites.includes(recipeID))
 
     const handleClickFavorite = async () => {
-        console.log('currentUser',currentUser)
+        console.log('currentUser', currentUser)
         console.log('favourite clicked')
         if (!currentUser) {
             alert('Please login to add to favorites')
             navigate('/login')
         }
-        console.log('isfavoriteAlr',currFavorites?.includes(recipeID))
+        console.log('isfavoriteAlr', currFavorites?.includes(recipeID))
         if (!currFavorites?.includes(recipeID)) {
             await axios.put(`/api/users/${currentUser._id}/addFavorite`, { recipeID: recipeID })
-                .then(response => { 
-                    setFill('yellow') 
-                    setCurrFavorites([...currFavorites,recipeID])
+                .then(response => {
+                    setFill('yellow')
+                    setCurrFavorites([...currFavorites, recipeID])
                 })
         } else {
             await axios.put(`/api/users/${currentUser._id}/removeFavorite`, { recipeID: recipeID })
                 .then(response => {
                     setFill('none')
-                    setCurrFavorites(currFavorites.filter((fav)=>fav!== recipeID))
+                    setCurrFavorites(currFavorites.filter((fav) => fav !== recipeID))
                 })
         }
     }
