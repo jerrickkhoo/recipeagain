@@ -66,7 +66,7 @@ const Home = ({allRecipes, setAllRecipes}) => {
 
   return (
     <div className="home" style={{ padding: "100px 0px" }}>
-      <h1>Popular</h1>
+      <h1>Featured</h1>
       <div className="randomCards">{randomCards}</div>
     </div>
   );

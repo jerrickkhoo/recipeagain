@@ -6,8 +6,7 @@ import axios from "axios";
 
 const SearchResults = ({ searchQuery, allRecipes }) => {
   const { recipeID } = useParams();
-    const [currentRecipe, setCurrentRecipe] = useState({});
-
+  const [currentRecipe, setCurrentRecipe] = useState({});
 
   let foundRecipes = allRecipes.filter(function (recipe) {
     // return recipe.name.toLowerCase() === searchQuery
@@ -27,19 +26,23 @@ const SearchResults = ({ searchQuery, allRecipes }) => {
     return (
       <div className="homediv">
         <Link to={"/recipes/" + item?._id} key={index}>
-        <div className="ui card">
-          <div className="image">
-            <img src={item?.image} alt={item?.originalURL} />
-          </div>
-          <div className="content" id="homeContent">
-            <div className="header">{item?.name}</div>
-            <div className="meta">
-              <div>Servings: {item?.servings}</div>
-              <Rating icon="star" defaultRating={item?.rating} maxRating={5} />
-              <div>{item?.description}</div>
+          <div className="ui card">
+            <div className="image">
+              <img src={item?.image} alt={item?.originalURL} />
+            </div>
+            <div className="content" id="homeContent">
+              <div className="header">{item?.name}</div>
+              <div className="meta">
+                <div>Servings: {item?.servings}</div>
+                <Rating
+                  icon="star"
+                  defaultRating={item?.rating}
+                  maxRating={5}
+                />
+                <div>{item?.description}</div>
+              </div>
             </div>
           </div>
-        </div>
         </Link>
       </div>
     );

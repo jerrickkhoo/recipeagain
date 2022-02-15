@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 
-const MyAccount = ({ setCurrentUser, currentUser }) => {
+const MyAccount = ({ setCurrentUser, currentUser, setIsLoggedIn }) => {
   const navigate = useNavigate();
 
   // const user = JSON.parse(localStorage.getItem('user'));
@@ -23,6 +23,7 @@ const MyAccount = ({ setCurrentUser, currentUser }) => {
     await axios.post("/api/users/logout");
     // localStorage.removeItem("user");
     setCurrentUser('');
+    setIsLoggedIn(false)
     navigate("/login");
   };
 
@@ -38,7 +39,7 @@ const MyAccount = ({ setCurrentUser, currentUser }) => {
   };
 
   const handleNewRecipe = () => {
-    navigate("/NewRecipe");
+    navigate("/recipes/new");
   };
 
 
