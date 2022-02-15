@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 const FavoritesPage = ({ currentUser }) => {
   const navigate = useNavigate()
   const [favRecipes,setFavRecipes]=useState([])
-g
+
   const fetchFavRecipes =  async ()=>{
         const foundFavRecipes = await axios.get()
         setFavRecipes()
