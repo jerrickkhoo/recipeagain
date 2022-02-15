@@ -2,42 +2,51 @@ import axios from "axios"
 import { useState } from "react";
 import { useNavigate } from "react-router";
 
-const AddToFavoriteBttn = ({ recipeID, currentUser })=> {
+const AddToFavoriteBttn = ({ recipeID, currentUser }) => {
 
-    const [fill, setFill] = useState('none')
+    const [currFavorites, setCurrFavorites] = useState(currentUser.favorites)
+
+    const [fill, setFill] = useState((currFavorites?.includes(recipeID)) ? 'yellow' : 'none')
+
     const navigate = useNavigate();
-    let favoriteList = currentUser.favorites
-    let isfavoriteAlr =favoriteList?.includes(recipeID)
- 
-    if (isfavoriteAlr){setFill('yellow')}
-    
-    const handleClickFavorite = async() => {
+    console.log('currentUser.favorites',currentUser.favorites)
+    // console.log('recipeID',currentUser.favorites.includes(recipeID))
+
+    const handleClickFavorite = async () => {
         console.log('favourite clicked')
-        if (!currentUser){
+        if (!currentUser) {
             alert('Please login to add to favorites')
             navigate('/login')
         }
-        if (isfavoriteAlr){
-            await axios.put(`/api/${currentUser._id}/addFavorite`, {recipeID: recipeID})
-            setFill('yellow') //FIXME: why 404 calling local host 3000??
+        console.log('isfavoriteAlr',currFavorites?.includes(recipeID))
+        if (!currFavorites?.includes(recipeID)) {
+            await axios.put(`/api/users/${currentUser._id}/addFavorite`, { recipeID: recipeID })
+                .then(response => { 
+                    setFill('yellow') 
+                    setCurrFavorites([...currFavorites,recipeID])
+                })
         } else {
-            await axios.put(`/api/${currentUser._id}/removeFavorite`, {recipeID: recipeID})
-            setFill('none')
+            await axios.put(`/api/users/${currentUser._id}/removeFavorite`, { recipeID: recipeID })
+                .then(response => {
+                    setFill('none')
+                    setCurrFavorites(currFavorites.filter((fav)=>fav!== recipeID))
+                })
         }
     }
 
-    const toggleHover =()=>{
-        if (fill==='none'){
+    const toggleHover = () => {
+        if (fill === 'none') {
             setFill("yellow")
         } else setFill('none')
     }
+
     return (
         <>
             <h4>Add/Remove Favourite</h4>
             <svg onClick={handleClickFavorite}
                 fill={fill}
-                onMouseEnter={toggleHover}
-                onMouseLeave={toggleHover}
+                // onMouseEnter={toggleHover}
+                // onMouseLeave={toggleHover}
                 height='40px'
                 stroke="currentColor"
                 viewBox="0 0 24 24"
