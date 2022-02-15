@@ -1,46 +1,56 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const FavoritesPage = ({ currentUser }) => {
   const navigate = useNavigate()
-  const [favRecipes,setFavRecipes]=useState([])
+  const [favRecipes, setFavRecipes] = useState([])
 
-  const fetchFavRecipes =  async ()=>{
-        const foundFavRecipes = await axios.get()
-        setFavRecipes()
+  const fetchFavRecipes = async () => {
+    console.log('currentUser', currentUser)
+    const foundFavRecipes = await axios.get(`/api/users/${currentUser._id}/favorite`)
+    setFavRecipes(foundFavRecipes.data.data.favorites)
   }
 
   useEffect(() => {
-    if (!currentUser || currentUser === {}) {
+    if (!currentUser) {
       navigate('/login')
-    } else 
-    fetchFavRecipes()
+    } else
+      fetchFavRecipes()
+  }, [currentUser])
+
+  console.log('favRecipes', favRecipes)
+
+  const handleClickRvFav=()=>{
+    //post
   }
-  , [currentUser])
-
-  // console.log('currentUser', currentUser.favorites)
-  //const hasFav = (currentUser?.favorites?.length > 0 ? true : false)
-
-
-  const favArray = currentUser.favorites?.map((fav,i) => {
+  const favArray = favRecipes?.map((fav, i) => {
     return (
-      <div>
-        {fav}
+      <div key={i}>
+        <li>
+          <Link to={`/recipes/${fav._id}`}><h4>{fav.name}</h4></Link>
+          <button onClick = {handleClickRvFav}>Remove Favorite</button>
+          <p>{fav.description}</p>
+          <div>
+            <img src={fav.image} alt='' width='500px'></img>
+          </div>
+        </li><br /><br />
       </div>
     )
   })
+
+
+
   return (
     <div>
       <h1>Hello {currentUser.username?.charAt(0).toUpperCase() + currentUser.username?.slice(1)}!</h1>
-      {(currentUser?.favorites?.length > 0) ?
-      <div>
-        <h2>Below are your Favorite recipes:</h2>
-        {favArray}
-      </div>
+      <h2>Below are your Favorite recipes:</h2>
+      {(favRecipes.length > 0) ?
+        <div>
+          <ol>{favArray}</ol>
+        </div>
         :
-        <h2>You dont have any favorite recipes at the moment</h2>}
-
+        <h2>You do not have any favorite recipes at the moment</h2>}
 
     </div>
   );

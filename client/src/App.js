@@ -19,7 +19,7 @@ export const AppContext = createContext();
 function App() {
   const [searchQuery, setSearchQuery] = useState("");
   const [currentUser, setCurrentUser] = useState('');
-  const [allRecipes, setAllRecipes] = useState({});
+  const [allRecipes, setAllRecipes] = useState([{}]);
   const [isLoggedIn, setIsLoggedIn] = useState(false)
 
   const navigate = useNavigate();
@@ -84,6 +84,7 @@ function App() {
           <Route path="/favorites" element={<FavoritesPage currentUser={currentUser}/>} />
           <Route path="/join" element={<Join />} />
           <Route path="/searchrecipe/" element={<AllCards />} />
+          <Route path="/recipes/tags/tagID" element={<TagsPage />} />
           <Route
             path="/recipes/new"
             element={

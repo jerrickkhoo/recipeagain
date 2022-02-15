@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const seed_recipes = [
     {
         name: "Crock Pot Roast",
-        author: "6209c39d2bf4895ea3f56ba6",
+        author: "",
         ingredients: [
             {
                 quantity: 1,
