@@ -46,9 +46,9 @@ const Home = ({allRecipes, setAllRecipes}) => {
       rating = item.ratings.reduce(reducer,0);
     }
     return (
-      <div className="homediv">
+      <div className="homediv"  key={index}>
         
-        <Link to={"/recipes/" + item?._id} key={index}>
+        <Link to={"/recipes/" + item?._id}>
 
           <div className="ui card">
             <div className="image">
