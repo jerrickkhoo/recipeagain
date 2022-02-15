@@ -7,8 +7,8 @@ const User = require("../models/users.js");
 //!create
 //TODO extra: validation
 router.post("/new", async (req, res) => {
-  console.log("calling new",req.body);
-  const userId = req.body?.recipeId;
+  console.log("calling new", req.body);
+  const userId = req.body?.userId;
   const recipeId = req.body?.recipeId;
   const rating = req.body?.rating;
 
@@ -21,11 +21,11 @@ router.post("/new", async (req, res) => {
 
     const updatedRecipe = await Recipe.findByIdAndUpdate(
       recipeId,
-      { "$push": { ratings: newRating._id } },
-      { new: true,"upsert": true }
-    ).populate('ratings','rating');
-    console.log(updatedRecipe)
-    
+      { $push: { ratings: newRating._id } },
+      { new: true, upsert: true }
+    ).populate("ratings", "rating");
+    console.log(updatedRecipe);
+
     res.status(200).json({
       status: "ok",
       message: "rating successfully created",
@@ -91,19 +91,16 @@ router.post("/", async (req, res) => {
       recipeId: recipeId,
     });
     console.log(foundRating);
-    if (foundRating) {
-      res.status(200).json({
-        status: "ok",
-        message: "rating successfully found",
-        data: foundRating,
-      });
-    } else {
-      res.status(400).json({
-        status: "not ok",
-        message: "rating not found",
-        error: error,
-      });
+    let message = "rating found"
+    if(!foundRating){
+      message ="no rating found for this recipe & user"
     }
+
+    res.status(200).json({
+      status: "ok",
+      message: message,
+      data: foundRating ?? 0,
+    });
   } catch (error) {
     res.status(400).json({
       status: "not ok",

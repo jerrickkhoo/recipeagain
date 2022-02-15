@@ -1,20 +1,22 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from 'react-router-dom';
 import { Rating } from "semantic-ui-react";
 import axios from "axios";
 
 //when recipe is created, we should create the rating as well so the method called here is 'put' for update instead of create
 //now we need to pass in the userId and recipeId
 
-const RatingButton = (props) => {
-  // console.log(props);
+const RatingButton = ({currentUser}) => {
+    // console.log(props);
+  let {recipeID } = useParams();
+  console.log(recipeID);
   const [currRating, setCurrRating] = useState(0);
   const [ratingID, setRatingID] = useState("");
-  const login = true;
 
 //variable name must be rating and maxRating due to semantic UI implmentation
   const handleRate = async (e, { rating, maxRating }) => {
     console.log(rating);
-    if (!login) {
+    if (!currentUser) {
       alert("please login to rate");
     } else {
       if (currRating !== rating) {
@@ -29,8 +31,8 @@ const RatingButton = (props) => {
           const res = await axios
             .post("/api/ratings/new", {
               rating: rating,
-              userId: "1",
-              recipeId: "620a21874ecaa3359f8eaed8",
+              userId: currentUser._id,
+              recipeId: recipeID,
             })
             .catch((err) => console.log(err));
           setCurrRating(rating);
@@ -51,7 +53,7 @@ const RatingButton = (props) => {
         setRatingID(res.data.data._id);
       }
     };
-    getRating(1, 0);
+    getRating(currentUser._id, recipeID);
   }, []);
 
   return (

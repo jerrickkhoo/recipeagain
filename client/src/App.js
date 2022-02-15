@@ -13,6 +13,7 @@ import Search from "./components/Search";
 import Edit from './components/Edit'
 import RecipeCreatePage from './pages/RecipeCreatePage'
 import RecipeEditPage from './pages/RecipeEditPage'
+import TagsPage from "./pages/TagsPage";
 
 export const AppContext = createContext();
 function App() {
@@ -55,7 +56,7 @@ function App() {
       navigate("/myaccount");
     }
   }
-  function ProtectedRoute ( {children, redirectTo}) {
+  const ProtectedRoute = ( {children, redirectTo}) => {
       return isLoggedIn ? children : <Navigate to={redirectTo} />
   }
   
