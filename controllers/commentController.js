@@ -3,6 +3,7 @@ const router = express.Router();
 const Comment = require("../models/comments.js");
 const Recipe = require("../models/recipes.js");
 const User = require("../models/users.js");
+const Reply = require("..models/replies.js");
 
 //!create
 router.post("/", async (req, res) => {

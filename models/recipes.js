@@ -30,10 +30,9 @@ const recipeSchema = new mongoose.Schema({
     duration:{
         type: Number
     },
-    // comments: {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     //ref: 'Comment' //TODO: refer to comment schema and filter for commentID that corresponds to recipeID
-    // },
+    comments: [{
+        type: mongoose.Schema.Types.ObjectId,ref:'Comment'
+    }],
     tags: [String],
     ratings: [{
         type: mongoose.Schema.Types.ObjectId,ref:'Rating'
