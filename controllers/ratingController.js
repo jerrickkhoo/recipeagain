@@ -8,7 +8,7 @@ const User = require("../models/users.js");
 //TODO extra: validation
 router.post("/new", async (req, res) => {
   console.log("calling new",req.body);
-  const userId = req.body?.recipeId;
+  const userId = req.body?.userId;
   const recipeId = req.body?.recipeId;
   const rating = req.body?.rating;
 
