@@ -2,28 +2,29 @@ import { useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-
 const MyAccount = ({ setCurrentUser, currentUser, setIsLoggedIn }) => {
   const navigate = useNavigate();
 
-  // const user = JSON.parse(localStorage.getItem('user'));
-  // console.log(user)
-  
+  console.log(currentUser)
+
   useEffect(() => {
     const fetchUser = async () => {
-      const fetchedUser = await axios.get(
-        `/api/users/${currentUser?._id}`
-        );
-      };
-      fetchUser();
-    }, [currentUser?._id]);
+      const fetchedUser = await axios.get(`/api/users/${currentUser?._id}`);
+      // sessionStorage.setItem("user", JSON.stringify(fetchedUser?.data?.data));
+      console.log(fetchedUser)
+    };
+    fetchUser();
+  }, [currentUser?._id]);
+  
+  // const user = JSON.parse(sessionStorage.getItem('user'))
+  // console.log(user)
 
   const handleLogOut = async (e) => {
     e.preventDefault();
     await axios.post("/api/users/logout");
-    // localStorage.removeItem("user");
-    setCurrentUser('');
-    setIsLoggedIn(false)
+    localStorage.removeItem("user");
+    setCurrentUser("");
+    setIsLoggedIn(false);
     navigate("/login");
   };
 
@@ -41,7 +42,6 @@ const MyAccount = ({ setCurrentUser, currentUser, setIsLoggedIn }) => {
   const handleNewRecipe = () => {
     navigate("/recipes/new");
   };
-
 
   return (
     <div>

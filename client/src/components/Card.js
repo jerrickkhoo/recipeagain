@@ -54,8 +54,14 @@ const Card = ({ currentUser, recipeID }) => {
       </ol>
     );
   });
-  console.log(currentRecipe);
-  console.log("currentUser", currentUser);
+
+  const tags = currentRecipe?.tags?.map((item, index) => {
+    return (
+      <h2><Link to={`/tags/${item}`}>{item}</Link></h2>
+    )
+  });
+
+  console.log('currentUser',currentUser)
   //TODO: check if currentUser.id ===currentRecipe author else do not render link edit
   return (
     <div>
@@ -78,6 +84,8 @@ const Card = ({ currentUser, recipeID }) => {
         <h2>Steps:</h2>
         {steps}
         <RatingButton currentUser={currentUser} />
+        <h2>Want more? See our related tags below</h2>
+        {tags}
       </div>
     </div>
   );

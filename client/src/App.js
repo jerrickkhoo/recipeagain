@@ -49,13 +49,6 @@ function App() {
     );
   }
   
-  function handleAccount() {
-    if (currentUser === '') {
-      navigate("/login");
-    } else {
-      navigate("/myaccount");
-    }
-  }
   const ProtectedRoute = ( {children, redirectTo}) => {
       return isLoggedIn ? children : <Navigate to={redirectTo} />
   }
@@ -73,10 +66,9 @@ function App() {
             <Link className="item" to="/favorites">
               <i class="heart icon"></i>
             </Link>
-            <div className="item" style={{ cursor: "pointer" }}>
-              <i className="user outline icon" onClick={handleAccount}></i>
-            </div>
-            {/* </Link> */}
+            <Link className="item" to="/myaccount">
+              <i className="user outline icon" ></i>
+            </Link>
             <Link className="item" to="/search">
               <i class="search icon"></i>
             </Link>
@@ -172,6 +164,7 @@ function App() {
               />
             }
           />
+          <Route path='/tags/:tagID' element={<TagsPage />}/>
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
