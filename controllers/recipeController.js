@@ -26,7 +26,7 @@ router.get("/seedRecipe", async (req, res) => {
 //READ all recipes
 router.get("/", async (req, res) => {
   try {
-    const allRecipes = await Recipe.find({})
+    const allRecipes = await Recipe.find({}).populate('ratings','rating');
     res.status(200).json({ status: "ok", message: "all recipes fetched", data: allRecipes });
   } catch (error) {
     res.status(400).json({ status: "not ok", message: "fail to fetch all recipes ", error: error });
