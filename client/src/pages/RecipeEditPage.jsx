@@ -1,16 +1,16 @@
-import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const RecipeEditPage = () => {
   const navigate = useNavigate();
   const {recipeID} = useParams()
+  //const [currentRecipe, setCurrentRecipe] = useState({})
 
   const [newRecipe, setNewRecipe] = useState({
     name: '',
     description: '',
-    img: '',
+    image: '',
     servings: '',
     duration: '',
     tags: '',
@@ -19,6 +19,27 @@ const RecipeEditPage = () => {
   const [ingreArr, setIngreArr] = useState([{ name: '', units: '', quantity: 1, type: '' }])
   const [stepArr, setStepArr] = useState([''])
 
+
+  const fetchCurrentRecipe = async () => {
+    const foundRecipeObj = await axios.get(`/api/recipes/${recipeID}`)
+    const existingRecipe =  foundRecipeObj.data.data
+    setNewRecipe({
+        name: existingRecipe.name,
+        description: existingRecipe.description,
+        image: existingRecipe.image,
+        servings: existingRecipe.servings.toString(),
+        duration: existingRecipe.duration.toString(),
+        tags: existingRecipe.tags.join(", "),
+    })
+    console.log('foundRecipe.data.data.ingredients',foundRecipeObj.data.data.ingredients)
+    setIngreArr([...ingreArr,foundRecipeObj.data.data.ingredients])
+    // setStepArr([
+
+    // ])
+  }
+  useEffect(() => {
+    fetchCurrentRecipe()
+  }, [])
 
   const handleChange = (e) => {
     setNewRecipe({
@@ -87,7 +108,7 @@ const RecipeEditPage = () => {
       </div>
     )
   })
-  console.log("ingreArr", ingreArr)
+  //console.log("ingreArr", ingreArr)
   // console.log("newRecipe", newRecipe)
 
   const handleSubmit = async (e) => {
@@ -99,7 +120,7 @@ const RecipeEditPage = () => {
         description: newRecipe.description,
         ingredients: ingreArr, //FIXME:
         steps: stepArr,
-        image: newRecipe.img,
+        image: newRecipe.image,
         servings: parseInt(newRecipe.servings),
         duration: parseInt(newRecipe.duration),
         tags: newRecipe.tags.split(",").map(tag=>tag.trim()),
@@ -117,7 +138,7 @@ const RecipeEditPage = () => {
   return (
     <div>
       <div className="login" style={{ padding: "100px" }}>
-        <h2>New Recipe</h2>
+        <h2>Edit A Recipe</h2>
         <form className="ui form" onSubmit={handleSubmit}>
           <div className="field">
 
@@ -139,8 +160,8 @@ const RecipeEditPage = () => {
             {stepFormArray}
 
             <label>Image URL:</label>
-            <input name="img" placeholder='jpg/png'
-              value={newRecipe.img}
+            <input name="image" placeholder='jpg/png'
+              value={newRecipe.image}
               onChange={handleChange} /><br /><br />
 
             <label>Servings (persons):</label>

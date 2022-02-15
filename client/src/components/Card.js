@@ -1,13 +1,11 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
-import { useParams } from "react-router";
+import { useEffect, useState } from "react";
 import "./Card.css";
 import RatingButton from "./Rating";
 import axios from "axios";
 import AddToFavoriteBttn from "./addToFavoriteBttn";
 
-const Card = ({currentUser}) => {
-  const { recipeID } = useParams();
+const Card = ({currentUser, recipeID}) => {
+  //const { recipeID } = useParams();
   const [currentRecipe, setCurrentRecipe] = useState({});
 
   const fetchCurrentRecipe = async () => {
@@ -72,6 +70,7 @@ const Card = ({currentUser}) => {
       </div>
 
       <div className='cardContent'>
+      <a href={`/recipes/${recipeID}/edit`}>Edit</a>
         <AddToFavoriteBttn recipeID={recipeID} currentUser={currentUser} />
         <h2>Ingredients:</h2>{ingredients}
         <h2>Steps:</h2>{steps}

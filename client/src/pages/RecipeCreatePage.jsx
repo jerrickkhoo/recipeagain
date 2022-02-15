@@ -8,7 +8,7 @@ const NewRecipe = () => {
   const [newRecipe, setNewRecipe] = useState({
     name: '',
     description: '',
-    img: '',
+    image: '',
     servings: '',
     duration: '',
     tags: '',
@@ -96,7 +96,7 @@ const NewRecipe = () => {
         description: newRecipe.description,
         ingredients: ingreArr, //FIXME:
         steps: stepArr,
-        image: newRecipe.img,
+        image: newRecipe.image,
         servings: parseInt(newRecipe.servings),
         duration: parseInt(newRecipe.duration),
         tags: newRecipe.tags.split(",").map(tag=>tag.trim()),
@@ -136,8 +136,8 @@ const NewRecipe = () => {
             {stepFormArray}
 
             <label>Image URL:</label>
-            <input name="img" placeholder='jpg/png'
-              value={newRecipe.img}
+            <input name="image" placeholder='jpg/png'
+              value={newRecipe.image}
               onChange={handleChange} /><br /><br />
 
             <label>Servings (persons):</label>
