@@ -5,7 +5,7 @@ import { useNavigate } from "react-router";
 const AddToFavoriteBttn = ({ recipeID, currentUser }) => {
 
     const [currFavorites, setCurrFavorites] = useState([])
-    const [fill, setFill] = useState('')
+    const [fill, setFill] = useState('none')
     const navigate = useNavigate();
 
     //TODO:fetch fav recipes of the currentUser to fetch if user if loggedin
@@ -20,7 +20,7 @@ const AddToFavoriteBttn = ({ recipeID, currentUser }) => {
     }
 
     useEffect(() => {
-        fetchFavRecipes()
+        if (currentUser){fetchFavRecipes()}
     },[])
 
     console.log('currFavorites.includes(recipeID)', currFavorites.includes(recipeID))
@@ -29,8 +29,9 @@ const AddToFavoriteBttn = ({ recipeID, currentUser }) => {
         console.log('currentUser', currentUser)
         console.log('favourite clicked')
         if (!currentUser) {
-            alert('Please login to add to favorites')
-            navigate('/login')
+            if (window.confirm('Please login to add to favorites')){ 
+                navigate('/login')
+            }
         }
         console.log('isfavoriteAlr', currFavorites?.includes(recipeID))
         if (!currFavorites?.includes(recipeID)) {

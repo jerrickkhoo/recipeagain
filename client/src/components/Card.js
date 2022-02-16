@@ -57,7 +57,7 @@ const Card = ({ currentUser, recipeID }) => {
 
   const tags = currentRecipe?.tags?.map((item, index) => {
     return (
-      <h2><Link to={`/tags/${item}`}>{item}</Link></h2>
+      <h2 key={index}><Link to={`/tags/${item}`}>{item}</Link></h2>
     )
   });
 

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const MyAccount = ({ setCurrentUser, currentUser, setIsLoggedIn }) => {
   const navigate = useNavigate();
@@ -39,9 +39,9 @@ const MyAccount = ({ setCurrentUser, currentUser, setIsLoggedIn }) => {
     navigate("/edit");
   };
 
-  const handleNewRecipe = () => {
-    navigate("/recipes/new");
-  };
+  // const handleNewRecipe = () => {
+  //   navigate("/recipes/new");
+  // };
 
   return (
     <div>
@@ -76,15 +76,15 @@ const MyAccount = ({ setCurrentUser, currentUser, setIsLoggedIn }) => {
             Delete Account
           </button>
         </form>
-        <form
-          class="ui form"
-          onSubmit={handleNewRecipe}
-          style={{ paddingTop: "50px" }}
-        >
-          <button class="ui button" type="submit">
-            New Recipe
+
+        <div style={{ paddingTop: "50px" }}>
+        <Link to="/recipes/new">
+        <button class="ui button" >
+            Create NewRecipe
           </button>
-        </form>
+        </Link>
+        </div>
+  
       </div>
     </div>
   );

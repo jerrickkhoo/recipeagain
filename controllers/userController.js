@@ -151,7 +151,7 @@ router.put('/:userID/removeFavorite',isLoggedIn,async (req, res) => {
   }
 })
 
-router.get('/:userID/favorite',async (req,res)=>{
+router.get('/:userID/favorite',isLoggedIn,async (req,res)=>{
   const {userID} = req.params
   try {
     const favRecipes = await User.findById({_id:userID})

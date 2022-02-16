@@ -13,27 +13,27 @@ const TagsPage = () => {
   });
   console.log(relatedRecipes)
 
- const tagRecipes = relatedRecipes.map((item, index) => {
-   return (
-     <div className="homediv">
-       <Link to={"/recipes/" + item?._id} key={index}>
-         <div className="ui card">
-           <div className="image">
-             <img src={item?.image} alt={item?.originalURL} />
-           </div>
-           <div className="content" id="homeContent">
-             <div className="header">{item?.name}</div>
-             <div className="meta">
-               <div>Servings: {item?.servings}</div>
-               <Rating icon="star" defaultRating={item?.rating} maxRating={5} />
-               <div>{item?.description}</div>
-             </div>
-           </div>
-         </div>
-       </Link>
-     </div>
-   );
- });
+  const tagRecipes = relatedRecipes.map((item, index) => {
+    return (
+      <div className="homediv">
+        <Link to={"/recipes/" + item?._id} key={index}>
+          <div className="ui card">
+            <div className="image">
+              <img src={item?.image} alt={item?.originalURL} />
+            </div>
+            <div className="content" id="homeContent">
+              <div className="header">{item?.name}</div>
+              <div className="meta">
+                <div>Servings: {item?.servings}</div>
+                <Rating icon="star" defaultRating={item?.rating} maxRating={5} />
+                <div>{item?.description}</div>
+              </div>
+            </div>
+          </div>
+        </Link>
+      </div>
+    );
+  });
 
   return (
     <div className="home" style={{ paddingTop: "100px" }}>

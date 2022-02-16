@@ -4,10 +4,10 @@ const recipeSchema = new mongoose.Schema({
     name: { 
         type: String, 
         required: true,
-        unique: true,
     },
     author: {
-        type: mongoose.Schema.Types.ObjectId,ref:'User'
+        type: mongoose.Schema.Types.ObjectId, ref:'User',
+        required:true
     }
     ,
     description: {
@@ -17,7 +17,7 @@ const recipeSchema = new mongoose.Schema({
     ingredients:[{
         quantity: {type: Number},
         units: {type:String},
-        name:{type:String, required:true},
+        name:{type:String},
         type:{type:String}
     }],
     steps:[String],

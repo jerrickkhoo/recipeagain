@@ -153,7 +153,7 @@ const RecipeEditPage = (currentUser) => {
                             onChange={handleChange}
                         /><br /><br />
 
-                        <label>Ingredients List:</label>
+                        <label>Ingredients List*:</label>
                         {ingreFormArray}
 
                         <label>Steps:</label>
@@ -176,7 +176,7 @@ const RecipeEditPage = (currentUser) => {
                             onChange={handleChange}
                         /><br /><br />
 
-                        <label>Tags (separated by comma):</label>
+                        <label>Tags (separated by comma)test:</label>
                         <input type="text" name="tags" placeholder="eg. starter, dessert, main"
                             value={newRecipe.tags}
                             onChange={handleChange} />

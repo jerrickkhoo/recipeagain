@@ -44,7 +44,7 @@ const seed_recipes = [
         duration: 420,
         image:
             "http://img.sndimg.com/food/image/upload/w_266/v1/img/recipes/27/20/8/picVfzLZo.jpg",
-        description: "a brief decription of the recipe",
+        description: "a brief description of the recipe",
         servings: 4,
         //comments: [],//array of comment id which is referred to comment schema, use populate later
         tags: ["main", "30min", "starter"],
@@ -87,7 +87,7 @@ const seed_recipes = [
         duration: 10,
         image:
             "http://img.sndimg.com/food/image/upload/w_266/v1/img/recipes/50/84/7/picMcSyVd.jpg",
-        description: "a brief decription of the recipe",
+        description: "a brief description of the recipe",
         servings: 4,
         //comments: ["commentID1","commentID2"],
         tags: ["main", "30min", "starter"],
@@ -138,7 +138,7 @@ const seed_recipes = [
         image:
             "https://www.recipetineats.com/wp-content/uploads/2020/03/Lentil-Soup-6-SQ.jpg",
         
-        description: "a brief decription of the recipe",
+        description: "a brief description of the recipe",
         servings: 4,
         //comments: [],
         tags: ["main", "30min", "starter"],
@@ -209,7 +209,7 @@ const seed_recipes = [
         duration: 90,
         image:
             "http://upload.wikimedia.org/wikipedia/commons/c/c7/Spinach_pizza.jpg",
-        description: "a brief decription of the recipe",
+        description: "a brief description of the recipe",
         servings: 4,
         //comments: [],
         tags: ["main", "30min", "starter"],
@@ -265,7 +265,7 @@ const seed_recipes = [
         timers: 60,
         image:
             "http://elanaspantry.com/wp-content/uploads/2008/10/acorn_squash_with_cranberry.jpg",
-        description: "a brief decription of the recipe",
+        description: "a brief description of the recipe",
         servings: 4,
         //comments: [],
         tags: ["main", "30min", "starter"],
@@ -312,7 +312,7 @@ const seed_recipes = [
         duration:70,
         image:
             "http://upload.wikimedia.org/wikipedia/commons/f/f9/Yorkshire_Pudding.jpg",
-        description: "a brief decription of the recipe",
+        description: "a brief description of the recipe",
         servings: 4,
         //comments: [],
         tags: ["main"],
@@ -408,7 +408,7 @@ const seed_recipes = [
         duration: 30,
         image:
             "http://s3.amazonaws.com/gmi-digital-library/65caecf7-a8f7-4a09-8513-2659cf92871e.jpg",
-        description: "a brief decription of the recipe",
+        description: "a brief description of the recipe",
         servings: 4,
         //comments: [],
         tags: ["starter"],
@@ -491,7 +491,7 @@ const seed_recipes = [
         duration:120,
         image:
             "https://static01.nyt.com/images/2010/01/28/health/28recipehealth_600/28recipehealth_600-articleLarge-v2.jpg",
-        description: "a brief decription of the recipe",
+        description: "a brief description of the recipe",
         servings: 4,
         //comments: [],
         tags: ["30min"],
@@ -582,7 +582,7 @@ const seed_recipes = [
         duration: 10,
         image:
             "http://www.chatelaine.com/wp-content/uploads/2013/05/Curried-chicken-salad.jpg",
-        description: "a brief decription of the recipe",
+        description: "a brief description of the recipe",
         servings: 4,
         //comments: [],
         tags: ["30min"],
