@@ -94,7 +94,7 @@ const RecipeCreatePage = ({currentUser}) => {
         e.preventDefault();
         try {
             
-            await axios.post("/api/recipes/new", {
+            const createdRecipe = await axios.post("/api/recipes/new", {
                 name: newRecipe.name,
                 author: currentUser._id,
                 description: newRecipe.description,
@@ -105,13 +105,19 @@ const RecipeCreatePage = ({currentUser}) => {
                 duration: parseInt(newRecipe.duration),
                 tags: newRecipe.tags.split(",").map(tag => tag.trim()),
             })
-                .then((response) => {
-                    console.log("createdRecipe", response.data.data._id)
-                    alert("Recipe created!");
-                    navigate(`/recipes/${response.data.data._id}`)
-                    //TODO: update user database posts key with recipeID 
-                    // await axios.post(`api/$)
-                })
+            //TODO: update user database posts key with recipeID 
+            const updateUser = await axios.put(`/api/users/${currentUser._id}/addPost`,{recipeID:createdRecipe.data.data._id})
+            alert("Recipe created!");
+            console.log("createdRecipe", createdRecipe.data.data._id)
+            console.log("updateUser", updateUser)
+                // .then((response) => {
+                //     console.log("createdRecipe", response.data.data._id)
+                //     alert("Recipe created!");
+                //     navigate(`/recipes/${response.data.data._id}`)
+                    
+                // })
+            navigate(`/recipes/${createdRecipe.data.data._id}`)
+
         } catch (error) {
             alert("Fail to create recipe, please retry")
             console.log(error)
