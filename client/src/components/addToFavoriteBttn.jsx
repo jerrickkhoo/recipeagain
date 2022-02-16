@@ -13,8 +13,8 @@ const AddToFavoriteBttn = ({ recipeID, currentUser }) => {
     const fetchFavRecipes = async () => {
         console.log('currentUser', currentUser)
         const foundFavRecipes = await axios.get(`/api/users/${currentUser._id}/favorite`)
+        //console.log('foundFavRecipes', foundFavRecipes)
         const favRecipeIArr = foundFavRecipes.data.data.favorites.map(x => x._id)
-        console.log('foundFavRecipes', favRecipeIArr)
         setCurrFavorites(favRecipeIArr)
         setFill((favRecipeIArr.includes(recipeID)) ? 'yellow' : 'none')
     }
@@ -49,11 +49,12 @@ const AddToFavoriteBttn = ({ recipeID, currentUser }) => {
         }
     }
 
-    const toggleHover = () => {
-        if (fill === 'none') {
-            setFill("yellow")
-        } else setFill('none')
-    }
+    //lagging UI, not good
+    // const toggleHover = () => {
+    //     if (fill === 'none') {
+    //         setFill("yellow")
+    //     } else setFill('none')
+    // }
 
     return (
         <>
