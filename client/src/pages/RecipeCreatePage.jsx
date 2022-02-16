@@ -57,7 +57,9 @@ const RecipeCreatePage = ({currentUser}) => {
               placeholder="*Enter Ingredient Name"
               value={ingre.name}
               onChange={(e) => handleChangeIngre(e, i)}
-              style={{ margin: "10px 0 10px 0" }}
+              style={{
+                margin: "10px 0 10px 0",
+              }}
             />
             <input
               type="text"
@@ -84,12 +86,24 @@ const RecipeCreatePage = ({currentUser}) => {
               style={{ marginBottom: "10px" }}
             />
             {i === ingreArr.length - 1 ? (
-              <button type="button" onClick={() => handleAddIngre(i)}>Add</button>
+              <button
+                class="ui button"
+                type="submit"
+                onClick={() => handleAddIngre(i)}
+                style={{ backgroundColor: "green", color: "white" }}
+              >
+                Add
+              </button>
             ) : null}
             {ingreArr.length > 1 ? (
-
-              <button type="button" onClick={()=>handleRemoveIngre(i)}>Remove</button>
-
+              <button
+                class="ui button"
+                type="submit"
+                onClick={() => handleRemoveIngre(i)}
+                style={{ backgroundColor: "red", color: "white" }}
+              >
+                Remove
+              </button>
             ) : null}
             <br />
             <br />
@@ -115,14 +129,38 @@ const RecipeCreatePage = ({currentUser}) => {
 
     const stepFormArray = stepArr.map((step, i) => {
         return (
-            <div key={i}>
-                <label>Step {i + 1}</label>
-                <input type="text" name="step" placeholder="Enter a cooking step" value={step} onChange={(e) => handleChangeStep(e, i)} />
-                {(i === stepArr.length - 1) ? <button onClick={() => handleAddStep(i)}>Add</button> : null}
-                {(stepArr.length > 1) ? <button onClick={()=>handleRemoveStep(i)}>Remove</button> : null}
-                <br /><br />
-            </div>
-        )
+          <div key={i}>
+            <label >Step {i + 1}</label>
+            <input
+              type="text"
+              name="step"
+              placeholder="Enter a cooking step"
+              value={step}
+              onChange={(e) => handleChangeStep(e, i)}
+              style={{ margin: "20px 0" }}
+            />
+            {i === stepArr.length - 1 ? (
+              <button
+                class="ui button"
+                type="submit"
+                onClick={() => handleAddStep(i)}
+                style={{ backgroundColor: "green", color: "white" }}
+              >
+                Add
+              </button>
+            ) : null}
+            {stepArr.length > 1 ? (
+              <button
+                class="ui button"
+                type="submit"
+                onClick={() => handleRemoveStep(i)}
+                style={{ backgroundColor: "red", color: "white", marginBottom:'10px' }}
+              >
+                Remove
+              </button>
+            ) : null}
+          </div>
+        );
     })
     // console.log("ingreArr", ingreArr)
     // console.log("newRecipe", newRecipe)
@@ -157,7 +195,7 @@ const RecipeCreatePage = ({currentUser}) => {
 
 
     return (
-      <div>
+      <div style={{ backgroundColor: "lightyellow", paddingBottom: "100%" }}>
         <div id="homebanner">
           <h1 className="titles">New Recipe</h1>
         </div>
@@ -192,13 +230,17 @@ const RecipeCreatePage = ({currentUser}) => {
               <br />
               <br />
 
-              <label style={{ fontSize: "20px" }}>Ingredients List*:</label>
+              <label style={{ fontSize: "20px", paddingBottom: "20px" }}>
+                Ingredients List*:
+              </label>
               {ingreFormArray}
 
               <label style={{ fontSize: "20px" }}>Steps:</label>
               {stepFormArray}
 
-              <label style={{ fontSize: "20px" }}>Image URL:</label>
+              <label style={{ fontSize: "20px", padding: "20px 0" }}>
+                Image URL:
+              </label>
               <input
                 name="image"
                 placeholder="jpg/png"
@@ -245,7 +287,11 @@ const RecipeCreatePage = ({currentUser}) => {
             <button
               class="ui button"
               type="submit"
-              style={{ marginBottom: "20px" }}
+              style={{
+                marginBottom: "20px",
+                backgroundColor: "gold",
+                color: "black",
+              }}
             >
               {" "}
               Submit{" "}

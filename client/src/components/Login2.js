@@ -27,7 +27,7 @@ const Login2 = ({currentUser, setCurrentUser, setIsLoggedIn}) => {
 };
   
   return (
-    <div id="font">
+    <div style={{ backgroundColor: "lightyellow", paddingBottom: "100%" }}>
       <div id="homebanner">
         <h1 className="titles">Log In</h1>
       </div>
@@ -45,12 +45,18 @@ const Login2 = ({currentUser, setCurrentUser, setIsLoggedIn}) => {
           <button
             class="ui button"
             type="submit"
-            style={{ marginBottom: "20px" }}
+            style={{
+              marginBottom: "20px",
+              color: "black",
+              backgroundColor: "gold",
+            }}
           >
             Submit
           </button>
         </form>
-        <a href="/join">Create an Account</a>
+        <a style={{ color: "gold" }} href="/join">
+          Create an Account
+        </a>
       </div>
     </div>
   );

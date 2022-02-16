@@ -1,6 +1,12 @@
 
-.home{
+
+
+
+.homepage{
   text-align: center;
+    background-color: lightyellow;
+    padding-bottom: 100%;
+
 }
 
 .header{
@@ -22,17 +28,24 @@
 #myaccount{
   left:82%;
   white-space: nowrap;
-  position: fixed;
+  position: absolute;
 }
 
 #search{
-    left: 91%;
+  left: 92%;
   white-space: nowrap;
-  position: fixed;
+  position: absolute;
+  cursor: pointer;
 
 }
 
+#deleterecipe{
+margin: auto;
+width: 100%;
+padding-top: 10px;
+color: red;
 
+}
 
 
 #homebanner{
@@ -81,7 +94,7 @@ font-family: 'Josefin Sans', sans-serif;
 
 .cards{
   text-align: center;
-  background-color: gold;
+  background-color: lightyellow;
   
 }
 

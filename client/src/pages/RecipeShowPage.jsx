@@ -13,7 +13,7 @@ const RecipeShowPage = ({currentUser, isLoggedIn}) => {
             
             <Card currentUser={currentUser} recipeID ={recipeID} isLoggedIn={isLoggedIn}/>
             <div className='comments'>
-            {/* <Comments currentUser={currentUser} recipeID ={recipeID} /> */}
+            <Comments currentUser={currentUser} recipeID ={recipeID} />
             </div>
         </div>
     );

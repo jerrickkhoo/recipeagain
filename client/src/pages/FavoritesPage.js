@@ -1,11 +1,30 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { Rating } from "semantic-ui-react";
 
-const FavoritesPage = ({ currentUser }) => {
+
+const FavoritesPage = ({ currentUser, allRecipes }) => {
   const navigate = useNavigate()
   const [favRecipes, setFavRecipes] = useState([])
+    const [ratings, setRatings] = useState({});
+
   //const [status, setStatus] = useState('') 
+
+  const reducer = (prev, curr, index, array) => prev + curr.rating;
+  useEffect(() => {
+    if (allRecipes !== undefined && allRecipes?.length !== 0) {
+      let returnObj = {};
+      for (const recipe of allRecipes) {
+        console.log(recipe);
+        if (recipe?.ratings?.length !== 0 && recipe?.ratings) {
+          returnObj[`${recipe._id}`] =
+            recipe.ratings.reduce(reducer, 0) / recipe.ratings.length;
+        }
+      }
+      setRatings(returnObj);
+    }
+  }, [allRecipes]);
 
   const fetchFavRecipes = async () => {
     //setStatus('pending')
@@ -36,40 +55,79 @@ const FavoritesPage = ({ currentUser }) => {
     setFavRecipes(favRecipes.filter((fav) => fav._id !== recipeID))
   }
 
-  const favArray = favRecipes?.map((fav, i) => {
+  const favArray = favRecipes?.map((item, index) => {
     return (
-      <div key={i}>
-        <li>
-          <Link to={`/recipes/${fav._id}`}><h4>{fav.name}</h4></Link>
-          <button onClick={() => handleClickRvFav(fav._id)}>Remove Favorite</button>
-          <p>{fav.description}</p>
-          <div>
-            <img src={fav.image} alt='' width='500px'></img>
+      <div className="homediv" key={index}>
+        <Link to={"/recipes/" + item?._id}>
+          <div className="ui card">
+            <div
+              className="image"
+              style={{
+                backgroundImage: `url(${item?.image})`,
+                backgroundSize: "100% 100%",
+              }}
+            ></div>
+            <div className="content" id="homeContent">
+              <div
+                className="header"
+                style={{ fontFamily: "Josefin Sans, sans-serif" }}
+              >
+                {item?.name}
+              </div>
+              <div className="meta">
+                <div>Servings: {item?.servings}</div>
+                <Rating
+                  icon="star"
+                  rating={ratings[`${item?._id}`] ?? 0}
+                  maxRating={5}
+                  disabled
+                />
+                <div>{item?.description}</div>
+              </div>
+            </div>
           </div>
-        </li><br /><br />
+        </Link>
       </div>
-    )
+    );
   })
 
 
   return (
-    <div>
-      <h1>Hello {currentUser.username?.charAt(0).toUpperCase() + currentUser.username?.slice(1)}!</h1>
-      <h2>Below are your Favorite recipes:</h2>
-{/*     
+    <div style={{ backgroundColor: "lightyellow", paddingBottom: "100%" }}>
+      <div id="homebanner">
+        <h1 className="titles">
+          Hello{" "}
+          {currentUser.username?.charAt(0).toUpperCase() +
+            currentUser.username?.slice(1)}
+          ! Here are your favourites
+        </h1>
+      </div>
+
+      {/*     
         {({status}==='success')?
         <> */}
-        {(favRecipes.length > 0) ?
+      {favRecipes.length > 0 ? (
+        <div className="randomCards">{favArray}</div>
+      ) : (
+        <div>
+          <h1 className="titles" style={{ textAlign: "center" }}>
+            ...
+          </h1>
+          <h1 className="titles" style={{ textAlign: "center" }}>
+            ...
+          </h1>
           
-            <ol>{favArray}</ol>
-        
-          :
-          <p>You do not have any favorite recipes at the moment</p>
-          }
-        {/* </>
+          <h1 className="titles" style={{ textAlign: "center" }}>
+            ...
+          </h1>
+          <h1 className="titles" style={{ textAlign: "center" }}>
+            Awww. Do you hate food?
+          </h1>
+        </div>
+      )}
+      {/* </>
         : {status}
         } */}
-      
     </div>
   );
 
