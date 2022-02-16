@@ -13,6 +13,7 @@ const replySchema = new mongoose.Schema(
       ref: "Comment",
     },
     comment: { type: String, required: true },
+    edited: { type: Boolean, default: false },
     children: [
       {
         type: mongoose.Schema.Types.ObjectId,
