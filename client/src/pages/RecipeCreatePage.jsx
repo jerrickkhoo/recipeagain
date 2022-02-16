@@ -39,8 +39,11 @@ const RecipeCreatePage = ({currentUser}) => {
     }
 
     const handleRemoveIngre = (i) => {
+        console.log("ingreArr",ingreArr)
         const list = [...ingreArr]
+        console.log('test before',list)
         list.splice(i, 1)
+        console.log('testafter',list)
         setIngreArr(list)
     }
 
@@ -81,10 +84,12 @@ const RecipeCreatePage = ({currentUser}) => {
               style={{ marginBottom: "10px" }}
             />
             {i === ingreArr.length - 1 ? (
-              <button onClick={() => handleAddIngre(i)}>Add</button>
+              <button type="button" onClick={() => handleAddIngre(i)}>Add</button>
             ) : null}
             {ingreArr.length > 1 ? (
-              <button onClick={handleRemoveIngre}>Remove</button>
+
+              <button type="button" onClick={()=>handleRemoveIngre(i)}>Remove</button>
+
             ) : null}
             <br />
             <br />
@@ -110,25 +115,14 @@ const RecipeCreatePage = ({currentUser}) => {
 
     const stepFormArray = stepArr.map((step, i) => {
         return (
-          <div key={i}>
-            <label style={{ fontSize: "15px" }}>Step {i + 1}</label>
-            <input
-              type="text"
-              name="step"
-              placeholder="Enter a cooking step"
-              value={step}
-              onChange={(e) => handleChangeStep(e, i)}
-            />
-            {i === stepArr.length - 1 ? (
-              <button onClick={() => handleAddStep(i)}>Add</button>
-            ) : null}
-            {stepArr.length > 1 ? (
-              <button onClick={handleRemoveStep}>Remove</button>
-            ) : null}
-            <br />
-            <br />
-          </div>
-        );
+            <div key={i}>
+                <label>Step {i + 1}</label>
+                <input type="text" name="step" placeholder="Enter a cooking step" value={step} onChange={(e) => handleChangeStep(e, i)} />
+                {(i === stepArr.length - 1) ? <button onClick={() => handleAddStep(i)}>Add</button> : null}
+                {(stepArr.length > 1) ? <button onClick={()=>handleRemoveStep(i)}>Remove</button> : null}
+                <br /><br />
+            </div>
+        )
     })
     // console.log("ingreArr", ingreArr)
     // console.log("newRecipe", newRecipe)
@@ -149,7 +143,6 @@ const RecipeCreatePage = ({currentUser}) => {
                 duration: parseInt(newRecipe.duration),
                 tags: newRecipe.tags.split(",").map(tag => tag.trim()),
             })
-            //TODO: update user database posts key with recipeID 
             const updateUser = await axios.put(`/api/users/${currentUser._id}/addPost`,{recipeID:createdRecipe.data.data._id})
             // console.log("createdRecipe", createdRecipe.data.data._id)
             // console.log("updateUser", updateUser)

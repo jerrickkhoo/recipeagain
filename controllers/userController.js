@@ -4,7 +4,7 @@ const router = express.Router();
 const User = require("../models/users.js");
 const session = require("express-session");
 const seedUsers = require("../models/seed/seedUsers")
-
+//const {JoinValidationSchema} = require("../validation/JoinValidationSchema")
 
 //  MIDDLEWARE
 const isLoggedIn = (req,res,next)=>{

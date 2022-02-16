@@ -5,16 +5,17 @@ import RatingButton from "./Rating";
 import axios from "axios";
 import AddToFavoriteBttn from "./addToFavoriteBttn";
 import dayjs from "dayjs";
+import joi from "joi"
 
 const Card = ({ currentUser, recipeID, isLoggedIn }) => {
   //const { recipeID } = useParams();
   const [currentRecipe, setCurrentRecipe] = useState({});
-  // const [currentUserisAuthor, setCurrentUserisAuthor] = useState(false);
+  const [currentUserisAuthor, setCurrentUserisAuthor] = useState(false);
 
   const fetchCurrentRecipe = async () => {
     const foundRecipe = await axios.get(`/api/recipes/${recipeID}`);
-    // const foundAuthor = foundRecipe.data.data.author._id
-    // console.log('test',foundRecipe.data.data.author._id===currentUser._id)
+    const foundAuthor = foundRecipe.data.data.author._id
+    //console.log('test',foundRecipe.data.data.author._id===currentUser._id)
     setCurrentRecipe(foundRecipe.data.data);
     // setCurrentUserisAuthor(foundAuthor===currentUser._id)
   };
@@ -36,22 +37,6 @@ const Card = ({ currentUser, recipeID, isLoggedIn }) => {
       </ul>
     );
   });
-  // const comments = currentRecipe.comments.map((item, index) => {
-  //   return (
-  //     <div key={index} className="ui relaxed divided list">
-  //       <div className="item">
-  //         <div className="content">
-  //           <p className="header">{item.author}</p>
-  //           <div className="description">
-  //             {item.createTime}
-  //             <br />
-  //             {item.content}
-  //           </div>
-  //         </div>
-  //       </div>
-  //     </div>a
-  //   );
-  // });
 
   const steps = currentRecipe?.steps?.map((item, index) => {
     return (
@@ -125,11 +110,14 @@ const Card = ({ currentUser, recipeID, isLoggedIn }) => {
       </div>
 
       <div className="cardContent">
-        <div className="ingredients" style={{ paddingTop: "20px" }}>
-          <h2 id="font2" style={{ fontSize: "35px" }}>
-            Ingredients:
-          </h2>
-          {ingredients}
+        {(currentUserisAuthor)
+        && <div>
+          <Link to={`/recipes/${recipeID}/edit`}>Edit</Link><br/>
+        </div> 
+        }
+
+        <div>
+          <Link to={"/recipes/new"}>Create a New Recipe</Link>
         </div>
         <div className="ingredients" style={{ paddingTop: "20px" }}>
           <h2 id="font2" style={{ fontSize: "35px" }}>

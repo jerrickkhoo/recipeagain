@@ -3,8 +3,9 @@ import ReactMarkdown from "react-markdown";
 import dayjs from "dayjs";
 import ReplyForm from "./ReplyForm";
 import axios from "axios";
+import "./CommentDiv.css";
 
-const CommentDiv = ({ comment, currentUser, setComments, comments, index }) => {
+const CommentDiv = ({ comment, currentUser, setComments, comments, index, mode="comment" }) => {
   const [replyOpen, setReplyOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
   const [children, setChildren] = useState([]);
@@ -20,8 +21,9 @@ const CommentDiv = ({ comment, currentUser, setComments, comments, index }) => {
 
   const handleEdit = async (event, id) => {
     event.preventDefault();
+    const URL = mode==="reply" ? `/api/replies/${id}`  : `/api/comments/${id}`;
     try {
-      const res = await axios.put(`/api/comments/${id}`, {
+      const res = await axios.put(URL, {
         comment: event.target.comment.value,
       });
       console.log("edited comment", res);
@@ -33,6 +35,22 @@ const CommentDiv = ({ comment, currentUser, setComments, comments, index }) => {
       console.log(error);
     }
   };
+
+  const handleDelete = async (id) => {
+    const URL = mode==="reply" ? `/api/replies/${id}`  : `/api/comments/${id}`;
+    try {
+      const res = await axios.put(URL, {
+        comment: "*deleted comment*",
+      });
+      console.log("deleted comment", res);
+      setComments(
+        comments.map((ele, i) => (index === i ? res.data.data : ele))
+      );
+      setEditOpen(false);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   useEffect(() => {
     const getReplies = async (id) => {
@@ -63,6 +81,7 @@ const CommentDiv = ({ comment, currentUser, setComments, comments, index }) => {
               }`}</ReactMarkdown>
             </span>
           </div>
+          {/* //!Edit Comment */}
           {editOpen ? (
             <>
               <form
@@ -78,9 +97,11 @@ const CommentDiv = ({ comment, currentUser, setComments, comments, index }) => {
                   />
                 </div>
                 <input type="submit" value="Edit" />
+                <button className="cancel-button" value="Cancel" onClick={()=>setEditOpen(!editOpen)}>Cancel</button>
               </form>
             </>
           ) : (
+            // !Comment content
             <>
               <div className="text">
                 <ReactMarkdown>{comment.comment}</ReactMarkdown>
@@ -97,7 +118,7 @@ const CommentDiv = ({ comment, currentUser, setComments, comments, index }) => {
                     <a className="reply" onClick={() => setEditOpen(!editOpen)}>
                       Edit
                     </a>
-                    <a className="reply" onClick={() => console.log("delete")}>
+                    <a className="reply" onClick={() => handleDelete(comment._id)}>
                       Delete
                     </a>
                   </>
@@ -122,9 +143,10 @@ const CommentDiv = ({ comment, currentUser, setComments, comments, index }) => {
                 <CommentDiv
                   comment={comment}
                   currentUser={currentUser}
-                  setComments={setComments}
-                  comments={comments}
+                  setComments={setChildren}
+                  comments={children}
                   index={index}
+                  mode={"reply"}
                 />
               );
             })}
