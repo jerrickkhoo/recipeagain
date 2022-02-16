@@ -16,7 +16,7 @@ const RecipeCreatePage = ({currentUser}) => {
         tags: '',
     })
 
-    const [ingreArr, setIngreArr] = useState([{ name: '', units: '', quantity: 1, type: '' }])
+    const [ingreArr, setIngreArr] = useState([{ name: '', units: '', quantity: "", type: '' }])
     const [stepArr, setStepArr] = useState([''])
 
     const handleChange = (e) => {
@@ -35,7 +35,7 @@ const RecipeCreatePage = ({currentUser}) => {
     }
 
     const handleAddIngre = () => {
-        setIngreArr([...ingreArr, { name: '', units: '', quantity: 1, type: '' }])
+        setIngreArr([...ingreArr, { name: '', units: '', quantity: '', type: '' }])
     }
 
     const handleRemoveIngre = (i) => {

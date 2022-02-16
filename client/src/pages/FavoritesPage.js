@@ -60,11 +60,11 @@ const FavoritesPage = ({ currentUser }) => {
         {({status}==='success')?
         <> */}
         {(favRecipes.length > 0) ?
-          <div>
+          
             <ol>{favArray}</ol>
-          </div>
+        
           :
-          <h2>You do not have any favorite recipes at the moment</h2>
+          <p>You do not have any favorite recipes at the moment</p>
           }
         {/* </>
         : {status}
