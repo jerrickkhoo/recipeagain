@@ -73,8 +73,10 @@ const TagsPage = ({allRecipes, setAllRecipes}) => {
   });
 
   return (
-    <div className="home" style={{ paddingTop: "100px" }}>
-      <h1>{tagID.toUpperCase()}</h1>
+    <div className="home">
+      <div id="homebanner">
+        <h1 className="titles">{tagID.toUpperCase()}</h1>
+      </div>
       <div className="randomCards">{tagRecipes}</div>
     </div>
   );

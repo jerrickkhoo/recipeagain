@@ -67,8 +67,8 @@ function App() {
   console.log("currentUser", currentUser);
   return (
     <>
-      <div>
-        <div className="ui inverted segment" id="nav">
+      <div >
+        <div className="ui inverted segment" id="nav" >
           <div className="ui inverted secondary pointing menu">
             <div className="navbar">
               <Link className="item" to="/">
@@ -156,7 +156,7 @@ function App() {
             path="/recipes/:recipeID/edit"
             element={
               <ProtectedRoute redirectTo="/login">
-                <RecipeEditPage currentUser={currentUser} />
+                <RecipeEditPage currentUser={currentUser} isLoggedIn={isLoggedIn}/>
               </ProtectedRoute>
             }
           />
@@ -167,6 +167,7 @@ function App() {
                 <Edit
                   currentUser={currentUser}
                   setCurrentUser={getCurrentUser}
+                  isLoggedIn={isLoggedIn}
                 />
               </ProtectedRoute>
             }
@@ -183,6 +184,7 @@ function App() {
                   currentUser={currentUser}
                   setCurrentUser={getCurrentUser}
                   setIsLoggedIn={getIsLoggedIn}
+                  isLoggedIn={isLoggedIn}
                 />
               </ProtectedRoute>
             }

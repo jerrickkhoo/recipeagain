@@ -38,6 +38,7 @@
 #homebanner{
   background-color: gold;
   padding-top: 100px;
+  text-align: center;
 }
 
 .homediv{
@@ -60,7 +61,7 @@ img{
 
 }
 
-.font{
+.font, #font{
 font-family: 'Josefin Sans', sans-serif;
 
 }
@@ -151,7 +152,9 @@ Search{
   display: flex;
   margin: 0 auto;
   flex-wrap: wrap;
-  width: 50%
+  width: 50%;
+  margin-top:50px;
+
 }
 
 .login{
@@ -162,7 +165,30 @@ Search{
 
 }
 
+
+.comments{
+margin: auto;
+padding: 20px 0 50px 420px;
+}
+
+
 .titles{
-  font-family: 'Akaya Telivigala', cursive;
+font-family: 'Josefin Sans', sans-serif;
   font-size: 42px;
+}
+
+#newrecipe{
+  width: 80%;
+  margin: auto;
+  text-align: center;
+  font-family: 'Josefin Sans', sans-serif;
+
+}
+
+.myaccount{
+display: flex;
+}
+
+#accountchild{
+  flex:20%
 }

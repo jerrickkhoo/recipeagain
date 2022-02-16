@@ -9,10 +9,13 @@ const RecipeShowPage = ({currentUser, isLoggedIn}) => {
     const navigate = useNavigate()
 
     return (
-        <div>
+        <div style={{textAlign:'center'}}>
             
             <Card currentUser={currentUser} recipeID ={recipeID} isLoggedIn={isLoggedIn}/>
+            <div className='comments'>
+
             <Comments currentUser={currentUser} recipeID ={recipeID} />
+            </div>
         </div>
     );
 };

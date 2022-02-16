@@ -36,9 +36,11 @@ const navigate = useNavigate();
     // console.log(props.currentUser)
   return (
     <div>
-      <div className="login" style={{ padding: "100px" }}>
-        <h2>Edit Details</h2>
-        <form class="ui form" onSubmit={handleSubmit}>
+      <div id="homebanner">
+        <h1 className="titles">Edit Details</h1>
+      </div>
+      <div className="login" style={{ padding: "100px" }} id='font'>
+        <form class="ui form" onSubmit={handleSubmit} style={{paddingBottom: '30px'}}>
           <div class="field">
             <label>Username</label>
             <input
@@ -71,7 +73,9 @@ const navigate = useNavigate();
             Submit
           </button>
         </form>
-        <a href="/myaccount">Back to MyAccount</a>
+        <a href="/myaccount">
+          Back to MyAccount
+        </a>
       </div>
     </div>
   );

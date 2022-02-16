@@ -9,7 +9,7 @@ import dayjs from "dayjs";
 const Card = ({ currentUser, recipeID, isLoggedIn }) => {
   //const { recipeID } = useParams();
   const [currentRecipe, setCurrentRecipe] = useState({});
-  const [currentUserisAuthor, setCurrentUserisAuthor] = useState(false);
+  // const [currentUserisAuthor, setCurrentUserisAuthor] = useState(false);
 
   const fetchCurrentRecipe = async () => {
     const foundRecipe = await axios.get(`/api/recipes/${recipeID}`);
@@ -49,7 +49,7 @@ const Card = ({ currentUser, recipeID, isLoggedIn }) => {
   //           </div>
   //         </div>
   //       </div>
-  //     </div>
+  //     </div>a
   //   );
   // });
 
@@ -112,13 +112,13 @@ const Card = ({ currentUser, recipeID, isLoggedIn }) => {
           <h3 id="font2">
             on {dayjs(currentRecipe?.createdAt).format("DD-MMM-YYYY")}
           </h3>
-          <a className="ui tag label">
+          <a href className="ui tag label">
             {" "}
             Prep time: {currentRecipe?.duration} mins
           </a>
           <br />
           <br />
-          <a className="ui tag label">Serves: {currentRecipe?.servings}</a>
+          <a href className="ui tag label">Serves: {currentRecipe?.servings}</a>
           <h2 id="font2">{currentRecipe?.description}</h2>
           <br />
         </div>

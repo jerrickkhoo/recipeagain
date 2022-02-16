@@ -25,29 +25,45 @@ const handleSubmit = async (e) => {
 }
 
   return (
-    <div>
-      <div className='login' style={{padding:'100px'}}>
-      <h2>Create Account</h2>
-      <form class="ui form" onSubmit={handleSubmit}>
-        <div class="field">
-          <label>Username</label>
-          <input type="text" name="username" placeholder="Username" required />
-        </div>
-        <div class="field">
-          <label>E-Mail</label>
-          <input type="text" name="email" placeholder="E-Mail" required />
-        </div>
-        <div class="field">
-          <label>Password</label>
-          <input type="password" name="password" placeholder="Password" required/>
-        </div>
+    <div id="font">
+      <div id="homebanner">
+        <h1 className="titles">Join Us</h1>
+      </div>
+      <div className="login" style={{ padding: "100px" }}>
+        <form class="ui form" onSubmit={handleSubmit}>
+          <div class="field">
+            <label>Username</label>
+            <input
+              type="text"
+              name="username"
+              placeholder="Username"
+              required
+            />
+          </div>
+          <div class="field">
+            <label>E-Mail</label>
+            <input type="text" name="email" placeholder="E-Mail" required />
+          </div>
+          <div class="field">
+            <label>Password</label>
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              required
+            />
+          </div>
 
-        <button class="ui button" type="submit" style={{marginBottom:'20px'}}>
-          Submit
-        </button>
-      </form>
-      <a href='/login'>Log In</a>
-    </div>
+          <button
+            class="ui button"
+            type="submit"
+            style={{ marginBottom: "20px" }}
+          >
+            Submit
+          </button>
+        </form>
+        <a href="/login">Log In</a>
+      </div>
     </div>
   );
 };
