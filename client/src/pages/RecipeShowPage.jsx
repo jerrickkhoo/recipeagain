@@ -4,14 +4,14 @@ import Comments from "../components/Comments";
 import { useNavigate, useParams, Link } from "react-router-dom";
 
 
-const RecipeShowPage = ({currentUser}) => {
+const RecipeShowPage = ({currentUser, isLoggedIn}) => {
     const { recipeID } = useParams();
     const navigate = useNavigate()
 
     return (
         <div>
             
-            <Card currentUser={currentUser} recipeID ={recipeID}/>
+            <Card currentUser={currentUser} recipeID ={recipeID} isLoggedIn={isLoggedIn}/>
             <Comments currentUser={currentUser} recipeID ={recipeID} />
         </div>
     );

@@ -60,11 +60,27 @@ img{
 
 }
 
+.font{
+font-family: 'Josefin Sans', sans-serif;
+
+}
+
 #homeContent{
   height:160px;
-  font-family: 'Akaya Telivigala', cursive;
+font-family: 'Josefin Sans', sans-serif;
   font-size: 15px;
 
+}
+
+#tags{
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 20px;
+
+}
+
+.cards{
+  text-align: center;
+  
 }
 
 .singleCard{
@@ -73,33 +89,45 @@ img{
   flex-wrap: wrap;
   width: 50%  
 }
-/* 
+
+.ingredients{
+  margin:auto;
+ width: 30%;
+ text-align: left;
+}
+
 .cardHeader{
-  margin: 0 auto;
-  text-align: center;
-  height: 400px;
-  background-size:cover;
-  background-position: center;
-  max-width: 75%;
-  max-height: 50%;
-  overflow: hidden;
-  position: relative;
-} */
+margin:auto;
+ display: flex;
+ width: 80%;
+}
 
 
-/* .headerBackground{
-  opacity: 0.6;
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: auto;
-  object-fit: fill;
-} */
+
+#resize {
+    width: 550px;
+    height: auto;
+left: 200px;
+}
+
+
+.headerBackground{
+  object-fit: contain;
+  padding: 0;
+  flex:70%;
+  
+
+}
+
+#font2{
+font-family: 'Josefin Sans', sans-serif;
+}
 
 .headerText{
-  font-size: 100px;
-  position: relative;
+flex:50%;
+text-align: left;
+vertical-align: middle;
+
 }
 
 #cardName {
