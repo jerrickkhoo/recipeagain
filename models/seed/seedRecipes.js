@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const seed_recipes = [
     {
         name: "Crock Pot Roast",
-        author: "",
+        //author: "",
         ingredients: [
             {
                 quantity: 1,
@@ -51,7 +51,7 @@ const seed_recipes = [
     },
     {
         name: "Roasted Asparagus",
-        author:"",
+        //author:"",
         ingredients: [
             {
                 quantity: 1,
@@ -94,7 +94,7 @@ const seed_recipes = [
     },
     {
         name: "Curried Lentils and Rice",
-        author: "6209c39d2bf4895ea3f56ba6",
+        //author: "6209c39d2bf4895ea3f56ba6",
         ingredients: [
             {
                 quantity: 1,
@@ -216,7 +216,7 @@ const seed_recipes = [
     },
     {
         name: "Cranberry and Apple Stuffed Acorn Squash Recipe",
-        author: '6209c39d2bf4895ea3f56ba6',
+        //author: '',
         ingredients: [
             {
                 quantity: 2,
@@ -272,7 +272,7 @@ const seed_recipes = [
     },
     {
         name: "Mic's Yorkshire Puds",
-        author: '',
+        //author: '',
         ingredients: [
             {
                 quantity: 200,
@@ -319,7 +319,7 @@ const seed_recipes = [
     },
     {
         name: "Old-Fashioned Oatmeal Cookies",
-        author: '6209c39d2bf4895ea3f56ba6',
+        //author: '',
         ingredients: [
             {
                 quantity: 1,

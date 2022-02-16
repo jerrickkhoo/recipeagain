@@ -18,11 +18,13 @@ const userSchema = Schema({
     type: String, 
     required: true ,
     minLength: 6
-    //TODO: add password validation
   },
   favorites:{
-    type:[{ type: mongoose.Schema.Types.ObjectId, ref:'Recipe'
-   }], //TODO: refer to recipeID in recipe model
+    type:[mongoose.Schema.Types.ObjectId], ref:'Recipe'
+   }, 
+  posts:{
+    type: [mongoose.Schema.Types.ObjectId],
+    ref:'Recipe'
   }
 }, {timeStamp: true});
 

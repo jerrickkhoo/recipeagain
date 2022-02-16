@@ -151,6 +151,33 @@ router.put('/:userID/removeFavorite',isLoggedIn,async (req, res) => {
   }
 })
 
+//Update use add a post
+router.put('/:userID/addPost', async(req,res)=>{
+  const {userID} = req.params
+  try {
+    const updatedUser = await User.findByIdAndUpdate(userID,{
+      $addToSet: {posts:[req.body.recipeID]}
+    },{new:true})
+    res.status(200).json({ status: "ok", message: "recipeID added to user posts", data: updatedUser })
+  } catch (error) {
+    res.status(400).json({ status: "not ok", message: "fail to add recipeID to user posts", error: error });
+  }
+})
+
+//Update user remove a post
+router.put('/:userID/removePost', async(req,res)=>{
+  const {userID} = req.params
+  try {
+    const updatedUser = await User.findByIdAndUpdate(userID,{
+      $pull: {posts:[req.body.recipeID]}
+    },{new:true})
+    res.status(200).json({ status: "ok", message: "recipeID removed to user posts", data: updatedUser })
+  } catch (error) {
+    res.status(400).json({ status: "not ok", message: "fail to remove recipeID to user posts", error: error });
+  }
+})
+
+//Get user favorite
 router.get('/:userID/favorite',isLoggedIn,async (req,res)=>{
   const {userID} = req.params
   try {
