@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const MyPostPage = ({ currentUser }) => {
 
@@ -31,7 +31,6 @@ const MyPostPage = ({ currentUser }) => {
       <>
         <li>
           <Link to={`/recipes/${post._id}`}><h4>{post.name}</h4></Link>
-          
           <button onClick={() => handleClickDeletePost(post._id)}>Delete Post</button>
           <p>{post.description}</p>
           <div>

@@ -9,12 +9,16 @@ import dayjs from "dayjs";
 const Card = ({ currentUser, recipeID }) => {
   //const { recipeID } = useParams();
   const [currentRecipe, setCurrentRecipe] = useState({});
+  const [currentUserisAuthor, setCurrentUserisAuthor] =useState(false)
 
   const fetchCurrentRecipe = async () => {
     const foundRecipe = await axios.get(`/api/recipes/${recipeID}`);
-    //console.log(foundRecipe.data.data)
+    const foundAuthor = foundRecipe.data.data.author._id
+    console.log('test',foundRecipe.data.data.author._id===currentUser._id)
     setCurrentRecipe(foundRecipe.data.data);
+    setCurrentUserisAuthor(foundAuthor===currentUser._id)
   };
+
   useEffect(() => {
     fetchCurrentRecipe();
   }, []);
@@ -61,8 +65,9 @@ const Card = ({ currentUser, recipeID }) => {
     )
   });
 
-  console.log('currentUser',currentUser)
-  //TODO: check if currentUser.id ===currentRecipe author else do not render link edit
+  console.log('currentUser', currentUser)
+
+
   return (
     <div>
       <div className="cardHeader">
@@ -77,7 +82,17 @@ const Card = ({ currentUser, recipeID }) => {
       </div>
 
       <div className="cardContent">
-        <Link to={`/recipes/${recipeID}/edit`}>Edit</Link>
+
+        {(currentUserisAuthor)
+        ?<div>
+          <Link to={`/recipes/${recipeID}/edit`}>Edit</Link><br/>
+        </div> 
+        : null}
+        
+        <div>
+          <Link to={"/recipes/new"}>Create a New Recipe</Link>
+        </div>
+
         <AddToFavoriteBttn recipeID={recipeID} currentUser={currentUser} />
         <h2>Ingredients:</h2>
         {ingredients}
