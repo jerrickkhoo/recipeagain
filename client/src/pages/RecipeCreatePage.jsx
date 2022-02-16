@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const RecipeCreatePage = (currentUser) => {
+const RecipeCreatePage = ({currentUser}) => {
     const navigate = useNavigate();
     if (!currentUser) {
         navigate("/login")
@@ -86,16 +86,17 @@ const RecipeCreatePage = (currentUser) => {
             </div>
         )
     })
-    //console.log("ingreArr", ingreArr)
-    // console.log("newRecipe", newRecipe)
+    console.log("ingreArr", ingreArr)
+    console.log("newRecipe", newRecipe)
+    console.log('currentUserin recipe new form',currentUser)
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            console.log('currentUser',currentUser)
+            
             await axios.post("/api/recipes/new", {
                 name: newRecipe.name,
-                author: currentUser.currentUser._id, //not sure why currentUse is nested like this....
+                author: currentUser._id,
                 description: newRecipe.description,
                 ingredients: ingreArr,
                 steps: stepArr,
@@ -105,13 +106,15 @@ const RecipeCreatePage = (currentUser) => {
                 tags: newRecipe.tags.split(",").map(tag => tag.trim()),
             })
                 .then((response) => {
-                    //console.log("createdRecipe", response.data.data._id)
+                    console.log("createdRecipe", response.data.data._id)
                     alert("Recipe created!");
                     navigate(`/recipes/${response.data.data._id}`)
-                }
-                )
+                    //TODO: update user database posts key with recipeID 
+                    // await axios.post(`api/$)
+                })
         } catch (error) {
-            alert("Error, please use correct format and enter the required fields")
+            alert("Fail to create recipe, please retry")
+            console.log(error)
         }
     };
 
@@ -134,7 +137,7 @@ const RecipeCreatePage = (currentUser) => {
                             onChange={handleChange}
                         /><br /><br />
 
-                        <label>Ingredients List:</label>
+                        <label>Ingredients List*:</label>
                         {ingreFormArray}
 
                         <label>Steps:</label>

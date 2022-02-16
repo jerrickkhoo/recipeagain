@@ -89,7 +89,7 @@ function App() {
             path="/recipes/new"
             element={
               <ProtectedRoute redirectTo="/login">
-                <RecipeCreatePage />
+                <RecipeCreatePage currentUser={currentUser} />
               </ProtectedRoute>
             }
           />
