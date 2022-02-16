@@ -86,9 +86,9 @@ const RecipeCreatePage = ({currentUser}) => {
             </div>
         )
     })
-    console.log("ingreArr", ingreArr)
-    console.log("newRecipe", newRecipe)
-    console.log('currentUserin recipe new form',currentUser)
+    // console.log("ingreArr", ingreArr)
+    // console.log("newRecipe", newRecipe)
+    // console.log('currentUserin recipe new form',currentUser)
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -107,15 +107,9 @@ const RecipeCreatePage = ({currentUser}) => {
             })
             //TODO: update user database posts key with recipeID 
             const updateUser = await axios.put(`/api/users/${currentUser._id}/addPost`,{recipeID:createdRecipe.data.data._id})
+            // console.log("createdRecipe", createdRecipe.data.data._id)
+            // console.log("updateUser", updateUser)
             alert("Recipe created!");
-            console.log("createdRecipe", createdRecipe.data.data._id)
-            console.log("updateUser", updateUser)
-                // .then((response) => {
-                //     console.log("createdRecipe", response.data.data._id)
-                //     alert("Recipe created!");
-                //     navigate(`/recipes/${response.data.data._id}`)
-                    
-                // })
             navigate(`/recipes/${createdRecipe.data.data._id}`)
 
         } catch (error) {

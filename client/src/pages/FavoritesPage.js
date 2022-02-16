@@ -12,6 +12,7 @@ const FavoritesPage = ({ currentUser }) => {
     console.log('currentUser', currentUser)
     try {
       const foundFavRecipes = await axios.get(`/api/users/${currentUser._id}/favorite`)
+      console.log("foundFavRecipes",foundFavRecipes.data.data)
       setFavRecipes(foundFavRecipes.data.data.favorites)
       //setStatus('success') //FIXME: set status states cause infinite calls
     } catch (error) {
@@ -25,14 +26,14 @@ const FavoritesPage = ({ currentUser }) => {
       navigate('/login')
     } else
       fetchFavRecipes()
-  }, [currentUser, favRecipes])
+  }, [])
 
   console.log('favRecipes', favRecipes)
 
   const handleClickRvFav = async (recipeID) => {
     console.log('removedrecipeID', recipeID)
     await axios.put(`/api/users/${currentUser._id}/removeFavorite`, { recipeID: recipeID })
-    setFavRecipes(favRecipes.filter((fav) => fav !== recipeID))
+    setFavRecipes(favRecipes.filter((fav) => fav._id !== recipeID))
   }
 
   const favArray = favRecipes?.map((fav, i) => {
@@ -49,7 +50,6 @@ const FavoritesPage = ({ currentUser }) => {
       </div>
     )
   })
-
 
 
   return (
