@@ -62,7 +62,7 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-//!getAllComments
+//!get
 router.get("/:recipeId", async (req, res) => {
   const {recipeId} = req.params;
   try {

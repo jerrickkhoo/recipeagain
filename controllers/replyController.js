@@ -45,11 +45,10 @@ router.delete("/:id", async (req, res) => {
 //!update
 router.put("/:id", async (req, res) => {
   const { id } = req.params;
-  const changedReply = req.body;
   try {
-    const editedReply = await Reply.findByIdAndUpdate(id, changedReply, {
+    const editedReply = await Reply.findByIdAndUpdate(id, {comment:req.body.comment, edited:true}, {
       new: true,
-    });
+    }).populate("userId","username");
     res.status(200).json({
       status: "ok",
       message: "update Reply route is working",
