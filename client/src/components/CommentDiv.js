@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 import dayjs from "dayjs";
-import CommentForm from "./CommentForm";
+import ReplyForm from "./ReplyForm";
 import axios from "axios";
 
-const CommentDiv = ({ comment, currentUser, handleSubmit,setComments,comments,index }) => {
+const CommentDiv = ({ comment, currentUser, setComments, comments, index }) => {
   const [replyOpen, setReplyOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
+  const [children, setChildren] = useState([]);
   const parseDate = (timestamp) => {
     if (dayjs().$D === dayjs(timestamp).$D) {
       return `Today at ${dayjs(timestamp).format("h.mma")}`;
@@ -17,45 +18,35 @@ const CommentDiv = ({ comment, currentUser, handleSubmit,setComments,comments,in
     }
   };
 
-  const handleEdit = async (event,id) => {
+  const handleEdit = async (event, id) => {
     event.preventDefault();
     try {
-        const res = await axios.put(`/api/comments/${id}`, {
-          comment: event.target.comment.value,
-        });
-        console.log("edited comment", res);
-        setComments(comments.map((ele,i)=>index === i ? res.data.data : ele));
-        setEditOpen(false);
-      } catch (error) {
-        console.log(error);
-      }
+      const res = await axios.put(`/api/comments/${id}`, {
+        comment: event.target.comment.value,
+      });
+      console.log("edited comment", res);
+      setComments(
+        comments.map((ele, i) => (index === i ? res.data.data : ele))
+      );
+      setEditOpen(false);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  const getReplies = async (id, depth = 0) => {
-    if (depth === 0) {
+  useEffect(() => {
+    const getReplies = async (id) => {
       try {
         const res = await axios.get(`/api/replies/${id}`);
         if (res.data.data.length !== 0) {
-          //res.data.data is an array of replies
-          return res.data.data.map((reply, index) => {
-            return (
-              <CommentDiv
-                comment={reply}
-                currentUser={currentUser}
-                handleSubmit={handleSubmit}
-              />
-            );
-          });
-        } else {
+          setChildren(res.data.data);
         }
       } catch (error) {
         console.log(error);
       }
-    } else {
-    }
-
-    return "reply";
-  };
+    };
+    getReplies(comment._id);
+  }, []);
 
   return (
     <>
@@ -66,13 +57,17 @@ const CommentDiv = ({ comment, currentUser, handleSubmit,setComments,comments,in
         <div className="content">
           <a className="author">{comment?.userId?.username}</a>
           <div className="metadata">
-            <span className="date"><ReactMarkdown>{`${parseDate(comment.updatedAt)} ${comment?.edited ? "*edited*" : ""}`}</ReactMarkdown></span>
+            <span className="date">
+              <ReactMarkdown>{`${parseDate(comment.updatedAt)} ${
+                comment?.edited ? "*edited*" : ""
+              }`}</ReactMarkdown>
+            </span>
           </div>
           {editOpen ? (
             <>
               <form
                 className="ui reply form"
-                onSubmit={(event) => handleEdit(event,comment._id)}
+                onSubmit={(event) => handleEdit(event, comment._id)}
               >
                 <div className="field">
                   <label htmlFor="name" />
@@ -108,16 +103,33 @@ const CommentDiv = ({ comment, currentUser, handleSubmit,setComments,comments,in
                   </>
                 ) : null}
                 {replyOpen ? (
-                  <CommentForm
-                    handleSubmit={handleSubmit}
+                  <ReplyForm
+                    id={comment._id}
                     currentUser={currentUser}
-                    mode={"reply"}
+                    children={children}
+                    setChildren={setChildren}
+                    setReplyOpen={setReplyOpen}
                   />
                 ) : null}
               </div>
             </>
           )}
         </div>
+        {children.length !== 0 ? (
+          <div class="comments">
+            {children.map((comment, index) => {
+              return (
+                <CommentDiv
+                  comment={comment}
+                  currentUser={currentUser}
+                  setComments={setComments}
+                  comments={comments}
+                  index={index}
+                />
+              );
+            })}
+          </div>
+        ) : null}
       </div>
     </>
   );

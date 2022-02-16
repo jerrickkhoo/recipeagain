@@ -7,6 +7,7 @@ const userController = require("./controllers/userController")
 const recipeController = require("./controllers/recipeController");
 const ratingController = require("./controllers/ratingController");
 const commentController = require("./controllers/commentController")
+const replyController = require("./controllers/replyController");
 
 //* CONFIG
 require("dotenv").config();
@@ -46,7 +47,8 @@ app.use(
   app.use('/api/users', userController)
   app.use("/api/recipes", recipeController);
   app.use('/api/ratings', ratingController)
-  // app.use('/api/comments', commentController)
+  app.use('/api/comments', commentController);
+  app.use('/api/replies', replyController)
  
 // app.get("/*", (req, res) => {
 //   res.sendFile(path.join(__dirname, "./client/build", "index.html"));
