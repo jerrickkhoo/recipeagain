@@ -2,12 +2,14 @@ const Joi = require("joi")
 
 const JoinValidationSchema= Joi.object({
     username: Joi.string().alphanum().min(3).max(30).required(),
-    email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }),
+    email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }).required(),
     password: Joi.string().min(6).max(30).required()
 })
 
 const LoginValidationSchema= Joi.object({
-    email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }),
+    email: Joi.string()
+            .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } })
+            .required(),
     password: Joi.string().min(6).max(0).required()
 })
 

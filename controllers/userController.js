@@ -4,11 +4,11 @@ const router = express.Router();
 const User = require("../models/users.js");
 const session = require("express-session");
 const seedUsers = require("../models/seed/seedUsers")
-const {JoinValidationSchema,LoginValidationSchema} = require("../validation")
+const { JoinValidationSchema, LoginValidationSchema } = require("../validation")
 
 //  MIDDLEWARE
-const isLoggedIn = (req,res,next)=>{
-  if (req.session.currentUser){
+const isLoggedIn = (req, res, next) => {
+  if (req.session.currentUser) {
     return next()
   } else {
     res.redirect("/login")
@@ -33,51 +33,53 @@ router.get("/seedUser", async (req, res) => {
 //CREATE a new user
 router.post("/join", async (req, res) => {
   //validation
-  const {error,value} = JoinValidationSchema.validate(req.body)
-  res.json({error,value})
-
-  // //encrypt password
-  // req.body.password = bcrypt.hashSync(
-  //   req.body.password,
-  //   bcrypt.genSaltSync(10)
-  // );
-  // const newUserInput = {
-  //   username: req.body.username,
-  //   email: req.body.email,
-  //   password: req.body.password
-  // }
-  // try {
-  //   const createdUser = await User.create(newUserInput)
-  //   //console.log("created user is: ", createdUser);
-  //   res.status(200).json({ status: "ok", message: "user created", data: createdUser });
-  // } catch (error) {
-  //   res.status(400).json({ status: "not ok", message: "Failed to create account, kindly check if you are already a member. ", error: error });
-  // }
+  const { error, value } = JoinValidationSchema.validate(req.body)
+  if (error) {
+    res.status(400).json({ status: "not ok", message: "Failed to create account, kindly enter the correct format", error })
+  } else {
+    //encrypt password
+    req.body.password = bcrypt.hashSync(
+      req.body.password,
+      bcrypt.genSaltSync(10)
+    );
+    const newUserInput = {
+      username: req.body.username,
+      email: req.body.email,
+      password: req.body.password
+    }
+    try {
+      const createdUser = await User.create(newUserInput)
+      //console.log("created user is: ", createdUser);
+      res.status(200).json({ status: "ok", message: "user created", data: createdUser });
+    } catch (err) {
+      res.status(400).json({ status: "not ok", message: "Failed to create account, kindly check if the email is already registered. ", error:err});
+    }
+  }
 });
 
 
 //Log in log out, this needs to be above other routes that use params
 router.post("/login", async (req, res) => {
-  const {email, password } = req.body;
+  const { email, password } = req.body;
   try {
-    const foundUser = await User.findOne({ email:email });
-    console.log('foundUser',foundUser)
+    const foundUser = await User.findOne({ email: email });
+    console.log('foundUser', foundUser)
     if (!foundUser) {
       res.status(400).json({ status: "not ok", message: "Email And/Or Password Is Invalid" })
     } else {
-          const result = await bcrypt.compare(password, foundUser.password);
-          if (result) {
-            req.session.currentUser = foundUser;
-            res.status(200).json({ status: "ok", message: "user is loggedin", data:foundUser })
-          } else {
-            req.session.currentUser = null;
-            res
-              .status(400)
-              .json({
-                status: "not ok",
-                message: "Email And/Or Password Is Invalid",
-              });
-          }
+      const result = await bcrypt.compare(password, foundUser.password);
+      if (result) {
+        req.session.currentUser = foundUser;
+        res.status(200).json({ status: "ok", message: "user is loggedin", data: foundUser })
+      } else {
+        req.session.currentUser = null;
+        res
+          .status(400)
+          .json({
+            status: "not ok",
+            message: "Email And/Or Password Is Invalid",
+          });
+      }
     }
   } catch (error) {
     res.status(400).json({ status: "not ok", message: "Fail To Log In User ", error: error });
@@ -85,11 +87,11 @@ router.post("/login", async (req, res) => {
 }
 );
 
-router.post("/logout",(req, res) => {
-  req.session.destroy((err) => { 
-    if (err){
+router.post("/logout", (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
       res.status(400).json({ status: "not ok", message: "logout was unsuccessful", error: error })
-    } else{
+    } else {
       res.status(200).json({ status: "ok", message: "logout was successful" })
     }
   })
@@ -98,7 +100,7 @@ router.post("/logout",(req, res) => {
 
 //READ INDIVIDUAL USER
 
-router.get('/:userID',isLoggedIn, async (req, res) => {
+router.get('/:userID', isLoggedIn, async (req, res) => {
   const { userID } = req.params
   //TODO: add  a if condition req.session.currentUser.id === userID to make sure user can only access their own data, not other user
   try {
@@ -110,14 +112,14 @@ router.get('/:userID',isLoggedIn, async (req, res) => {
 })
 
 //UPDATE a user credentials
-router.put('/:userID', isLoggedIn,async (req, res) => {
+router.put('/:userID', isLoggedIn, async (req, res) => {
   const { userID } = req.params
   try {
 
     const updatedUser = await User.findOneAndUpdate({ _id: userID }, {
       username: req.body.username,
       email: req.body.email,
-      password: bcrypt.hashSync(req.body.password,bcrypt.genSaltSync(10)),
+      password: bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10)),
     },
       { new: true })
     res.status(200).json({ status: "ok", message: "user info updated", data: updatedUser })
@@ -127,11 +129,11 @@ router.put('/:userID', isLoggedIn,async (req, res) => {
 })
 
 //UPDATE user add a favourite
-router.put('/:userID/addFavorite',async (req, res) => {
+router.put('/:userID/addFavorite', async (req, res) => {
   const { userID } = req.params
   try {
-    const updatedUser = await User.findByIdAndUpdate(userID , {
-      $addToSet: {favorites: [req.body.recipeID]},
+    const updatedUser = await User.findByIdAndUpdate(userID, {
+      $addToSet: { favorites: [req.body.recipeID] },
     },
       { new: true })
     res.status(200).json({ status: "ok", message: "favourite added", data: updatedUser })
@@ -141,11 +143,11 @@ router.put('/:userID/addFavorite',async (req, res) => {
 })
 
 //UPDATE user remove a favourite
-router.put('/:userID/removeFavorite',async (req, res) => {
+router.put('/:userID/removeFavorite', async (req, res) => {
   const { userID } = req.params
   try {
-    const updatedUser = await User.findByIdAndUpdate(userID , {
-      $pull: {favorites: req.body.recipeID},
+    const updatedUser = await User.findByIdAndUpdate(userID, {
+      $pull: { favorites: req.body.recipeID },
     },
       { new: true })
     res.status(200).json({ status: "ok", message: "favourite removed", data: updatedUser })
@@ -155,12 +157,12 @@ router.put('/:userID/removeFavorite',async (req, res) => {
 })
 
 //Update use add a post
-router.put('/:userID/addPost', async(req,res)=>{
-  const {userID} = req.params
+router.put('/:userID/addPost', async (req, res) => {
+  const { userID } = req.params
   try {
-    const updatedUser = await User.findByIdAndUpdate(userID,{
-      $addToSet: {posts:[req.body.recipeID]}
-    },{new:true})
+    const updatedUser = await User.findByIdAndUpdate(userID, {
+      $addToSet: { posts: [req.body.recipeID] }
+    }, { new: true })
     res.status(200).json({ status: "ok", message: "recipeID added to user posts", data: updatedUser })
   } catch (error) {
     res.status(400).json({ status: "not ok", message: "fail to add recipeID to user posts", error: error });
@@ -168,13 +170,13 @@ router.put('/:userID/addPost', async(req,res)=>{
 })
 
 //Update user remove a post
-router.put('/:userID/removePost', async(req,res)=>{
-  const {userID} = req.params
+router.put('/:userID/removePost', async (req, res) => {
+  const { userID } = req.params
   try {
-    const updatedUser = await User.findByIdAndUpdate(userID,{
-      $pull: {posts:req.body.recipeID}
-    },{ new: true })
-    console.log('updatedUser',updatedUser)
+    const updatedUser = await User.findByIdAndUpdate(userID, {
+      $pull: { posts: req.body.recipeID }
+    }, { new: true })
+    console.log('updatedUser', updatedUser)
     res.status(200).json({ status: "ok", message: "recipeID removed from user posts", data: updatedUser })
   } catch (error) {
     res.status(400).json({ status: "not ok", message: "fail to remove recipeID from user posts", error: error });
@@ -182,31 +184,31 @@ router.put('/:userID/removePost', async(req,res)=>{
 })
 
 //Get user favorite
-router.get('/:userID/favorite',async (req,res)=>{
-  const {userID} = req.params
+router.get('/:userID/favorite', async (req, res) => {
+  const { userID } = req.params
   try {
-    const favRecipes = await User.findById({_id:userID})
-                              .populate({
-                                path:'favorites', 
-                                select: ['name', 'description','image']
-                              })
+    const favRecipes = await User.findById({ _id: userID })
+      .populate({
+        path: 'favorites',
+        select: ['name', 'description', 'image']
+      })
     //console.log('favRecipes',favRecipes)
     res.status(200).json({ status: "ok", message: "favorite recipes details fetched", data: favRecipes })
   } catch (error) {
     res.status(400).json({ status: "not ok", message: "fail to fetch favorite recipes", error: error });
   }
-  }
+}
 )
 
 //Get user posts
-router.get("/:userID/posts", async (req,res)=>{
-  const {userID} = req.params
+router.get("/:userID/posts", async (req, res) => {
+  const { userID } = req.params
   try {
-    const allPosts = await User.findById({_id:userID})
-                          .populate({
-                            path:'posts',
-                            select:['name', 'description','image']
-    })
+    const allPosts = await User.findById({ _id: userID })
+      .populate({
+        path: 'posts',
+        select: ['name', 'description', 'image']
+      })
     res.status(200).json({ status: "ok", message: "posted recipes fetched", data: allPosts })
   } catch (error) {
     res.status(400).json({ status: "not ok", message: "fail to fetch posted recipes", error: error });

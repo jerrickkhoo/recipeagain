@@ -21,7 +21,7 @@ const Login2 = ({currentUser, setCurrentUser, setIsLoggedIn}) => {
         navigate("/myaccount");
     })
     .catch((error) => {
-        console.log(error.response.data.message);
+        //console.log("joierro",error);
         alert(error.response.data.message);
     });
 };
