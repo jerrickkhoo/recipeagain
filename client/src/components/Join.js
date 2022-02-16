@@ -3,26 +3,30 @@ import axios from 'axios'
 import { useNavigate } from "react-router-dom";
 
 const Join = () => {
-const navigate = useNavigate()
+  const navigate = useNavigate()
 
-const handleSubmit = async (e) => {
-  e.preventDefault()
-  const newUser = {
-    username: e.target.username.value,
-    email: e.target.email.value,
-    password: e.target.password.value,
-  };
-  await axios
-    .post("/api/users/join", newUser)
-    .then((response) => {
-     alert("Account created, please log into your account.");
-     navigate(-1, { replace: true });
-    })
-    .catch((error) => {
-      console.log(error.response.data.message);
-      alert(error.response.data.message);
-    });
-}
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    const newUser = {
+      username: e.target.username.value,
+      email: e.target.email.value,
+      password: e.target.password.value,
+    };
+    await axios
+      .post("/api/users/join", newUser)
+      .then((response) => {
+        alert("Account created, please log into your account.");
+        navigate("/login",{replace:true});
+      })
+      .catch((error) => {
+        if (error.response.data.error.details) {
+          alert(error.response.data.error.details[0].message)
+        } else {
+          alert(error.response.data.message)
+        }
+        //alert(error.response.data.error.details[0].message);
+      });
+  }
 
   return (
     <div style={{ backgroundColor: "lightyellow", paddingBottom: "100%" }}>

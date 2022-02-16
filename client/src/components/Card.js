@@ -57,9 +57,14 @@ const Card = ({ currentUser, recipeID, isLoggedIn }) => {
     );
   });
 
+  const prep_time_hr = currentRecipe?.duration/60
+  const prep_time = (Number.isInteger(prep_time_hr))
+                  ?`${prep_time_hr} hr`
+                  :`${Math.floor(prep_time_hr)} hr ${currentRecipe?.duration%60}mins`
+  
   console.log("currentUser", currentUser);
-  console.log(isLoggedIn)
-  console.log(currentRecipe)
+  console.log('isLoggedIn',isLoggedIn)
+  console.log('currentRecipe',currentRecipe)
 
   return (
     <div className="cards">
@@ -103,11 +108,11 @@ const Card = ({ currentUser, recipeID, isLoggedIn }) => {
           </h3>
           <a href className="ui tag label">
             {" "}
-            Prep time: {currentRecipe?.duration} mins
+            Prep time: {prep_time}
           </a>
           <br />
           <br />
-          <a href className="ui tag label">Serves: {currentRecipe?.servings}</a>
+          <a href className="ui tag label">Servings: {currentRecipe?.servings}</a>
           <h2 id="font2">{currentRecipe?.description}</h2>
           <br />
         </div>
