@@ -1,6 +1,12 @@
 
-.home{
+
+
+
+.homepage{
   text-align: center;
+    background-color: lightyellow;
+    padding-bottom: 100%;
+
 }
 
 .header{
@@ -22,22 +28,30 @@
 #myaccount{
   left:82%;
   white-space: nowrap;
-  position: fixed;
+  position: absolute;
 }
 
 #search{
-    left: 91%;
+  left: 92%;
   white-space: nowrap;
-  position: fixed;
+  position: absolute;
+  cursor: pointer;
 
 }
 
+#deleterecipe{
+margin: auto;
+width: 100%;
+padding-top: 10px;
+color: red;
 
+}
 
 
 #homebanner{
   background-color: gold;
   padding-top: 100px;
+  text-align: center;
 }
 
 .homediv{
@@ -51,18 +65,37 @@ padding: 20px 0px;
   
 }
 
-/* img{
+img{
   object-fit: cover;
   max-width: 100%;
   max-height: 100%;
+  height: 400px;
+  width: 400px;
 
-} */
+}
+
+.font, #font{
+font-family: 'Josefin Sans', sans-serif;
+
+}
 
 #homeContent{
   height:160px;
-  font-family: 'Akaya Telivigala', cursive;
+font-family: 'Josefin Sans', sans-serif;
   font-size: 15px;
 
+}
+
+#tags{
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 20px;
+
+}
+
+.cards{
+  text-align: center;
+  background-color: lightyellow;
+  
 }
 
 .singleCard{
@@ -72,32 +105,44 @@ padding: 20px 0px;
   width: 50%  
 }
 
+.ingredients{
+  margin:auto;
+ width: 30%;
+ text-align: left;
+}
+
 .cardHeader{
-  margin: 0 auto;
-  text-align: center;
-  height: 400px;
-  background-size:cover;
-  background-position: center;
-  max-width: 75%;
-  max-height: 50%;
-  overflow: hidden;
-  position: relative;
+margin:auto;
+ display: flex;
+ width: 80%;
+}
+
+
+
+#resize {
+    width: 550px;
+    height: auto;
+left: 200px;
 }
 
 
 .headerBackground{
-  opacity: 0.6;
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: auto;
-  object-fit: fill;
+  object-fit: contain;
+  padding: 0;
+  flex:70%;
+  
+
+}
+
+#font2{
+font-family: 'Josefin Sans', sans-serif;
 }
 
 .headerText{
-  font-size: 100px;
-  position: relative;
+flex:50%;
+text-align: left;
+vertical-align: middle;
+
 }
 
 #cardName {
@@ -121,7 +166,9 @@ Search{
   display: flex;
   margin: 0 auto;
   flex-wrap: wrap;
-  width: 50%
+  width: 50%;
+  margin-top:100px;
+
 }
 
 .login{
@@ -132,7 +179,31 @@ Search{
 
 }
 
+
+.comments{
+margin: auto;
+padding: 20px 0 50px 420px;
+background-color: gold;
+}
+
+
 .titles{
-  font-family: 'Akaya Telivigala', cursive;
+font-family: 'Josefin Sans', sans-serif;
   font-size: 42px;
+}
+
+#newrecipe{
+  width: 80%;
+  margin: auto;
+  text-align: center;
+  font-family: 'Josefin Sans', sans-serif;
+
+}
+
+.myaccount{
+display: flex;
+}
+
+#accountchild{
+  flex:20%
 }

@@ -25,29 +25,52 @@ const handleSubmit = async (e) => {
 }
 
   return (
-    <div>
-      <div className='login' style={{padding:'100px'}}>
-      <h2>Create Account</h2>
-      <form class="ui form" onSubmit={handleSubmit}>
-        <div class="field">
-          <label>Username</label>
-          <input type="text" name="username" placeholder="Username" required />
-        </div>
-        <div class="field">
-          <label>E-Mail</label>
-          <input type="text" name="email" placeholder="E-Mail" required />
-        </div>
-        <div class="field">
-          <label>Password</label>
-          <input type="password" name="password" placeholder="Password" required/>
-        </div>
+    <div style={{ backgroundColor: "lightyellow", paddingBottom: "100%" }}>
+      <div id="homebanner">
+        <h1 className="titles">Join Us</h1>
+      </div>
+      <div className="login" style={{ padding: "100px" }}>
+        <form class="ui form" onSubmit={handleSubmit}>
+          <div class="field">
+            <label id="font">Username</label>
+            <input
+              type="text"
+              name="username"
+              placeholder="Username"
+              required
+            />
+          </div>
+          <div class="field">
+            <label id="font">E-Mail</label>
+            <input type="text" name="email" placeholder="E-Mail" required />
+          </div>
+          <div class="field">
+            <label id="font">Password</label>
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              required
+            />
+          </div>
 
-        <button class="ui button" type="submit" style={{marginBottom:'20px'}}>
-          Submit
-        </button>
-      </form>
-      <a href='/login'>Log In</a>
-    </div>
+          <button
+            class="ui button"
+            type="submit"
+            id="font"
+            style={{
+              marginBottom: "20px",
+              color: "black",
+              backgroundColor: "gold",
+            }}
+          >
+            Submit
+          </button>
+        </form>
+        <a id="font" style={{ color: "gold" }} href="/login">
+          Log In
+        </a>
+      </div>
     </div>
   );
 };

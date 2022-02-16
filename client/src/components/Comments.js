@@ -20,21 +20,37 @@ const Comments = ({ currentUser, recipeID }) => {
     getAllComments(recipeID);
   }, []);
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event, type, index) => {
     event.preventDefault();
-    // console.log("in submit");
-    // console.log(event.target.comment.value);
-    try {
-      const res = await axios.post("/api/comments/new", {
-        userId: currentUser._id,
-        recipeId: recipeID,
-        comment: event.target.comment.value,
-      });
-      console.log("new comment", res);
-      setComments([...comments, res.data.data]);
-      event.target.comment.value = "";
-    } catch (error) {
-      console.log(error);
+    console.log("in submit");
+    console.log(event.target.comment.value);
+    if (type === "comment") {
+      try {
+        const res = await axios.post("/api/comments/new", {
+          userId: currentUser._id,
+          recipeId: recipeID,
+          comment: event.target.comment.value,
+        });
+        console.log("new comment", res);
+        setComments([...comments, res.data.data]);
+        event.target.comment.value = "";
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      try {
+        const res = await axios.post(
+          `/api/replies/new/${comments[index]._id}`,
+          {
+            userId: currentUser._id,
+            comment: event.target.comment.value,
+          }
+        );
+        console.log("new reply", res);
+        event.target.comment.value = "";
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
@@ -57,6 +73,7 @@ const Comments = ({ currentUser, recipeID }) => {
       <CommentForm
         handleSubmit={handleSubmit}
         currentUser={currentUser}
+        mode={"comment"}
       />
     </div>
   );

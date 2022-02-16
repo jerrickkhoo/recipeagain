@@ -72,38 +72,54 @@ function App() {
           <div className="ui inverted secondary pointing menu">
             <div className="navbar">
               <Link className="item" to="/">
-                <i class="home icon"></i>
-                <div>Home</div>
-              </Link>
-            </div>
-            <div className="navbar" style={{ display: isLoggedIn ? "block" : "none" }}>
-              <Link className="item" to="/favorites">
-                <i class="heart icon"></i>
-                <div>Favorites</div>
+                <i style={{ color: "gold" }} class="home icon "></i>
+                <div style={{ color: "gold" }} className="font">
+                  Home
+                </div>
               </Link>
             </div>
             <div
               className="navbar"
-              style={{ display: isLoggedIn ? "block" : "none", whiteSpace:'nowrap' }}
+              style={{ display: isLoggedIn ? "block" : "none" }}
             >
-              <Link
-                className="item"
-                to="/recipes/new"
-              >
-                <i class="plus square outline icon"></i>
-                <div>New Recipe</div>
+              <Link className="item" to="/favorites">
+                <i style={{ color: "gold" }} class="star icon"></i>
+                <div style={{ color: "gold" }} className="font">
+                  Favorites
+                </div>
+              </Link>
+            </div>
+            <div
+              className="navbar"
+              style={{
+                display: isLoggedIn ? "block" : "none",
+                whiteSpace: "nowrap",
+              }}
+            >
+              <Link className="item" to="/recipes/new">
+                <i
+                  style={{ color: "gold" }}
+                  class="plus square outline icon"
+                ></i>
+                <div style={{ color: "gold" }} className="font">
+                  New Recipe
+                </div>
               </Link>
             </div>
             <div className="navbar" id="myaccount">
               <Link className="item" to="/myaccount">
-                <i className="user outline icon"></i>
-                <div>My Account</div>
+                <i style={{ color: "gold" }} className="user outline icon"></i>
+                <div style={{ color: "gold" }} className="font">
+                  My Account
+                </div>
               </Link>
             </div>
             <div id="search">
               <Link className="item" to="/search">
-                <i class="search icon"></i>
-                <div>Search</div>
+                <i style={{ color: "gold" }} class="search icon"></i>
+                <div style={{ color: "gold" }} className="font">
+                  Search
+                </div>
               </Link>
             </div>
           </div>
@@ -116,13 +132,23 @@ function App() {
             }
           />
 
-          <Route path="/myposts" element={<ProtectedRoute redirectTo="/login"><MyPostPage currentUser={currentUser}/></ProtectedRoute>} />
+          <Route
+            path="/myposts"
+            element={
+              <ProtectedRoute redirectTo="/login">
+                <MyPostPage currentUser={currentUser} allRecipes={allRecipes} />
+              </ProtectedRoute>
+            }
+          />
 
           <Route
             path="/favorites"
             element={
               <ProtectedRoute redirectTo="/login">
-                <FavoritesPage currentUser={currentUser} />
+                <FavoritesPage
+                  currentUser={currentUser}
+                  allRecipes={allRecipes}
+                />
               </ProtectedRoute>
             }
           />
@@ -140,13 +166,21 @@ function App() {
           />
           <Route
             path="/recipes/:recipeID"
-            element={<RecipeShowPage currentUser={currentUser} />}
+            element={
+              <RecipeShowPage
+                currentUser={currentUser}
+                isLoggedIn={isLoggedIn}
+              />
+            }
           />
           <Route
             path="/recipes/:recipeID/edit"
             element={
               <ProtectedRoute redirectTo="/login">
-                <RecipeEditPage currentUser={currentUser} />
+                <RecipeEditPage
+                  currentUser={currentUser}
+                  isLoggedIn={isLoggedIn}
+                />
               </ProtectedRoute>
             }
           />
@@ -157,6 +191,7 @@ function App() {
                 <Edit
                   currentUser={currentUser}
                   setCurrentUser={getCurrentUser}
+                  isLoggedIn={isLoggedIn}
                 />
               </ProtectedRoute>
             }
@@ -173,6 +208,7 @@ function App() {
                   currentUser={currentUser}
                   setCurrentUser={getCurrentUser}
                   setIsLoggedIn={getIsLoggedIn}
+                  isLoggedIn={isLoggedIn}
                 />
               </ProtectedRoute>
             }

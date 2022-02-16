@@ -50,14 +50,16 @@ const RecipeCreatePage = ({currentUser}) => {
     const ingreFormArray = ingreArr.map((ingre, i) => {
         return (
           <div key={i}>
-            <label>Ingredient #{i + 1}</label>
+            <label style={{ fontSize: "15px" }}>Ingredient #{i + 1}</label>
             <input
               type="text"
               name="name"
               placeholder="*Enter Ingredient Name"
               value={ingre.name}
               onChange={(e) => handleChangeIngre(e, i)}
-              style={{ margin: "10px 0 10px 0" }}
+              style={{
+                margin: "10px 0 10px 0",
+              }}
             />
             <input
               type="text"
@@ -84,16 +86,27 @@ const RecipeCreatePage = ({currentUser}) => {
               style={{ marginBottom: "10px" }}
             />
             {i === ingreArr.length - 1 ? (
-              <button type="button" onClick={() => handleAddIngre(i)}>Add</button>
+              <button
+                class="ui button"
+                type="submit"
+                onClick={() => handleAddIngre(i)}
+                style={{ backgroundColor: "green", color: "white" }}
+              >
+                Add
+              </button>
             ) : null}
             {ingreArr.length > 1 ? (
-<<<<<<< HEAD
-              <button type="button" onClick={()=>handleRemoveIngre(i)}>Remove</button>
-=======
 
-              <button type="button" onClick={()=>handleRemoveIngre(i)}>Remove</button>
 
->>>>>>> 733cf0ad6ec52211305448ffebd3ec3291a1ef35
+              <button
+                class="ui button"
+                type="submit"
+                onClick={() => handleRemoveIngre(i)}
+                style={{ backgroundColor: "red", color: "white" }}
+              >
+                Remove
+              </button>
+
             ) : null}
             <br />
             <br />
@@ -119,14 +132,40 @@ const RecipeCreatePage = ({currentUser}) => {
 
     const stepFormArray = stepArr.map((step, i) => {
         return (
-            <div key={i}>
-                <label>Step {i + 1}</label>
-                <input type="text" name="step" placeholder="Enter a cooking step" value={step} onChange={(e) => handleChangeStep(e, i)} />
-                {(i === stepArr.length - 1) ? <button type="button" onClick={() => handleAddStep(i)}>Add</button> : null}
-                {(stepArr.length > 1) ? <button type="button" onClick={()=>handleRemoveStep(i)}>Remove</button> : null}
-                <br /><br />
-            </div>
-        )
+
+          <div key={i}>
+            <label >Step {i + 1}</label>
+            <input
+              type="text"
+              name="step"
+              placeholder="Enter a cooking step"
+              value={step}
+              onChange={(e) => handleChangeStep(e, i)}
+              style={{ margin: "20px 0" }}
+            />
+            {i === stepArr.length - 1 ? (
+              <button
+                class="ui button"
+                type="submit"
+                onClick={() => handleAddStep(i)}
+                style={{ backgroundColor: "green", color: "white" }}
+              >
+                Add
+              </button>
+            ) : null}
+            {stepArr.length > 1 ? (
+              <button
+                class="ui button"
+                type="submit"
+                onClick={() => handleRemoveStep(i)}
+                style={{ backgroundColor: "red", color: "white", marginBottom:'10px' }}
+              >
+                Remove
+              </button>
+            ) : null}
+          </div>
+        );
+
     })
     // console.log("ingreArr", ingreArr)
     // console.log("newRecipe", newRecipe)
@@ -161,59 +200,111 @@ const RecipeCreatePage = ({currentUser}) => {
 
 
     return (
-        <div>
-            <div className="createRecipe" style={{ padding: "100px" }}>
-                <div style={{ paddingBottom: "100px" }}>
-                <h2 style={{textAlign:'center'}}>New Recipe</h2>
-                </div>
-                <form className="ui form" onSubmit={handleSubmit}>
-                    <div className="field" >
-
-                        <label htmlFor='name' >Recipe Name*:</label>
-                        <input type="text" name="name" id='name' placeholder="Name"
-                            value={newRecipe.name}
-                            onChange={handleChange}
-                        /><br /><br />
-
-                        <label htmlFor='description'>Description*:</label>
-                        <textarea name="description" id='description' placeholder="Describe your recipe" value={newRecipe.description}
-                            onChange={handleChange}
-                        /><br /><br />
-
-                        <label>Ingredients List*:</label>
-                        {ingreFormArray}
-
-                        <label>Steps:</label>
-                        {stepFormArray}
-
-                        <label>Image URL:</label>
-                        <input name="image" placeholder='jpg/png'
-                            value={newRecipe.image}
-                            onChange={handleChange} /><br /><br />
-
-                        <label>Servings (persons):</label>
-                        <input type="number" name="servings" placeholder="eg. 4"
-                            value={newRecipe.servings}
-                            onChange={handleChange}
-                        /><br /><br />
-
-                        <label>Duration (minutes):</label>
-                        <input type="number" name="duration" placeholder="eg. 30"
-                            value={newRecipe.duration}
-                            onChange={handleChange}
-                        /><br /><br />
-
-                        <label>Tags (separated by comma):</label>
-                        <input type="text" name="tags" placeholder="eg. starter, dessert, main"
-                            value={newRecipe.tags}
-                            onChange={handleChange} />
-                    </div>
-
-                    <button class="ui button" type="submit" style={{ marginBottom: "20px" }}> Submit </button>
-                </form>
-                Fields with * are required.
-            </div>
+      <div style={{ backgroundColor: "lightyellow", paddingBottom: "100%" }}>
+        <div id="homebanner">
+          <h1 className="titles">New Recipe</h1>
         </div>
+        <div className="home" id="newrecipe" style={{ paddingBottom: "50px" }}>
+          <div style={{ paddingBottom: "100px" }}></div>
+          <form className="ui form" onSubmit={handleSubmit}>
+            <div className="field">
+              <label style={{ fontSize: "20px" }} htmlFor="name">
+                Recipe Name*:
+              </label>
+              <input
+                type="text"
+                name="name"
+                id="name"
+                placeholder="Name"
+                value={newRecipe.name}
+                onChange={handleChange}
+              />
+              <br />
+              <br />
+
+              <label style={{ fontSize: "20px" }} htmlFor="description">
+                Description*:
+              </label>
+              <textarea
+                name="description"
+                id="description"
+                placeholder="Describe your recipe"
+                value={newRecipe.description}
+                onChange={handleChange}
+              />
+              <br />
+              <br />
+
+              <label style={{ fontSize: "20px", paddingBottom: "20px" }}>
+                Ingredients List*:
+              </label>
+              {ingreFormArray}
+
+              <label style={{ fontSize: "20px" }}>Steps:</label>
+              {stepFormArray}
+
+              <label style={{ fontSize: "20px", padding: "20px 0" }}>
+                Image URL:
+              </label>
+              <input
+                name="image"
+                placeholder="jpg/png"
+                value={newRecipe.image}
+                onChange={handleChange}
+              />
+              <br />
+              <br />
+
+              <label style={{ fontSize: "20px" }}>Servings (persons):</label>
+              <input
+                type="number"
+                name="servings"
+                placeholder="eg. 4"
+                value={newRecipe.servings}
+                onChange={handleChange}
+              />
+              <br />
+              <br />
+
+              <label style={{ fontSize: "20px" }}>Duration (minutes):</label>
+              <input
+                type="number"
+                name="duration"
+                placeholder="eg. 30"
+                value={newRecipe.duration}
+                onChange={handleChange}
+              />
+              <br />
+              <br />
+
+              <label style={{ fontSize: "20px" }}>
+                Tags (separated by comma):
+              </label>
+              <input
+                type="text"
+                name="tags"
+                placeholder="eg. starter, dessert, main"
+                value={newRecipe.tags}
+                onChange={handleChange}
+              />
+            </div>
+
+            <button
+              class="ui button"
+              type="submit"
+              style={{
+                marginBottom: "20px",
+                backgroundColor: "gold",
+                color: "black",
+              }}
+            >
+              {" "}
+              Submit{" "}
+            </button>
+          </form>
+          Fields with * are required.
+        </div>
+      </div>
     );
 };
 

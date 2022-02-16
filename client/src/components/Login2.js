@@ -27,9 +27,11 @@ const Login2 = ({currentUser, setCurrentUser, setIsLoggedIn}) => {
 };
   
   return (
-    <div>
+    <div style={{ backgroundColor: "lightyellow", paddingBottom: "100%" }}>
+      <div id="homebanner">
+        <h1 className="titles">Log In</h1>
+      </div>
       <div className="login" style={{ padding: "100px" }}>
-        <h2>Log In</h2>
         <form class="ui form" onSubmit={handleSubmit}>
           <div class="field">
             <label>E-Mail</label>
@@ -43,12 +45,18 @@ const Login2 = ({currentUser, setCurrentUser, setIsLoggedIn}) => {
           <button
             class="ui button"
             type="submit"
-            style={{ marginBottom: "20px" }}
+            style={{
+              marginBottom: "20px",
+              color: "black",
+              backgroundColor: "gold",
+            }}
           >
             Submit
           </button>
         </form>
-        <a href="/join">Create an Account</a>
+        <a style={{ color: "gold" }} href="/join">
+          Create an Account
+        </a>
       </div>
     </div>
   );
