@@ -49,6 +49,7 @@ const AddToFavoriteBttn = ({ recipeID, currentUser }) => {
         }
     }
 
+    //lagging UI, not good
     // const toggleHover = () => {
     //     if (fill === 'none') {
     //         setFill("yellow")

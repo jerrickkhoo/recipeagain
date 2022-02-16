@@ -170,7 +170,7 @@ router.put('/:userID/removePost', async(req,res)=>{
   try {
     const updatedUser = await User.findByIdAndUpdate(userID,{
       $pull: {posts:req.body.recipeID}
-    },{ new: true })//FIXME: does not remove ??
+    },{ new: true })
     console.log('updatedUser',updatedUser)
     res.status(200).json({ status: "ok", message: "recipeID removed from user posts", data: updatedUser })
   } catch (error) {

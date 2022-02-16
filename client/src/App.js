@@ -10,6 +10,7 @@ import Login2 from "./components/Login2";
 import AllCards from "./components/AllCards";
 import SearchResults from "./components/SearchResults";
 import Search from "./components/Search";
+import MyPostPage from "./pages/MyPostPage";
 import Edit from './components/Edit'
 import RecipeCreatePage from './pages/RecipeCreatePage'
 import RecipeEditPage from './pages/RecipeEditPage'
@@ -82,6 +83,7 @@ function App() {
             }
           />
           <Route path="/favorites" element={<FavoritesPage currentUser={currentUser}/>} />
+          <Route path="/myposts" element={<ProtectedRoute redirectTo="/login"><MyPostPage currentUser={currentUser}/></ProtectedRoute>} />
           <Route path="/join" element={<Join />} />
           <Route path="/searchrecipe/" element={<AllCards />} />
           <Route path="/recipes/tags/tagID" element={<TagsPage />} />
