@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
-import ReactMarkdown from "react-markdown";
 import axios from "axios";
-
 import CommentDiv from "./CommentDiv";
 import CommentForm from "./CommentForm";
 
@@ -12,7 +10,7 @@ const Comments = ({ currentUser, recipeID }) => {
   useEffect(() => {
     const getAllComments = async (recipeID) => {
       try {
-        const res = await axios.post("/api/comments/", { recipeId: recipeID });
+        const res = await axios.get(`/api/comments/${recipeID}`);
         // console.log("get comments", res);
         setComments(res.data.data);
       } catch (error) {
@@ -58,7 +56,6 @@ const Comments = ({ currentUser, recipeID }) => {
 
   return (
     <div className="ui comments">
-      <ReactMarkdown># Comments!</ReactMarkdown>
       <h3 className="ui dividing header">Comments</h3>
       {comments.map((comment, index) => {
         // console.log(comment);
@@ -67,7 +64,6 @@ const Comments = ({ currentUser, recipeID }) => {
           <CommentDiv
             comment={comment}
             currentUser={currentUser}
-            handleSubmit={handleSubmit}
             setComments={setComments}
             comments={comments}
             index={index}

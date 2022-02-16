@@ -63,8 +63,8 @@ router.put("/:id", async (req, res) => {
 });
 
 //!getAllComments
-router.post("/", async (req, res) => {
-  const recipeId = req.body?.recipeId;
+router.get("/:recipeId", async (req, res) => {
+  const {recipeId} = req.params;
   try {
     const foundComment = await Comment.find({
       recipeId: recipeId,
