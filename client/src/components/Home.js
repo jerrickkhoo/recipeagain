@@ -62,11 +62,10 @@ const Home = ({ allRecipes, setAllRecipes }) => {
       <div className="homediv" key={index}>
         <Link to={"/recipes/" + item?._id}>
           <div className="ui card">
-            <div className="image">
-              <img src={item?.image} alt="" />
+            <div className="image" style={{backgroundImage:`url(${item?.image})`, backgroundSize: '100% 100%'}}>
             </div>
             <div className="content" id="homeContent">
-              <div className="header">{item?.name}</div>
+              <div className="header" style={{ fontFamily: 'Akaya Telivigala, cursive'}}>{item?.name}</div>
               <div className="meta">
                 <div>Servings: {item?.servings}</div>
                 <Rating
@@ -85,9 +84,10 @@ const Home = ({ allRecipes, setAllRecipes }) => {
   });
 
   return (
-    <div className="home" style={{ padding: "100px 0px" }}>
-      <Link to="/recipes/new">Create New Recipe</Link>
-      <h1>Featured</h1>
+    <div className="home">
+      <div id="homebanner">
+        <h1 className="titles">Featured</h1>
+      </div>
       <div className="randomCards">{randomCards}</div>
     </div>
   );
