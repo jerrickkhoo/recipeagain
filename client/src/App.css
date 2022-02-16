@@ -81,6 +81,7 @@ font-family: 'Josefin Sans', sans-serif;
 
 .cards{
   text-align: center;
+  background-color: gold;
   
 }
 
@@ -153,7 +154,7 @@ Search{
   margin: 0 auto;
   flex-wrap: wrap;
   width: 50%;
-  margin-top:50px;
+  margin-top:100px;
 
 }
 
@@ -169,6 +170,7 @@ Search{
 .comments{
 margin: auto;
 padding: 20px 0 50px 420px;
+background-color: gold;
 }
 
 

@@ -30,7 +30,7 @@ const Search = (props) => {
           type="text"
           placeholder="Search..."
         />
-        <button className="ui button yellow" onClick={handleClick}>
+        <button className="ui button yellow" onClick={handleClick} style={{color:'black'}}>
           Search
         </button>
       </div>

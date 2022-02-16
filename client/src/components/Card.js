@@ -14,7 +14,7 @@ const Card = ({ currentUser, recipeID, isLoggedIn }) => {
 
   const fetchCurrentRecipe = async () => {
     const foundRecipe = await axios.get(`/api/recipes/${recipeID}`);
-    const foundAuthor = foundRecipe.data.data.author._id
+    // const foundAuthor = foundRecipe.data.data.author._id
     //console.log('test',foundRecipe.data.data.author._id===currentUser._id)
     setCurrentRecipe(foundRecipe.data.data);
     // setCurrentUserisAuthor(foundAuthor===currentUser._id)
@@ -56,6 +56,7 @@ const Card = ({ currentUser, recipeID, isLoggedIn }) => {
 
   console.log("currentUser", currentUser);
   console.log(isLoggedIn)
+  console.log(currentRecipe)
 
   return (
     <div className="cards">
@@ -110,11 +111,11 @@ const Card = ({ currentUser, recipeID, isLoggedIn }) => {
       </div>
 
       <div className="cardContent">
-        {(currentUserisAuthor)
+        {/* {(currentUserisAuthor)
         && <div>
           <Link to={`/recipes/${recipeID}/edit`}>Edit</Link><br/>
         </div> 
-        }
+        } */}
 
         <div>
           <Link to={"/recipes/new"}>Create a New Recipe</Link>
@@ -129,7 +130,7 @@ const Card = ({ currentUser, recipeID, isLoggedIn }) => {
           Give us your feedback
         </h1>
         <RatingButton currentUser={currentUser} />
-        <h2>Want more? See our related tags below</h2>
+        <h2 id='font'>Want more? See our related tags below</h2>
         {tags}
       </div>
       {/* {currentUserisAuthor ? ( */}

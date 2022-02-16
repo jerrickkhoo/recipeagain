@@ -1,6 +1,6 @@
 
 import React from 'react'
-import { useNavigate, useEffect } from 'react-router-dom';
+import { useNavigate, useEffect, Link } from 'react-router-dom';
 import axios from "axios";
 
 
@@ -73,9 +73,9 @@ const navigate = useNavigate();
             Submit
           </button>
         </form>
-        <a href="/myaccount">
+        <Link to="/myaccount">
           Back to MyAccount
-        </a>
+        </Link>
       </div>
     </div>
   );
