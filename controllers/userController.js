@@ -124,7 +124,7 @@ router.put('/:userID', isLoggedIn,async (req, res) => {
 })
 
 //UPDATE user add a favourite
-router.put('/:userID/addFavorite',isLoggedIn,async (req, res) => {
+router.put('/:userID/addFavorite',async (req, res) => {
   const { userID } = req.params
   try {
     const updatedUser = await User.findByIdAndUpdate(userID , {
@@ -138,7 +138,7 @@ router.put('/:userID/addFavorite',isLoggedIn,async (req, res) => {
 })
 
 //UPDATE user remove a favourite
-router.put('/:userID/removeFavorite',isLoggedIn,async (req, res) => {
+router.put('/:userID/removeFavorite',async (req, res) => {
   const { userID } = req.params
   try {
     const updatedUser = await User.findByIdAndUpdate(userID , {
@@ -169,16 +169,17 @@ router.put('/:userID/removePost', async(req,res)=>{
   const {userID} = req.params
   try {
     const updatedUser = await User.findByIdAndUpdate(userID,{
-      $pull: {posts:[req.body.recipeID]}
-    },{new:true})
-    res.status(200).json({ status: "ok", message: "recipeID removed to user posts", data: updatedUser })
+      $pull: {posts:req.body.recipeID}
+    },{ new: true })
+    console.log('updatedUser',updatedUser)
+    res.status(200).json({ status: "ok", message: "recipeID removed from user posts", data: updatedUser })
   } catch (error) {
-    res.status(400).json({ status: "not ok", message: "fail to remove recipeID to user posts", error: error });
+    res.status(400).json({ status: "not ok", message: "fail to remove recipeID from user posts", error: error });
   }
 })
 
 //Get user favorite
-router.get('/:userID/favorite',isLoggedIn,async (req,res)=>{
+router.get('/:userID/favorite',async (req,res)=>{
   const {userID} = req.params
   try {
     const favRecipes = await User.findById({_id:userID})
@@ -193,6 +194,21 @@ router.get('/:userID/favorite',isLoggedIn,async (req,res)=>{
   }
   }
 )
+
+//Get user posts
+router.get("/:userID/posts", async (req,res)=>{
+  const {userID} = req.params
+  try {
+    const allPosts = await User.findById({_id:userID})
+                          .populate({
+                            path:'posts',
+                            select:['name', 'description','image']
+    })
+    res.status(200).json({ status: "ok", message: "posted recipes fetched", data: allPosts })
+  } catch (error) {
+    res.status(400).json({ status: "not ok", message: "fail to fetch posted recipes", error: error });
+  }
+})
 
 //DELETE a user
 router.delete('/:userID', isLoggedIn, async (req, res) => {

@@ -24,7 +24,7 @@ const Card = ({ currentUser, recipeID }) => {
       <ul className="unorderedList" key={index}>
         <li>
           <h3>
-            {item?.name} - {item?.quantity} {item?.units}
+            {item?.name} {item?.quantity} {item?.units}
           </h3>
         </li>
       </ul>

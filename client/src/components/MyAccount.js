@@ -49,6 +49,23 @@ const MyAccount = ({ setCurrentUser, currentUser, setIsLoggedIn }) => {
         <h1>Account Details</h1>
         <h3>Username: {currentUser?.username}</h3>
         <h3>E-Mail: {currentUser?.email}</h3>
+
+        <div style={{ paddingTop: "50px" }}>
+        <Link to="/recipes/new">
+        <button class="ui button" >
+            Create NewRecipe
+          </button>
+        </Link>
+        </div>
+
+        <div style={{ paddingTop: "50px" }}>
+        <Link to="/myposts">
+        <button class="ui button" >
+            View All Recipes I Posted
+          </button>
+        </Link>
+        </div>
+
         <form
           class="ui form"
           onSubmit={handleLogOut}
@@ -77,13 +94,7 @@ const MyAccount = ({ setCurrentUser, currentUser, setIsLoggedIn }) => {
           </button>
         </form>
 
-        <div style={{ paddingTop: "50px" }}>
-        <Link to="/recipes/new">
-        <button class="ui button" >
-            Create NewRecipe
-          </button>
-        </Link>
-        </div>
+
   
       </div>
     </div>
