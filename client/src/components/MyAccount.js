@@ -45,55 +45,90 @@ const MyAccount = ({ setCurrentUser, currentUser, setIsLoggedIn, isLoggedIn }) =
   // };
 
   return (
-    <div>
+    <div style={{backgroundColor:'lightyellow', paddingBottom:'100%'}}>
       <div id="homebanner">
         <h1 className="titles">My Account</h1>
       </div>
-      <div className="home" style={{ padding: "0 50px" }}>
+      <div className="homepage" style={{ padding: "0 50px" }}>
         <div className="myaccount">
-          <div id="accountchild" style={{ paddingTop: "50px" }}>
+          <div
+            id="accountchild"
+            style={{ paddingTop: "50px", textAlign: "center" }}
+          >
             <Link to="/myposts">
-              <button class="ui button">My Recipes</button>
+              <button
+                class="ui button"
+                style={{
+                  backgroundColor: "gold",
+                  color: "black",
+                }}
+              >
+                My Recipes
+              </button>
             </Link>
           </div>
 
           <form
             class="ui form"
             onSubmit={handleEdit}
-            style={{ paddingTop: "50px" }}
+            style={{ paddingTop: "50px", textAlign: "center" }}
             id="accountchild"
           >
-            <button className="accountchild" class="ui button" type="submit">
+            <button
+              className="accountchild"
+              class="ui button"
+              type="submit"
+              style={{
+                backgroundColor: "gold",
+                color: "black",
+              }}
+            >
               Edit Account
             </button>
           </form>
           <form
             class="ui form"
             onSubmit={handleDelete}
-            style={{ paddingTop: "50px" }}
+            style={{ paddingTop: "50px", textAlign: "center" }}
             id="accountchild"
           >
-            <button class="ui button" type="submit">
+            <button
+              class="ui button"
+              type="submit"
+              style={{
+                backgroundColor: "gold",
+                color: "black",
+              }}
+            >
               Delete Account
             </button>
           </form>
           <form
             class="ui form"
             onSubmit={handleLogOut}
-            style={{ paddingTop: "50px" }}
+            style={{ paddingTop: "50px", textAlign: "center" }}
             id="accountchild"
           >
-            <button class="ui button" type="submit">
+            <button
+              class="ui button"
+              type="submit"
+              style={{
+                backgroundColor: "gold",
+                color: "black",
+              }}
+            >
               Log Out
             </button>
           </form>
         </div>
-        <div style={{paddingTop: '100px'}}>
-
-        <h3 id="font">Username: {currentUser?.username}</h3>
-        <h3 id="font">E-Mail: {currentUser?.email}</h3>
+        <div style={{ paddingTop: "100px", textAlign: "center" }}>
+          <h3 style={{ fontSize: "28px" }} id="font">
+            Username: {currentUser?.username}
+          </h3>
+          <h3 style={{ fontSize: "28px" }} id="font">
+            E-Mail: {currentUser?.email}
+          </h3>
         </div>
-
       </div>
     </div>
   );

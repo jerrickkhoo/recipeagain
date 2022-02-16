@@ -25,14 +25,14 @@ const handleSubmit = async (e) => {
 }
 
   return (
-    <div id="font">
+    <div style={{ backgroundColor: "lightyellow", paddingBottom: "100%" }}>
       <div id="homebanner">
         <h1 className="titles">Join Us</h1>
       </div>
       <div className="login" style={{ padding: "100px" }}>
         <form class="ui form" onSubmit={handleSubmit}>
           <div class="field">
-            <label>Username</label>
+            <label id="font">Username</label>
             <input
               type="text"
               name="username"
@@ -41,11 +41,11 @@ const handleSubmit = async (e) => {
             />
           </div>
           <div class="field">
-            <label>E-Mail</label>
+            <label id="font">E-Mail</label>
             <input type="text" name="email" placeholder="E-Mail" required />
           </div>
           <div class="field">
-            <label>Password</label>
+            <label id="font">Password</label>
             <input
               type="password"
               name="password"
@@ -57,12 +57,19 @@ const handleSubmit = async (e) => {
           <button
             class="ui button"
             type="submit"
-            style={{ marginBottom: "20px" }}
+            id="font"
+            style={{
+              marginBottom: "20px",
+              color: "black",
+              backgroundColor: "gold",
+            }}
           >
             Submit
           </button>
         </form>
-        <a href="/login">Log In</a>
+        <a id="font" style={{ color: "gold" }} href="/login">
+          Log In
+        </a>
       </div>
     </div>
   );

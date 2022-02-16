@@ -68,19 +68,80 @@ const RecipeEditPage = (currentUser) => {
         setIngreArr(list)
     }
 
+    const handleDelete = async (e) => {
+        e.preventDefault()
+        await axios.delete(`/api/recipes/${recipeID}`)
+        alert('Recipe Deleted')
+        navigate('/')
+    }
+
     const ingreFormArray = ingreArr.map((ingre, i) => {
         return (
-            <div key={i}>
-                <label>Ingredient #{i + 1}</label>
-                <input type="text" name="name" placeholder="Enter Ingredient Name" value={ingre.name} onChange={(e) => handleChangeIngre(e, i)} />
-                <input type="text" name="units" placeholder="Enter units of measurement. litres/grams" value={ingre.units} onChange={(e) => handleChangeIngre(e, i)} />
-                <input type="number" name="quantity" placeholder="Enter ingredient quantity in units" value={ingre.quantity} onChange={(e) => handleChangeIngre(e, i)} />
-                <input type="text" name="type" placeholder="Enter ingredient type eg. fruit/meat" value={ingre.type} onChange={(e) => handleChangeIngre(e, i)} />
-                {(i === ingreArr.length - 1) ? <button onClick={() => handleAddIngre(i)}>Add</button> : null}
-                {(ingreArr.length > 1) ? <button onClick={handleRemoveIngre}>Remove</button> : null}
-                <br /><br />
-            </div>
-        )
+          <div key={i}>
+            <label>Ingredient #{i + 1}</label>
+            <input
+              type="text"
+              name="name"
+              placeholder="Enter Ingredient Name"
+              value={ingre.name}
+              onChange={(e) => handleChangeIngre(e, i)}
+              style={{ margin: "20px 0" }}
+            />
+            <input
+              type="text"
+              name="units"
+              placeholder="Enter units of measurement. litres/grams"
+              value={ingre.units}
+              onChange={(e) => handleChangeIngre(e, i)}
+              style={{ margin: "20px 0"}}
+            />
+            <input
+              type="number"
+              name="quantity"
+              placeholder="Enter ingredient quantity in units"
+              value={ingre.quantity}
+              onChange={(e) => handleChangeIngre(e, i)}
+              style={{ margin: "20px 0"}}
+            />
+            <input
+              type="text"
+              name="type"
+              placeholder="Enter ingredient type eg. fruit/meat"
+              value={ingre.type}
+              onChange={(e) => handleChangeIngre(e, i)}
+              style={{ margin: "20px 0" }}
+            />
+            {i === ingreArr.length - 1 ? (
+              <button
+                class="ui button"
+                type="submit"
+                onClick={() => handleAddIngre(i)}
+                style={{
+                  backgroundColor: "green",
+                  color: "white",
+                }}
+              >
+                Add
+              </button>
+            ) : null}
+            {ingreArr.length > 1 ? (
+              <button
+                class="ui button"
+                type="submit"
+                onClick={() => handleRemoveIngre(i)}
+                style={{
+                  margin: "20px 0",
+                  backgroundColor: "red",
+                  color: "white",
+                }}
+              >
+                Remove
+              </button>
+            ) : null}
+            <br />
+            <br />
+          </div>
+        );
     })
 
     const handleChangeStep = (e, i) => {
@@ -101,14 +162,43 @@ const RecipeEditPage = (currentUser) => {
 
     const stepFormArray = stepArr.map((step, i) => {
         return (
-            <div key={i}>
-                <label>Step {i + 1}</label>
-                <input type="text" name="step" placeholder="Enter a cooking step" value={step} onChange={(e) => handleChangeStep(e, i)} />
-                {(i === stepArr.length - 1) ? <button onClick={() => handleAddStep(i)}>Add</button> : null}
-                {(stepArr.length > 1) ? <button onClick={handleRemoveStep}>Remove</button> : null}
-                <br /><br />
-            </div>
-        )
+          <div key={i}>
+            <label>Step {i + 1}</label>
+            <input
+              type="text"
+              name="step"
+              placeholder="Enter a cooking step"
+              value={step}
+              onChange={(e) => handleChangeStep(e, i)}
+              style={{ margin: "20px 0"}}
+            />
+            {i === stepArr.length - 1 ? (
+              <button
+                class="ui button"
+                type="submit"
+                onClick={() => handleAddStep(i)}
+                style={{
+                  backgroundColor: "green",
+                  color: "white",
+                }}
+              >
+                Add
+              </button>
+            ) : null}
+            {stepArr.length > 1 ? (
+              <button
+                class="ui button"
+                type="submit"
+                onClick={() => handleRemoveStep(i)}
+                style={{ backgroundColor: "red", color: "white" }}
+              >
+                Remove
+              </button>
+            ) : null}
+            <br />
+            <br />
+          </div>
+        );
     })
 
     const handleSubmit = async (e) => {
@@ -136,10 +226,15 @@ const RecipeEditPage = (currentUser) => {
 
 
     return (
-      <div>
+      <div style={{ backgroundColor: "lightyellow", paddingBottom: "100%" }}>
         <div id="homebanner">
           <h1 className="titles">Edit Recipe</h1>
         </div>
+        <i
+          id="deleterecipe"
+          class="trash alternate outline icon"
+          onClick={handleDelete}
+        ></i>
         <div className="home" id="newrecipe" style={{ paddingBottom: "50px" }}>
           <div style={{ paddingBottom: "100px" }}></div>
           <form className="ui form" onSubmit={handleSubmit}>
@@ -153,8 +248,8 @@ const RecipeEditPage = (currentUser) => {
                 id="name"
                 placeholder="Name"
                 value={newRecipe.name}
-                onChange={handleChange
-                }
+                onChange={handleChange}
+               
               />
               <br />
               <br />
@@ -168,6 +263,7 @@ const RecipeEditPage = (currentUser) => {
                 placeholder="Describe your recipe"
                 value={newRecipe.description}
                 onChange={handleChange}
+               
               />
               <br />
               <br />
@@ -225,7 +321,11 @@ const RecipeEditPage = (currentUser) => {
             <button
               class="ui button"
               type="submit"
-              style={{ marginBottom: "20px" }}
+              style={{
+                marginBottom: "20px",
+                backgroundColor: "gold",
+                color: "black",
+              }}
             >
               {" "}
               Submit{" "}

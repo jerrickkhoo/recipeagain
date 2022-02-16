@@ -14,12 +14,12 @@ const Card = ({ currentUser, recipeID, isLoggedIn }) => {
 
   const fetchCurrentRecipe = async () => {
     const foundRecipe = await axios.get(`/api/recipes/${recipeID}`);
-    // const foundAuthor = foundRecipe.data.data.author._id
+    console.log('foundRecipe',foundRecipe)
+    const foundAuthor = foundRecipe.data.data.author._id
     //console.log('test',foundRecipe.data.data.author._id===currentUser._id)
     setCurrentRecipe(foundRecipe.data.data);
-    // setCurrentUserisAuthor(foundAuthor===currentUser._id)
+    setCurrentUserisAuthor(foundAuthor===currentUser._id)
   };
-
   useEffect(() => {
     fetchCurrentRecipe();
   }, []);
@@ -48,8 +48,11 @@ const Card = ({ currentUser, recipeID, isLoggedIn }) => {
 
   const tags = currentRecipe?.tags?.map((item, index) => {
     return (
-      <Link to={`/tags/${item}`}>
-        <a class="ui label" id='tags'> {item}</a>
+      <Link to={`/tags/${item}`} style={{ paddingRight: "30px" }}>
+        <a class="ui label" id="tags">
+          {" "}
+          {item}
+        </a>
       </Link>
     );
   });
@@ -87,7 +90,7 @@ const Card = ({ currentUser, recipeID, isLoggedIn }) => {
                   class="pencil alternate icon"
                   style={{
                     color: "black",
-                    display: isLoggedIn ? "block" : "none",
+                    display: currentUserisAuthor ? "block" : "none",
                   }}
                 ></i>
               </Link>
@@ -109,17 +112,7 @@ const Card = ({ currentUser, recipeID, isLoggedIn }) => {
           <br />
         </div>
       </div>
-
       <div className="cardContent">
-        {/* {(currentUserisAuthor)
-        && <div>
-          <Link to={`/recipes/${recipeID}/edit`}>Edit</Link><br/>
-        </div> 
-        } */}
-
-        <div>
-          <Link to={"/recipes/new"}>Create a New Recipe</Link>
-        </div>
         <div className="ingredients" style={{ paddingTop: "20px" }}>
           <h2 id="font2" style={{ fontSize: "35px" }}>
             Steps:

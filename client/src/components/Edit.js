@@ -1,6 +1,6 @@
 
 import React from 'react'
-import { useNavigate, useEffect, Link } from 'react-router-dom';
+import { useNavigate, useEffect, Link  } from 'react-router-dom';
 import axios from "axios";
 
 
@@ -35,12 +35,16 @@ const navigate = useNavigate();
 
     // console.log(props.currentUser)
   return (
-    <div>
+    <div style={{ backgroundColor: "lightyellow", paddingBottom: "100%" }}>
       <div id="homebanner">
         <h1 className="titles">Edit Details</h1>
       </div>
-      <div className="login" style={{ padding: "100px" }} id='font'>
-        <form class="ui form" onSubmit={handleSubmit} style={{paddingBottom: '30px'}}>
+      <div className="login" style={{ padding: "100px" }} id="font">
+        <form
+          class="ui form"
+          onSubmit={handleSubmit}
+          style={{ paddingBottom: "30px" }}
+        >
           <div class="field">
             <label>Username</label>
             <input
@@ -69,11 +73,18 @@ const navigate = useNavigate();
             />
           </div>
 
-          <button class="ui button" type="submit">
+          <button
+            class="ui button"
+            type="submit"
+            style={{
+              backgroundColor: "gold",
+              color: "black",
+            }}
+          >
             Submit
           </button>
         </form>
-        <Link to="/myaccount">
+        <Link style={{ color: "gold" }} to="/myaccount">
           Back to MyAccount
         </Link>
       </div>

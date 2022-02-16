@@ -15,7 +15,7 @@ const Search = (props) => {
   }
 
   return (
-    <div className="home">
+    <div className="homepage">
       <div id="homebanner">
         <h1 className="titles">Search</h1>
       </div>
