@@ -96,6 +96,8 @@ const RecipeCreatePage = ({currentUser}) => {
               </button>
             ) : null}
             {ingreArr.length > 1 ? (
+
+
               <button
                 class="ui button"
                 type="submit"
@@ -104,6 +106,7 @@ const RecipeCreatePage = ({currentUser}) => {
               >
                 Remove
               </button>
+
             ) : null}
             <br />
             <br />
@@ -129,6 +132,7 @@ const RecipeCreatePage = ({currentUser}) => {
 
     const stepFormArray = stepArr.map((step, i) => {
         return (
+
           <div key={i}>
             <label >Step {i + 1}</label>
             <input
@@ -161,6 +165,7 @@ const RecipeCreatePage = ({currentUser}) => {
             ) : null}
           </div>
         );
+
     })
     // console.log("ingreArr", ingreArr)
     // console.log("newRecipe", newRecipe)

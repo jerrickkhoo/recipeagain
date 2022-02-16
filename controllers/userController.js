@@ -4,7 +4,7 @@ const router = express.Router();
 const User = require("../models/users.js");
 const session = require("express-session");
 const seedUsers = require("../models/seed/seedUsers")
-//const {JoinValidationSchema} = require("../validation/JoinValidationSchema")
+const {JoinValidationSchema,LoginValidationSchema} = require("../validation")
 
 //  MIDDLEWARE
 const isLoggedIn = (req,res,next)=>{
@@ -32,24 +32,27 @@ router.get("/seedUser", async (req, res) => {
 
 //CREATE a new user
 router.post("/join", async (req, res) => {
-  //TODO: add validate username length is >3, does not exist in the database already
-  // password must be at least 6 characters, consts of number and alphabets (how to make sure there is at least one special character?)
-  req.body.password = bcrypt.hashSync(
-    req.body.password,
-    bcrypt.genSaltSync(10)
-  );
-  const newUserInput = {
-    username: req.body.username,
-    email: req.body.email,
-    password: req.body.password
-  }
-  try {
-    const createdUser = await User.create(newUserInput)
-    //console.log("created user is: ", createdUser);
-    res.status(200).json({ status: "ok", message: "user created", data: createdUser });
-  } catch (error) {
-    res.status(400).json({ status: "not ok", message: "Failed to create account, kindly check if you are already a member. ", error: error });
-  }
+  //validation
+  const {error,value} = JoinValidationSchema.validate(req.body)
+  res.json({error,value})
+
+  // //encrypt password
+  // req.body.password = bcrypt.hashSync(
+  //   req.body.password,
+  //   bcrypt.genSaltSync(10)
+  // );
+  // const newUserInput = {
+  //   username: req.body.username,
+  //   email: req.body.email,
+  //   password: req.body.password
+  // }
+  // try {
+  //   const createdUser = await User.create(newUserInput)
+  //   //console.log("created user is: ", createdUser);
+  //   res.status(200).json({ status: "ok", message: "user created", data: createdUser });
+  // } catch (error) {
+  //   res.status(400).json({ status: "not ok", message: "Failed to create account, kindly check if you are already a member. ", error: error });
+  // }
 });
 
 
