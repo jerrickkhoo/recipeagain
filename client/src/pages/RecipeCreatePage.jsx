@@ -161,7 +161,7 @@ const RecipeCreatePage = ({currentUser}) => {
                 <form className="ui form" onSubmit={handleSubmit}>
                     <div className="field" >
 
-                        <label htmlFor='name' >Name*:</label>
+                        <label htmlFor='name' >Recipe Name*:</label>
                         <input type="text" name="name" id='name' placeholder="Name"
                             value={newRecipe.name}
                             onChange={handleChange}

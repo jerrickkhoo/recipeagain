@@ -10,7 +10,7 @@ const RecipeShowPage = ({currentUser}) => {
 
     return (
         <div>
-            <Link to={"/recipes/new"}>Create a New Recipe</Link>
+            
             <Card currentUser={currentUser} recipeID ={recipeID}/>
             <Comments currentUser={currentUser} recipeID ={recipeID} />
         </div>
