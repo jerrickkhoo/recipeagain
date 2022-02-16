@@ -2,10 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const CommentForm = ({ currentUser, handleSubmit}) => {
+  
   return currentUser !== undefined && currentUser !== "" ? (
     <form
       className="ui reply form"
-      onSubmit={(event) => handleSubmit(event, "comment")}
+      onSubmit={(event) => handleSubmit(event)}
     >
       <div className="field">
         <label htmlFor="name" />
