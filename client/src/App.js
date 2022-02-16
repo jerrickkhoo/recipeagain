@@ -1,4 +1,11 @@
-import { Route, Routes, Link, Outlet,useNavigate, Navigate } from "react-router-dom";
+import {
+  Route,
+  Routes,
+  Link,
+  Outlet,
+  useNavigate,
+  Navigate,
+} from "react-router-dom";
 import "./App.css";
 import { useState, useEffect, createContext } from "react";
 import Home from "./components/Home";
@@ -10,34 +17,36 @@ import Login2 from "./components/Login2";
 import AllCards from "./components/AllCards";
 import SearchResults from "./components/SearchResults";
 import Search from "./components/Search";
+
 import MyPostPage from "./pages/MyPostPage";
 import Edit from './components/Edit'
 import RecipeCreatePage from './pages/RecipeCreatePage'
 import RecipeEditPage from './pages/RecipeEditPage'
+
+
 import TagsPage from "./pages/TagsPage";
 
 export const AppContext = createContext();
 function App() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [currentUser, setCurrentUser] = useState('');
+  const [currentUser, setCurrentUser] = useState("");
   const [allRecipes, setAllRecipes] = useState([{}]);
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const navigate = useNavigate();
 
   const getCurrentUser = (user) => {
-    setCurrentUser(user)
-  }
+    setCurrentUser(user);
+  };
 
   const getAllRecipes = (recipe) => {
     setAllRecipes(recipe);
   };
 
   const getIsLoggedIn = (status) => {
-    setIsLoggedIn(status)
-  }
+    setIsLoggedIn(status);
+  };
 
-  
   function NotFound() {
     useEffect(() => {
       navigate("/");
@@ -49,30 +58,54 @@ function App() {
       </div>
     );
   }
-  
-  const ProtectedRoute = ( {children, redirectTo}) => {
-      return isLoggedIn ? children : <Navigate to={redirectTo} />
-  }
-  
+
+  const ProtectedRoute = ({ children, redirectTo }) => {
+    return isLoggedIn ? children : <Navigate to={redirectTo} />;
+  };
+
   //console.log('allRecipes',allRecipes)
-  console.log('currentUser',currentUser)
+  console.log("currentUser", currentUser);
   return (
     <>
       <div>
         <div className="ui inverted segment" id="nav">
           <div className="ui inverted secondary pointing menu">
-            <Link className="item" to="/">
-              <i class="home icon"></i>
-            </Link>
-            <Link className="item" to="/favorites">
-              <i class="heart icon"></i>
-            </Link>
-            <Link className="item" to="/myaccount">
-              <i className="user outline icon" ></i>
-            </Link>
-            <Link className="item" to="/search">
-              <i class="search icon"></i>
-            </Link>
+            <div className="navbar">
+              <Link className="item" to="/">
+                <i class="home icon"></i>
+                <div>Home</div>
+              </Link>
+            </div>
+            <div className="navbar" style={{ display: isLoggedIn ? "block" : "none" }}>
+              <Link className="item" to="/favorites">
+                <i class="heart icon"></i>
+                <div>Favorites</div>
+              </Link>
+            </div>
+            <div
+              className="navbar"
+              style={{ display: isLoggedIn ? "block" : "none", whiteSpace:'nowrap' }}
+            >
+              <Link
+                className="item"
+                to="/recipes/new"
+              >
+                <i class="plus square outline icon"></i>
+                <div>New Recipe</div>
+              </Link>
+            </div>
+            <div className="navbar" id="myaccount">
+              <Link className="item" to="/myaccount">
+                <i className="user outline icon"></i>
+                <div>My Account</div>
+              </Link>
+            </div>
+            <div id="search">
+              <Link className="item" to="/search">
+                <i class="search icon"></i>
+                <div>Search</div>
+              </Link>
+            </div>
           </div>
         </div>
         <Routes>
@@ -82,8 +115,18 @@ function App() {
               <Home allRecipes={allRecipes} setAllRecipes={getAllRecipes} />
             }
           />
-          <Route path="/favorites" element={<FavoritesPage currentUser={currentUser}/>} />
+
           <Route path="/myposts" element={<ProtectedRoute redirectTo="/login"><MyPostPage currentUser={currentUser}/></ProtectedRoute>} />
+
+          <Route
+            path="/favorites"
+            element={
+              <ProtectedRoute redirectTo="/login">
+                <FavoritesPage currentUser={currentUser} />
+              </ProtectedRoute>
+            }
+          />
+
           <Route path="/join" element={<Join />} />
           <Route path="/searchrecipe/" element={<AllCards />} />
           <Route path="/recipes/tags/tagID" element={<TagsPage />} />
@@ -166,7 +209,12 @@ function App() {
               />
             }
           />
-          <Route path='/tags/:tagID' element={<TagsPage />}/>
+          <Route
+            path="/tags/:tagID"
+            element={
+              <TagsPage allRecipes={allRecipes} setAllRecipes={getAllRecipes} />
+            }
+          />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
