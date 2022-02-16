@@ -81,10 +81,10 @@ const RecipeCreatePage = ({currentUser}) => {
               style={{ marginBottom: "10px" }}
             />
             {i === ingreArr.length - 1 ? (
-              <button onClick={() => handleAddIngre(i)}>Add</button>
+              <button type="button" onClick={() => handleAddIngre(i)}>Add</button>
             ) : null}
             {ingreArr.length > 1 ? (
-              <button onClick={handleRemoveIngre}>Remove</button>
+              <button type="button" onClick={handleRemoveIngre}>Remove</button>
             ) : null}
             <br />
             <br />
