@@ -87,7 +87,13 @@ const RecipeCreatePage = ({currentUser}) => {
               <button type="button" onClick={() => handleAddIngre(i)}>Add</button>
             ) : null}
             {ingreArr.length > 1 ? (
+<<<<<<< HEAD
               <button type="button" onClick={()=>handleRemoveIngre(i)}>Remove</button>
+=======
+
+              <button type="button" onClick={()=>handleRemoveIngre(i)}>Remove</button>
+
+>>>>>>> 733cf0ad6ec52211305448ffebd3ec3291a1ef35
             ) : null}
             <br />
             <br />

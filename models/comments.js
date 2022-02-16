@@ -9,7 +9,8 @@ const commentSchema = new mongoose.Schema(
     },
     recipeId: { type: mongoose.Schema.Types.ObjectId, required: true },
     comment: { type: String, required: true },
-    replies: [
+    edited: { type: Boolean, default: false },
+    children: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Reply",
