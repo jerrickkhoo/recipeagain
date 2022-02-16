@@ -84,10 +84,10 @@ const RecipeCreatePage = ({currentUser}) => {
               style={{ marginBottom: "10px" }}
             />
             {i === ingreArr.length - 1 ? (
-              <button onClick={() => handleAddIngre(i)}>Add</button>
+              <button type="button" onClick={() => handleAddIngre(i)}>Add</button>
             ) : null}
             {ingreArr.length > 1 ? (
-              <button onClick={()=>handleRemoveIngre(i)}>Remove</button>
+              <button type="button" onClick={()=>handleRemoveIngre(i)}>Remove</button>
             ) : null}
             <br />
             <br />
@@ -116,8 +116,8 @@ const RecipeCreatePage = ({currentUser}) => {
             <div key={i}>
                 <label>Step {i + 1}</label>
                 <input type="text" name="step" placeholder="Enter a cooking step" value={step} onChange={(e) => handleChangeStep(e, i)} />
-                {(i === stepArr.length - 1) ? <button onClick={() => handleAddStep(i)}>Add</button> : null}
-                {(stepArr.length > 1) ? <button onClick={()=>handleRemoveStep(i)}>Remove</button> : null}
+                {(i === stepArr.length - 1) ? <button type="button" onClick={() => handleAddStep(i)}>Add</button> : null}
+                {(stepArr.length > 1) ? <button type="button" onClick={()=>handleRemoveStep(i)}>Remove</button> : null}
                 <br /><br />
             </div>
         )
