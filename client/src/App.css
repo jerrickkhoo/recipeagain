@@ -3,6 +3,9 @@
   text-align: center;
 }
 
+.header{
+    font-family: 'Akaya Telivigala', cursive;
+}
 
 .randomCards{
   display: flex;
@@ -10,6 +13,31 @@
   flex-wrap: wrap;
   width: 50%
 
+}
+
+.navbar{
+  padding-right: 30px;
+}
+
+#myaccount{
+  left:82%;
+  white-space: nowrap;
+  position: fixed;
+}
+
+#search{
+    left: 91%;
+  white-space: nowrap;
+  position: fixed;
+
+}
+
+
+
+
+#homebanner{
+  background-color: gold;
+  padding-top: 100px;
 }
 
 .homediv{
@@ -23,15 +51,18 @@ padding: 20px 0px;
   
 }
 
-img{
+/* img{
   object-fit: cover;
   max-width: 100%;
   max-height: 100%;
 
-}
+} */
 
 #homeContent{
   height:160px;
+  font-family: 'Akaya Telivigala', cursive;
+  font-size: 15px;
+
 }
 
 .singleCard{
@@ -51,8 +82,8 @@ img{
   max-height: 50%;
   overflow: hidden;
   position: relative;
-  
 }
+
 
 .headerBackground{
   opacity: 0.6;
@@ -99,4 +130,9 @@ Search{
   margin: auto;
  
 
+}
+
+.titles{
+  font-family: 'Akaya Telivigala', cursive;
+  font-size: 42px;
 }
