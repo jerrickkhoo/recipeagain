@@ -66,8 +66,8 @@ const Card = ({ currentUser, recipeID }) => {
   return (
     <div>
       <div className="cardHeader">
-        <img className="headerBackground" src={currentRecipe?.image} alt="" />
         <div className="headerText">
+        <img className="headerBackground" src={currentRecipe?.image} alt="" />
           <h1 id="cardName">{currentRecipe?.name}</h1>
           <h3>Created by {currentRecipe?.author?.username}</h3>
           <h3>Created on {dayjs(currentRecipe?.createdAt).format("DD-MMM-YYYY")}</h3>
