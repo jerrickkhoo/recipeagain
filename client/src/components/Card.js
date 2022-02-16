@@ -5,6 +5,7 @@ import RatingButton from "./Rating";
 import axios from "axios";
 import AddToFavoriteBttn from "./addToFavoriteBttn";
 import dayjs from "dayjs";
+import joi from "joi"
 
 const Card = ({ currentUser, recipeID }) => {
   //const { recipeID } = useParams();
@@ -14,7 +15,7 @@ const Card = ({ currentUser, recipeID }) => {
   const fetchCurrentRecipe = async () => {
     const foundRecipe = await axios.get(`/api/recipes/${recipeID}`);
     const foundAuthor = foundRecipe.data.data.author._id
-    console.log('test',foundRecipe.data.data.author._id===currentUser._id)
+    //console.log('test',foundRecipe.data.data.author._id===currentUser._id)
     setCurrentRecipe(foundRecipe.data.data);
     setCurrentUserisAuthor(foundAuthor===currentUser._id)
   };
@@ -34,22 +35,6 @@ const Card = ({ currentUser, recipeID }) => {
       </ul>
     );
   });
-  // const comments = currentRecipe.comments.map((item, index) => {
-  //   return (
-  //     <div key={index} className="ui relaxed divided list">
-  //       <div className="item">
-  //         <div className="content">
-  //           <p className="header">{item.author}</p>
-  //           <div className="description">
-  //             {item.createTime}
-  //             <br />
-  //             {item.content}
-  //           </div>
-  //         </div>
-  //       </div>
-  //     </div>
-  //   );
-  // });
 
   const steps = currentRecipe?.steps?.map((item, index) => {
     return (
@@ -67,7 +52,6 @@ const Card = ({ currentUser, recipeID }) => {
 
   console.log('currentUser', currentUser)
 
-
   return (
     <div>
       <div className="cardHeader">
@@ -77,18 +61,18 @@ const Card = ({ currentUser, recipeID }) => {
           <h3>Created by {currentRecipe?.author?.username}</h3>
           <h3>Created on {dayjs(currentRecipe?.createdAt).format("DD-MMM-YYYY")}</h3>
           <h2 id="cardDescription">{currentRecipe?.description}</h2>
-          <h2>Servings: {currentRecipe?.servings}</h2>
+          <h3>Servings: {currentRecipe?.servings}</h3>
+          <h3>Duration: {Number.isInteger(currentRecipe?.duration/60)? (currentRecipe?.duration/60):(currentRecipe?.duration/60).toFixed(1)} hr</h3>
         </div>
       </div>
 
       <div className="cardContent">
-
         {(currentUserisAuthor)
-        ?<div>
+        && <div>
           <Link to={`/recipes/${recipeID}/edit`}>Edit</Link><br/>
         </div> 
-        : null}
-        
+        }
+
         <div>
           <Link to={"/recipes/new"}>Create a New Recipe</Link>
         </div>
