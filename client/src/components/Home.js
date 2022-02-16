@@ -65,7 +65,7 @@ const Home = ({ allRecipes, setAllRecipes }) => {
             <div className="image" style={{backgroundImage:`url(${item?.image})`, backgroundSize: '100% 100%'}}>
             </div>
             <div className="content" id="homeContent">
-              <div className="header" style={{ fontFamily: 'Akaya Telivigala, cursive'}}>{item?.name}</div>
+              <div className="header" style={{ fontFamily: 'Josefin Sans, sans-serif'}}>{item?.name}</div>
               <div className="meta">
                 <div>Servings: {item?.servings}</div>
                 <Rating

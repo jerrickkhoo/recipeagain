@@ -63,7 +63,7 @@ const RatingButton = ({ currentUser }) => {
         maxRating={5}
         rating={currRating}
         icon="star"
-        size="small"
+        size='massive'
         onRate={handleRate}
       />
     </div>

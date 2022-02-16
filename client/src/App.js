@@ -67,43 +67,46 @@ function App() {
   console.log("currentUser", currentUser);
   return (
     <>
-      <div>
-        <div className="ui inverted segment" id="nav">
+      <div >
+        <div className="ui inverted segment" id="nav" >
           <div className="ui inverted secondary pointing menu">
             <div className="navbar">
               <Link className="item" to="/">
                 <i class="home icon"></i>
-                <div>Home</div>
-              </Link>
-            </div>
-            <div className="navbar" style={{ display: isLoggedIn ? "block" : "none" }}>
-              <Link className="item" to="/favorites">
-                <i class="heart icon"></i>
-                <div>Favorites</div>
+                <div className="font">Home</div>
               </Link>
             </div>
             <div
               className="navbar"
-              style={{ display: isLoggedIn ? "block" : "none", whiteSpace:'nowrap' }}
+              style={{ display: isLoggedIn ? "block" : "none" }}
             >
-              <Link
-                className="item"
-                to="/recipes/new"
-              >
+              <Link className="item" to="/favorites">
+                <i class="star icon"></i>
+                <div className="font">Favorites</div>
+              </Link>
+            </div>
+            <div
+              className="navbar"
+              style={{
+                display: isLoggedIn ? "block" : "none",
+                whiteSpace: "nowrap",
+              }}
+            >
+              <Link className="item" to="/recipes/new">
                 <i class="plus square outline icon"></i>
-                <div>New Recipe</div>
+                <div className="font">New Recipe</div>
               </Link>
             </div>
             <div className="navbar" id="myaccount">
               <Link className="item" to="/myaccount">
                 <i className="user outline icon"></i>
-                <div>My Account</div>
+                <div className="font">My Account</div>
               </Link>
             </div>
             <div id="search">
               <Link className="item" to="/search">
                 <i class="search icon"></i>
-                <div>Search</div>
+                <div className="font">Search</div>
               </Link>
             </div>
           </div>
@@ -116,7 +119,14 @@ function App() {
             }
           />
 
-          <Route path="/myposts" element={<ProtectedRoute redirectTo="/login"><MyPostPage currentUser={currentUser}/></ProtectedRoute>} />
+          <Route
+            path="/myposts"
+            element={
+              <ProtectedRoute redirectTo="/login">
+                <MyPostPage currentUser={currentUser} />
+              </ProtectedRoute>
+            }
+          />
 
           <Route
             path="/favorites"
@@ -140,13 +150,13 @@ function App() {
           />
           <Route
             path="/recipes/:recipeID"
-            element={<RecipeShowPage currentUser={currentUser} />}
+            element={<RecipeShowPage currentUser={currentUser} isLoggedIn={isLoggedIn}/>}
           />
           <Route
             path="/recipes/:recipeID/edit"
             element={
               <ProtectedRoute redirectTo="/login">
-                <RecipeEditPage currentUser={currentUser} />
+                <RecipeEditPage currentUser={currentUser} isLoggedIn={isLoggedIn}/>
               </ProtectedRoute>
             }
           />
@@ -157,6 +167,7 @@ function App() {
                 <Edit
                   currentUser={currentUser}
                   setCurrentUser={getCurrentUser}
+                  isLoggedIn={isLoggedIn}
                 />
               </ProtectedRoute>
             }
@@ -173,6 +184,7 @@ function App() {
                   currentUser={currentUser}
                   setCurrentUser={getCurrentUser}
                   setIsLoggedIn={getIsLoggedIn}
+                  isLoggedIn={isLoggedIn}
                 />
               </ProtectedRoute>
             }

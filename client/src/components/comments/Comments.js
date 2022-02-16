@@ -40,7 +40,7 @@ const Comments = ({ currentUser, recipeID }) => {
 
   return (
     <div className="ui comments">
-      <h3 className="ui dividing header">Comments</h3>
+      <h3 className="ui dividing header" id='font'>Comments</h3>
       {comments.map((comment, index) => {
         // console.log(comment);
         // getReplies(comment._id);

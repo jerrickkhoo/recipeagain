@@ -15,11 +15,14 @@ const Search = (props) => {
   }
 
   return (
-    <div>
-      <div className="home" style={{ padding: "100px" }}>
-        <h2>Search</h2>
+    <div className="home">
+      <div id="homebanner">
+        <h1 className="titles">Search</h1>
       </div>
-      <div className="ui action input" id="searchbar">
+      <div
+        className="ui action input"
+        id="searchbar"
+      >
         <input
           name="s"
           value={searchQuery}
@@ -27,7 +30,7 @@ const Search = (props) => {
           type="text"
           placeholder="Search..."
         />
-        <button className="ui button teal" onClick={handleClick}>
+        <button className="ui button yellow" onClick={handleClick} style={{color:'black'}}>
           Search
         </button>
       </div>

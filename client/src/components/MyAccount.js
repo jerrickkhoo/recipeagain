@@ -2,10 +2,11 @@ import { useEffect } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 
-const MyAccount = ({ setCurrentUser, currentUser, setIsLoggedIn }) => {
+const MyAccount = ({ setCurrentUser, currentUser, setIsLoggedIn, isLoggedIn }) => {
   const navigate = useNavigate();
 
   console.log(currentUser)
+  console.log(isLoggedIn)
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -45,57 +46,54 @@ const MyAccount = ({ setCurrentUser, currentUser, setIsLoggedIn }) => {
 
   return (
     <div>
-      <div className="home" style={{ padding: "100px" }}>
-        <h1>Account Details</h1>
-        <h3>Username: {currentUser?.username}</h3>
-        <h3>E-Mail: {currentUser?.email}</h3>
+      <div id="homebanner">
+        <h1 className="titles">My Account</h1>
+      </div>
+      <div className="home" style={{ padding: "0 50px" }}>
+        <div className="myaccount">
+          <div id="accountchild" style={{ paddingTop: "50px" }}>
+            <Link to="/myposts">
+              <button class="ui button">My Recipes</button>
+            </Link>
+          </div>
 
-        <div style={{ paddingTop: "50px" }}>
-        <Link to="/recipes/new">
-        <button class="ui button" >
-            Create NewRecipe
-          </button>
-        </Link>
+          <form
+            class="ui form"
+            onSubmit={handleEdit}
+            style={{ paddingTop: "50px" }}
+            id="accountchild"
+          >
+            <button className="accountchild" class="ui button" type="submit">
+              Edit Account
+            </button>
+          </form>
+          <form
+            class="ui form"
+            onSubmit={handleDelete}
+            style={{ paddingTop: "50px" }}
+            id="accountchild"
+          >
+            <button class="ui button" type="submit">
+              Delete Account
+            </button>
+          </form>
+          <form
+            class="ui form"
+            onSubmit={handleLogOut}
+            style={{ paddingTop: "50px" }}
+            id="accountchild"
+          >
+            <button class="ui button" type="submit">
+              Log Out
+            </button>
+          </form>
+        </div>
+        <div style={{paddingTop: '100px'}}>
+
+        <h3 id="font">Username: {currentUser?.username}</h3>
+        <h3 id="font">E-Mail: {currentUser?.email}</h3>
         </div>
 
-        <div style={{ paddingTop: "50px" }}>
-        <Link to="/myposts">
-        <button class="ui button" >
-            View All Recipes I Posted
-          </button>
-        </Link>
-        </div>
-
-        <form
-          class="ui form"
-          onSubmit={handleLogOut}
-          style={{ paddingTop: "50px" }}
-        >
-          <button class="ui button" type="submit">
-            Log Out
-          </button>
-        </form>
-        <form
-          class="ui form"
-          onSubmit={handleEdit}
-          style={{ paddingTop: "50px" }}
-        >
-          <button class="ui button" type="submit">
-            Edit Account
-          </button>
-        </form>
-        <form
-          class="ui form"
-          onSubmit={handleDelete}
-          style={{ paddingTop: "50px" }}
-        >
-          <button class="ui button" type="submit">
-            Delete Account
-          </button>
-        </form>
-
-
-  
       </div>
     </div>
   );

@@ -27,9 +27,11 @@ const Login2 = ({currentUser, setCurrentUser, setIsLoggedIn}) => {
 };
   
   return (
-    <div>
+    <div id="font">
+      <div id="homebanner">
+        <h1 className="titles">Log In</h1>
+      </div>
       <div className="login" style={{ padding: "100px" }}>
-        <h2>Log In</h2>
         <form class="ui form" onSubmit={handleSubmit}>
           <div class="field">
             <label>E-Mail</label>
