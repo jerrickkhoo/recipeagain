@@ -232,6 +232,7 @@ const RecipeCreatePage = ({currentUser}) => {
                 placeholder="Name"
                 value={newRecipe.name}
                 onChange={handleChange}
+                required
               />
               <br />
               <br />
@@ -245,12 +246,13 @@ const RecipeCreatePage = ({currentUser}) => {
                 placeholder="Describe your recipe"
                 value={newRecipe.description}
                 onChange={handleChange}
+                required
               />
               <br />
               <br />
 
               <label style={{ fontSize: "20px", paddingBottom: "20px" }}>
-                Ingredients List*:
+                Ingredients List:
               </label>
               {ingreFormArray}
 
