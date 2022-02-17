@@ -10,7 +10,7 @@ const LoginValidationSchema= Joi.object({
     email: Joi.string()
             .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } })
             .required(),
-    password: Joi.string().min(6).max(0).required()
+    password: Joi.string().min(6).max(30).required()
 })
 
 const NewRecipeValidationSchema= Joi.object({

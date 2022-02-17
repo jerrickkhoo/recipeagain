@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { NewRecipeValidationSchema } from "../components/validation";
 
 const RecipeCreatePage = ({currentUser}) => {
     const navigate = useNavigate();
@@ -97,7 +98,6 @@ const RecipeCreatePage = ({currentUser}) => {
             ) : null}
             {ingreArr.length > 1 ? (
 
-
               <button
                 class="ui button"
                 type="submit"
@@ -173,11 +173,24 @@ const RecipeCreatePage = ({currentUser}) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        //validate FE input
+        const {error} = NewRecipeValidationSchema.validate({
+            name: newRecipe.name,
+            description: newRecipe.description,
+            servings: newRecipe.servings,
+            duration: newRecipe.duration,
+        })
+        if(error){
+            alert(error)
+            return
+        }
+        //after passing FE val, send post request to BE
         try {
             
             const createdRecipe = await axios.post("/api/recipes/new", {
                 name: newRecipe.name,
-                author: currentUser._id,
+                author: currentUser._id, 
                 description: newRecipe.description,
                 ingredients: ingreArr,
                 steps: stepArr,
