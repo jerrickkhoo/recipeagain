@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { NewRecipeValidationSchema } from "../components/validation";
 
 const RecipeEditPage = (currentUser) => {
     const navigate = useNavigate();
@@ -203,6 +204,18 @@ const RecipeEditPage = (currentUser) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        // FE validate before sending request to BE
+        const {error} = NewRecipeValidationSchema.validate({
+            name: newRecipe.name,
+            description: newRecipe.description,
+            servings: newRecipe.servings,
+            duration: newRecipe.duration,
+            tags: newRecipe.tags
+        })
+        if (error){
+            alert(error)
+            return
+        }
         try {
             const updatedRecipe = await axios.put(`/api/recipes/${recipeID}`, {
                 name: newRecipe.name,
@@ -219,11 +232,10 @@ const RecipeEditPage = (currentUser) => {
             console.log("updatedRecipe", updatedRecipe)
             navigate(`/recipes/${recipeID}`)
         } catch (error) {
-            console.log(error)
+            alert("Fail to update recipe, please retry")
+            console.log(error.response)
         }
-
     };
-
 
     return (
       <div style={{ backgroundColor: "lightyellow", paddingBottom: "100%" }}>
