@@ -112,38 +112,45 @@ font-family: 'Josefin Sans', sans-serif;
 }
 
 .cardHeader{
-margin:auto;
- display: flex;
- width: 80%;
+  margin:auto;
+  display: flex;
+  width: 80%;
+  justify-content: center; 
+  text-align: center;
 }
-
-
-
-#resize {
-    width: 550px;
-    height: auto;
-left: 200px;
-}
-
 
 .headerBackground{
   object-fit: contain;
-  padding: 0;
   flex:70%;
-  
+  /* height: 80vh; */
+text-align: center;
+ margin: auto;
+ margin-left: 200px;
+ white-space: initial;
+ 
+}
+
+.headerText{
+  flex:50%;
+  text-align: left;
+  white-space: initial;
+  display: inline-block;
 
 }
+
+
+#resize {
+  width: 500px;
+  white-space: initial;
+
+}
+
+
 
 #font2{
 font-family: 'Josefin Sans', sans-serif;
 }
 
-.headerText{
-flex:50%;
-text-align: left;
-vertical-align: middle;
-
-}
 
 #cardName {
   font-size: 70px;

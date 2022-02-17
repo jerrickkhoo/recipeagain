@@ -90,8 +90,8 @@ const Card = ({ currentUser, recipeID, isLoggedIn }) => {
       <div className="cardHeader" style={{ paddingTop: "50px" }}>
         {/* <img className="headerBackground" src={currentRecipe?.image} alt="" /> */}
         <div className="headerBackground">
-          <div class="column">
-            <div class="ui fluid image" id="resize">
+          <div class="column" id="resize">
+            <div class="ui fluid image">
               <a className="ui left corner label">
                 <AddToFavoriteBttn
                   recipeID={recipeID}
@@ -121,7 +121,9 @@ const Card = ({ currentUser, recipeID, isLoggedIn }) => {
             </div>
           </div>
           {/* // ) : null} */}
-          <h3 id="font2">recipe by {currentRecipe?.author?.username ?? "deleted user"}</h3>
+          <h3 id="font2">
+            recipe by {currentRecipe?.author?.username ?? "deleted user"}
+          </h3>
           <h3 id="font2">
             on {dayjs(currentRecipe?.createdAt).format("DD-MMM-YYYY")}
           </h3>
