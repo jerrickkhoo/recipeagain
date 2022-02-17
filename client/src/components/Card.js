@@ -17,11 +17,9 @@ const Card = ({ currentUser, recipeID, isLoggedIn }) => {
   const fetchCurrentRecipe = async () => {
     setStatus("pending");
     const foundRecipe = await axios.get(`/api/recipes/${recipeID}`);
+
     setStatus("complete");
-
     console.log('foundRecipe',foundRecipe)
-
-
     const foundAuthor = foundRecipe.data.data?.author?._id ?? 'deleted user'
 
     console.log('foundauthor',foundAuthor)

@@ -13,7 +13,7 @@ const RatingButton = ({ currentUser }) => {
   const [currRating, setCurrRating] = useState(0);
   const [ratingID, setRatingID] = useState("");
 
-  //variable name must be rating and maxRating due to semantic UI implmentation
+  //variable name must be rating and maxRating due to semantic UI implementation
   const handleRate = async (e, { rating, maxRating }) => {
     // console.log(rating);
     if (!currentUser) {
