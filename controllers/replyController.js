@@ -28,19 +28,40 @@ router.post("/new/:commentId", async (req, res) => {
 });
 
 //!delete
-router.delete("/:id", async (req, res) => {
+
+router.put("/delete/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    const deletedReply = await Reply.findByIdAndUpdate(id,{comment:"deleted comment"});
+    const editedReply = await Reply.findByIdAndUpdate(id, {comment:req.body.comment, deleted:true}, {
+      new: true,
+    }).populate("userId","username");
     res.status(200).json({
       status: "ok",
-      message: "delete individual Reply route is working",
-      data: deletedReply,
+      message: "delete Reply route is working",
+      data: editedReply,
     });
   } catch (error) {
     console.log(error);
+    res.status(400).json({
+      status: "not ok",
+      message: "failed to update Reply",
+    });
   }
 });
+
+// router.delete("/:id", async (req, res) => {
+//   const { id } = req.params;
+//   try {
+//     const deletedReply = await Reply.findByIdAndUpdate(id,{comment:"deleted comment"});
+//     res.status(200).json({
+//       status: "ok",
+//       message: "delete individual Reply route is working",
+//       data: deletedReply,
+//     });
+//   } catch (error) {
+//     console.log(error);
+//   }
+// });
 
 //!update
 router.put("/:id", async (req, res) => {

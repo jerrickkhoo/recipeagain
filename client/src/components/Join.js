@@ -1,6 +1,7 @@
 import React from "react";
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
+import { JoinValidationSchema } from "./validation";
 
 const Join = () => {
   const navigate = useNavigate()
@@ -12,19 +13,35 @@ const Join = () => {
       email: e.target.email.value,
       password: e.target.password.value,
     };
+
+    //FE validation before sending post request (save the trouble)
+    const { error } = JoinValidationSchema.validate(newUser)
+    console.log("FEjoierror", error)
+    if (error) {
+       alert(error) 
+      } else {
+      //check if user already exists
+      const duplicatedUser = await axios.get('/api/users/login')
+      if (duplicatedUser) {
+        alert('error, an account already exists under this email')
+        return 
+      }
+    }
+    //after passing FE val, post to BE
     await axios
       .post("/api/users/join", newUser)
       .then((response) => {
         alert("Account created, please log into your account.");
-        navigate("/login",{replace:true});
+        navigate("/login", { replace: true });
       })
-      .catch((error) => {
-        if (error.response.data.error.details) {
-          alert(error.response.data.error.details[0].message)
+      .catch((err) => {
+        let BError
+        if (err.response.data.error.details) {
+          BError = (err.response.data.error.details[0].message)
         } else {
-          alert(error.response.data.message)
+          BError = (err.response.data.message)
         }
-        //alert(error.response.data.error.details[0].message);
+        alert(BError);
       });
   }
 
@@ -35,6 +52,8 @@ const Join = () => {
       </div>
       <div className="login" style={{ padding: "100px" }}>
         <form class="ui form" onSubmit={handleSubmit}>
+
+
           <div class="field">
             <label id="font">Username</label>
             <input
@@ -44,10 +63,12 @@ const Join = () => {
               required
             />
           </div>
+
           <div class="field">
             <label id="font">E-Mail</label>
             <input type="text" name="email" placeholder="E-Mail" required />
           </div>
+
           <div class="field">
             <label id="font">Password</label>
             <input

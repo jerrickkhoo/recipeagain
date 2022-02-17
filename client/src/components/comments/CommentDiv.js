@@ -37,7 +37,7 @@ const CommentDiv = ({ comment, currentUser, setComments, comments, index, mode="
   };
 
   const handleDelete = async (id) => {
-    const URL = mode==="reply" ? `/api/replies/${id}`  : `/api/comments/${id}`;
+    const URL = mode==="reply" ? `/api/replies/delete/${id}`  : `/api/comments/delete/${id}`;
     try {
       const res = await axios.put(URL, {
         comment: "*deleted comment*",
@@ -65,7 +65,7 @@ const CommentDiv = ({ comment, currentUser, setComments, comments, index, mode="
     };
     getReplies(comment._id);
   }, []);
-
+  console.log("is deleted",comment.deleted);
   return (
     <>
       <div className="comment" key={comment._id}>
@@ -112,8 +112,8 @@ const CommentDiv = ({ comment, currentUser, setComments, comments, index, mode="
                     Reply
                   </a>
                 ) : null}
-                {currentUser !== undefined &&
-                currentUser._id === comment.userId._id ? (
+                {(currentUser !== undefined &&
+                currentUser._id === comment?.userId?._id ) && !comment.deleted ? (
                   <>
                     <a className="reply" onClick={() => setEditOpen(!editOpen)}>
                       Edit

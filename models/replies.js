@@ -14,6 +14,7 @@ const replySchema = new mongoose.Schema(
     },
     comment: { type: String, required: true },
     edited: { type: Boolean, default: false },
+    deleted: { type: Boolean, default: false },
     children: [
       {
         type: mongoose.Schema.Types.ObjectId,

@@ -10,6 +10,7 @@ const commentSchema = new mongoose.Schema(
     recipeId: { type: mongoose.Schema.Types.ObjectId, required: true },
     comment: { type: String, required: true },
     edited: { type: Boolean, default: false },
+    deleted: { type: Boolean, default: false },
     children: [
       {
         type: mongoose.Schema.Types.ObjectId,

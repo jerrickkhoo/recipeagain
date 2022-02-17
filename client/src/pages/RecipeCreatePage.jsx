@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { NewRecipeValidationSchema } from "../components/validation";
 
 const RecipeCreatePage = ({currentUser}) => {
     const navigate = useNavigate();
@@ -88,7 +89,7 @@ const RecipeCreatePage = ({currentUser}) => {
             {i === ingreArr.length - 1 ? (
               <button
                 class="ui button"
-                type="submit"
+                type="button"
                 onClick={() => handleAddIngre(i)}
                 style={{ backgroundColor: "green", color: "white" }}
               >
@@ -97,10 +98,9 @@ const RecipeCreatePage = ({currentUser}) => {
             ) : null}
             {ingreArr.length > 1 ? (
 
-
               <button
                 class="ui button"
-                type="submit"
+                type="button"
                 onClick={() => handleRemoveIngre(i)}
                 style={{ backgroundColor: "red", color: "white" }}
               >
@@ -146,7 +146,7 @@ const RecipeCreatePage = ({currentUser}) => {
             {i === stepArr.length - 1 ? (
               <button
                 class="ui button"
-                type="submit"
+                type="button"
                 onClick={() => handleAddStep(i)}
                 style={{ backgroundColor: "green", color: "white" }}
               >
@@ -156,7 +156,7 @@ const RecipeCreatePage = ({currentUser}) => {
             {stepArr.length > 1 ? (
               <button
                 class="ui button"
-                type="submit"
+                type="button"
                 onClick={() => handleRemoveStep(i)}
                 style={{ backgroundColor: "red", color: "white", marginBottom:'10px' }}
               >
@@ -173,11 +173,25 @@ const RecipeCreatePage = ({currentUser}) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        //validate FE input
+        const {error} = NewRecipeValidationSchema.validate({
+            name: newRecipe.name,
+            description: newRecipe.description,
+            servings: newRecipe.servings,
+            duration: newRecipe.duration,
+            tags: newRecipe.tags
+        })
+        if(error){
+            alert(error)
+            return
+        }
+        //after passing FE val, send post request to BE
         try {
             
             const createdRecipe = await axios.post("/api/recipes/new", {
                 name: newRecipe.name,
-                author: currentUser._id,
+                author: currentUser._id, 
                 description: newRecipe.description,
                 ingredients: ingreArr,
                 steps: stepArr,
@@ -194,7 +208,7 @@ const RecipeCreatePage = ({currentUser}) => {
 
         } catch (error) {
             alert("Fail to create recipe, please retry")
-            console.log(error)
+            console.log("BError",error.response)
         }
     };
 
