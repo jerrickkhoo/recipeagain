@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate ,Link} from "react-router-dom";
 import { NewRecipeValidationSchema } from "../components/validation";
 
 const RecipeCreatePage = ({currentUser}) => {
@@ -316,7 +316,23 @@ const RecipeCreatePage = ({currentUser}) => {
               Submit{" "}
             </button>
           </form>
-          Fields with * are required.
+          <p>
+              Fields with * are required.
+          </p>
+
+          <Link to="/">
+          <button
+                class="ui button"
+                type="button"
+                style={{
+                    marginBottom: "20px",
+                    backgroundColor: "gray",
+                    color: "white",
+                }}
+            >Cancel
+            </button>
+            </Link>
+
         </div>
       </div>
     );
