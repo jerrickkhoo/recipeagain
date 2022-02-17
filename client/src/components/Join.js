@@ -18,31 +18,38 @@ const Join = () => {
     const { error } = JoinValidationSchema.validate(newUser)
     console.log("FEjoierror", error)
     if (error) {
-       alert(error) 
-      } else {
-      //check if user already exists
-      const duplicatedUser = await axios.get('/api/users/login')
-      if (duplicatedUser) {
-        alert('error, an account already exists under this email')
-        return 
+      alert(error)
+    } else 
+    {
+      //check if email already exists
+      try {
+        const response = await axios.get(`/api/users/login/${newUser.email}`)
+        console.log('response', response.data)
+        if (response.data.status === 'ok') 
+        {
+          alert('error, an account already exists under this email')
+        }
+      } catch (err1) {
+            console.log('error in get email', err1)
+                //after passing FE val,and confirm that the same email does not already exist, post to BE
+                console.log('posting to BE')
+                await axios
+                  .post("/api/users/join", newUser)
+                  .then((response) => {
+                    alert("Account created, please log into your account.");
+                    navigate("/login", { replace: true });
+                  })
+                  .catch((err) => {
+                    let BError
+                    if (err.response.data.error.details) {
+                      BError = (err.response.data.error.details[0].message)
+                    } else {
+                      BError = (err.response.data.message)
+                    }
+                    alert(BError);
+                  });
       }
     }
-    //after passing FE val, post to BE
-    await axios
-      .post("/api/users/join", newUser)
-      .then((response) => {
-        alert("Account created, please log into your account.");
-        navigate("/login", { replace: true });
-      })
-      .catch((err) => {
-        let BError
-        if (err.response.data.error.details) {
-          BError = (err.response.data.error.details[0].message)
-        } else {
-          BError = (err.response.data.message)
-        }
-        alert(BError);
-      });
   }
 
   return (
@@ -52,7 +59,6 @@ const Join = () => {
       </div>
       <div className="login" style={{ padding: "100px" }}>
         <form class="ui form" onSubmit={handleSubmit}>
-
 
           <div class="field">
             <label id="font">Username</label>

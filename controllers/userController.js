@@ -17,18 +17,18 @@ const isLoggedIn = (req, res, next) => {
 
 //CRUD for use model
 // to seed User
-router.get("/seedUser", async (req, res) => {
-  seedUsers.forEach((seedUser) => {
-    seedUser.password = bcrypt.hashSync(seedUser.password, bcrypt.genSaltSync(10))
-  })
-  try {
-    await User.deleteMany({})
-    const createdSeedUsers = await User.create(seedUsers)
-    res.status(200).json({ status: "ok", message: "seed users created", data: createdSeedUsers });
-  } catch (error) {
-    res.status(400).json({ status: "not ok", message: "fail to create seed user ", error: error });
-  }
-})
+// router.get("/seedUser", async (req, res) => {
+//   seedUsers.forEach((seedUser) => {
+//     seedUser.password = bcrypt.hashSync(seedUser.password, bcrypt.genSaltSync(10))
+//   })
+//   try {
+//     await User.deleteMany({})
+//     const createdSeedUsers = await User.create(seedUsers)
+//     res.status(200).json({ status: "ok", message: "seed users created", data: createdSeedUsers });
+//   } catch (error) {
+//     res.status(400).json({ status: "not ok", message: "fail to create seed user ", error: error });
+//   }
+// })
 
 //CREATE a new user
 router.post("/join", async (req, res) => {
@@ -52,46 +52,62 @@ router.post("/join", async (req, res) => {
       //console.log("created user is: ", createdUser);
       res.status(200).json({ status: "ok", message: "user created", data: createdUser });
     } catch (err) {
-      res.status(400).json({ status: "not ok", message: "Failed to create account, kindly check if the email is already registered. ", error:err});
+      res.status(400).json({ status: "not ok", message: "Failed to create account, kindly check if the email is already registered. ", error: err });
     }
   }
 });
 
+//GET, to check if email already exist
+
+router.get("/login/:emailID", async (req, res) => {
+  const { emailID } = req.params
+  console.log('emailID', emailID)
+  try {
+    const foundUser = await User.findOne({ email: emailID })
+    if (foundUser) {
+      res.status(200).json({ status: "ok", message: "fetched an account under this email " });
+    } else {
+      res.status(400).json({ status: "not ok", message: "Fail To fetch any account under this email ", error: err });
+    }
+  } catch (err) {
+    res.status(400).json({ status: "not ok", message: "Fail To fetch any account under this email ", error: err });
+  }
+})
 //Log in log out, this needs to be above other routes that use params
 router.post("/login", async (req, res) => {
   //validate req.body 
-  const {error}=LoginValidationSchema.validate(req.body)
-  console.log('joierror',error)
-  if(error){
-    res.status(400).json({ status: "not ok", message: "Email And/Or Password are not in correct format" },error)
-  } else{ 
+  const { error } = LoginValidationSchema.validate(req.body)
+  console.log('joierror', error)
+  if (error) {
+    res.status(400).json({ status: "not ok", message: "Email And/Or Password are not in correct format" }, error)
+  } else {
     //then check username and password against database
-      const { email, password } = req.body;
-      try {
-        const foundUser = await User.findOne({ email: email });
-        console.log('foundUser', foundUser)
-        if (!foundUser) {
-          res.status(400).json({ status: "not ok", message: "Email And/Or Password do not match" })
+    const { email, password } = req.body;
+    try {
+      const foundUser = await User.findOne({ email: email });
+      console.log('foundUser', foundUser)
+      if (!foundUser) {
+        res.status(400).json({ status: "not ok", message: "Email And/Or Password do not match" })
+      } else {
+        const result = await bcrypt.compare(password, foundUser.password);
+        if (result) {
+          req.session.currentUser = foundUser;
+          res.status(200).json({ status: "ok", message: "user is loggedin", data: foundUser })
         } else {
-          const result = await bcrypt.compare(password, foundUser.password);
-          if (result) {
-            req.session.currentUser = foundUser;
-            res.status(200).json({ status: "ok", message: "user is loggedin", data: foundUser })
-          } else {
-            req.session.currentUser = null;
-            res
-              .status(400)
-              .json({
-                status: "not ok",
-                message: "Email And/Or Password Is Invalid",
-              });
-          }
-        }
-        } catch (err) {
-        res.status(400).json({ status: "not ok", message: "Fail To Log In User ", error: err });
+          req.session.currentUser = null;
+          res
+            .status(400)
+            .json({
+              status: "not ok",
+              message: "Email And/Or Password Is Invalid",
+            });
         }
       }
+    } catch (err) {
+      res.status(400).json({ status: "not ok", message: "Fail To Log In User ", error: err });
+    }
   }
+}
 );
 
 router.post("/logout", (req, res) => {
