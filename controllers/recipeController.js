@@ -9,7 +9,8 @@ const isLoggedIn = (req, res, next) => {
   if (req.session.currentUser) {
     return next()
   } else {
-    res.redirect("/login")
+    //res.redirect("/login")
+    res.status(401).json({ status: "not ok", message: "user is not authorized"});
   }
 }
 
@@ -35,7 +36,7 @@ router.get("/", async (req, res) => {
 })
 
 //Create a new recipe 
-router.post("/new",isLoggedIn, async (req, res) => {
+router.post("/new", isLoggedIn, async (req, res) => {
   //validate req.body
   const input = req.body
   const { error } = NewRecipeValidationSchema.validate({
@@ -45,17 +46,16 @@ router.post("/new",isLoggedIn, async (req, res) => {
     duration: input.duration,
     // tags: input.tags
   })
-  if (error) {
-    res.status(400).json({ status: "not ok", message: "fail to create a new recipe ", error });
-  }
-  else {
-    try {
-      const createdRecipe = await Recipe.create(req.body);
-      res.status(200).json({ status: "ok", message: "new recipe created", data: createdRecipe }); // .json() will send proper headers in response so client knows it's json coming back
-    } catch (err) {
-      res.status(400).json({ status: "not ok", message: "fail to create a new recipe ", error: err });
-    };
-  }
+  try {
+    if (error) {
+      res.status(400).json({ status: "not ok", message: "fail to create a new recipe ", error });
+    }
+    const createdRecipe = await Recipe.create(req.body);
+    res.status(200).json({ status: "ok", message: "new recipe created", data: createdRecipe }); // .json() will send proper headers in response so client knows it's json coming back
+  } catch (err) {
+    res.status(400).json({ status: "not ok", message: "fail to create a new recipe ", error: err });
+  };
+
 });
 
 //READ a recipe 
@@ -69,7 +69,7 @@ router.get("/:id", async (req, res) => {
 });
 
 //DELETE a recipe 
-router.delete("/:id",isLoggedIn, async (req, res) => {
+router.delete("/:id", isLoggedIn, async (req, res) => {
   try {
     const deletedRecipe = await Recipe.findByIdAndRemove(req.params.id);
     res.status(200).json({ status: "ok", message: "recipe deleted", data: deletedRecipe });
@@ -79,7 +79,7 @@ router.delete("/:id",isLoggedIn, async (req, res) => {
 });
 
 //UPDATE a recipe details
-router.put("/:id", isLoggedIn,async (req, res) => {
+router.put("/:id", isLoggedIn, async (req, res) => {
   //validate req.body
   const input = req.body
   const { error } = NewRecipeValidationSchema.validate({
