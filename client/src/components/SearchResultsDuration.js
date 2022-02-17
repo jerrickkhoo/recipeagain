@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Rating } from "semantic-ui-react";
-import axios from "axios";
 
 const SearchResultsDuration = ({ searchQuery, allRecipes, searchBy }) => {
   const { recipeID } = useParams();
