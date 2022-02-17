@@ -2,7 +2,6 @@ import {
   Route,
   Routes,
   Link,
-  Outlet,
   useNavigate,
   Navigate,
 } from "react-router-dom";

@@ -16,23 +16,23 @@ const Home = ({ allRecipes, setAllRecipes }) => {
   useEffect(() => {
     const fetchrecipes = async () => {
       const fetched = await axios.get("/api/recipes");
-      console.log(fetched);
+      //console.log('fetched',fetched);
       setAllRecipes(fetched?.data?.data);
       localStorage.setItem("recipes", JSON.stringify(fetched?.data?.data));
     };
     fetchrecipes();
   }, []);
-  console.log(allRecipes);
+  console.log('allRecipes', allRecipes);
 
   const reducer = (prev, curr, index, array) => prev + curr.rating;
   useEffect(() => {
     if (allRecipes !== undefined && allRecipes?.length !== 0) {
       let returnObj = {};
       for (const recipe of allRecipes) {
-        console.log('34',recipe);
-        if (recipe?.ratings?.length!==0 && recipe?.ratings) {
+        console.log('34', recipe);
+        if (recipe?.ratings?.length !== 0 && recipe?.ratings) {
           returnObj[`${recipe._id}`] = (recipe.ratings.reduce(
-            reducer,0) / recipe.ratings.length
+            reducer, 0) / recipe.ratings.length
           );
         }
       }
@@ -40,7 +40,7 @@ const Home = ({ allRecipes, setAllRecipes }) => {
     }
   }, [allRecipes]);
 
-  console.log('ratings',ratings)
+  console.log('ratings', ratings)
 
   //arrayOfIndex = [0,1,2,3,4,5,6,7,8]
   for (let i = 0; i < allRecipes.length; i++) {
@@ -58,14 +58,14 @@ const Home = ({ allRecipes, setAllRecipes }) => {
 
   const randomCards = randomRecipeArray.map((item, index) => {
     return (
-      
+
       <div className="homediv" key={index}>
         <Link to={"/recipes/" + item?._id}>
           <div className="ui card">
-            <div className="image" style={{backgroundImage:`url(${item?.image})`, backgroundSize: '100% 100%'}}>
+            <div className="image" style={{ backgroundImage: `url(${item?.image})`, backgroundSize: '100% 100%' }}>
             </div>
             <div className="content" id="homeContent">
-              <div className="header" style={{ fontFamily: 'Josefin Sans, sans-serif'}}>{item?.name}</div>
+              <div className="header" style={{ fontFamily: 'Josefin Sans, sans-serif' }}>{item?.name}</div>
               <div className="meta">
                 <div>Servings: {item?.servings}</div>
                 <Rating

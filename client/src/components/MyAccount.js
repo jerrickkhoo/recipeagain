@@ -34,6 +34,8 @@ const MyAccount = ({ setCurrentUser, currentUser, setIsLoggedIn, isLoggedIn }) =
     await axios.delete(`/api/users/${currentUser?._id}`);
     alert("Account deleted");
     navigate("/login");
+    setCurrentUser("")
+    setIsLoggedIn(false)
   };
 
   const handleEdit = () => {

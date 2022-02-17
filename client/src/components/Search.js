@@ -21,7 +21,10 @@ const Search = (props) => {
     } else {
       navigate(`/search/byduration/${searchQuery}`);
     }
+
+
   };
+
 
   return (
     <div className="homepage">
