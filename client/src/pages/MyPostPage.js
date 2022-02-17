@@ -3,50 +3,56 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Rating } from "semantic-ui-react";
 
-
 const MyPostPage = ({ currentUser, allRecipes }) => {
   const navigate = useNavigate();
-
-  const [currPosts, setCurrPosts] = useState([])
+  const [status, setStatus] = useState("");
+  const [currPosts, setCurrPosts] = useState([]);
   const [ratings, setRatings] = useState({});
 
   //get all posts
   const fetchCurrPosts = async () => {
+    setStatus("pending");
+    // console.log('fetching currposts')
+    // console.log('currentUser', currentUser)
+    const response = await axios.get(`/api/users/${currentUser._id}/posts`);
+    setStatus("complete");
 
-    console.log('fetching currposts')
-    console.log('currentUser', currentUser)
-    const response = await axios.get(`/api/users/${currentUser._id}/posts`)
-    const foundPosts = response.data.data.posts
-    console.log('foundPosts', foundPosts)
-    setCurrPosts(foundPosts)
-  }
+    const foundPosts = response.data.data.posts;
+    console.log("foundPosts", foundPosts);
+    setCurrPosts(foundPosts);
+  };
   useEffect(() => {
-    fetchCurrPosts()
-  }, [])
+    fetchCurrPosts();
+  }, []);
 
-
-
-const reducer = (prev, curr, index, array) => prev + curr.rating;
-useEffect(() => {
-  if (allRecipes !== undefined && allRecipes?.length !== 0) {
-    let returnObj = {};
-    for (const recipe of allRecipes) {
-      console.log(recipe);
-      if (recipe?.ratings?.length !== 0 && recipe?.ratings) {
-        returnObj[`${recipe._id}`] =
-          recipe.ratings.reduce(reducer, 0) / recipe.ratings.length;
+  const reducer = (prev, curr, index, array) => prev + curr.rating;
+  useEffect(() => {
+    if (allRecipes !== undefined && allRecipes?.length !== 0) {
+      let returnObj = {};
+      for (const recipe of allRecipes) {
+        console.log(recipe);
+        if (recipe?.ratings?.length !== 0 && recipe?.ratings) {
+          returnObj[`${recipe._id}`] =
+            recipe.ratings.reduce(reducer, 0) / recipe.ratings.length;
+        }
       }
+      setRatings(returnObj);
     }
-    setRatings(returnObj);
+  }, [allRecipes]);
+
+  if (status === "pending") {
+    return "LOADING";
   }
-}, [allRecipes]);
 
+  if (status === "error") {
+    return "NO DATA FOUND";
+  }
 
-const deleteRecipe = async (recipeID, recipeName) => {
-await axios.delete(`/api/recipes/${recipeID}`);
-alert(`${recipeName} deleted`)
-navigate('/myposts')
-};
+  const deleteRecipe = async (recipeID, recipeName) => {
+    await axios.delete(`/api/recipes/${recipeID}`);
+    alert(`${recipeName} deleted`);
+    navigate("/myposts");
+  };
 
   const postArray = currPosts.map((item, index) => {
     return (
@@ -90,7 +96,7 @@ navigate('/myposts')
         </Link>
       </div>
     );
-  })
+  });
   return (
     <div style={{ backgroundColor: "lightyellow", paddingBottom: "100%" }}>
       <div id="homebanner">
@@ -117,7 +123,6 @@ navigate('/myposts')
       )}
     </div>
   );
-
 };
 
 export default MyPostPage;

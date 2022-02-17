@@ -10,13 +10,24 @@ styleLink.href =
 document.head.appendChild(styleLink);
 
 const Home = ({ allRecipes, setAllRecipes }) => {
+  const [status, setStatus] = useState("");
+
   let indexArray = [];
   let randomRecipeArray = [];
   const [ratings, setRatings] = useState({});
+
+
+  
   useEffect(() => {
     const fetchrecipes = async () => {
+      setStatus("pending");
       const fetched = await axios.get("/api/recipes");
-      //console.log('fetched',fetched);
+
+      setStatus("complete");
+
+      console.log(fetched);
+
+
       setAllRecipes(fetched?.data?.data);
       localStorage.setItem("recipes", JSON.stringify(fetched?.data?.data));
     };
@@ -24,23 +35,29 @@ const Home = ({ allRecipes, setAllRecipes }) => {
   }, []);
   console.log('allRecipes', allRecipes);
 
+  
+
   const reducer = (prev, curr, index, array) => prev + curr.rating;
   useEffect(() => {
     if (allRecipes !== undefined && allRecipes?.length !== 0) {
       let returnObj = {};
       for (const recipe of allRecipes) {
+
         console.log('34', recipe);
         if (recipe?.ratings?.length !== 0 && recipe?.ratings) {
           returnObj[`${recipe._id}`] = (recipe.ratings.reduce(
             reducer, 0) / recipe.ratings.length
           );
+
         }
       }
       setRatings(returnObj);
     }
   }, [allRecipes]);
 
+
   console.log('ratings', ratings)
+
 
   //arrayOfIndex = [0,1,2,3,4,5,6,7,8]
   for (let i = 0; i < allRecipes.length; i++) {
@@ -56,8 +73,17 @@ const Home = ({ allRecipes, setAllRecipes }) => {
     indexArray.splice(randomIndex, 1);
   }
 
+  if (status === "pending") {
+    return "LOADING";
+  }
+
+  if (status === "error") {
+    return "NO DATA FOUND";
+  }
+
   const randomCards = randomRecipeArray.map((item, index) => {
     return (
+
 
       <div className="homediv" key={index}>
         <Link to={"/recipes/" + item?._id}>
@@ -66,6 +92,7 @@ const Home = ({ allRecipes, setAllRecipes }) => {
             </div>
             <div className="content" id="homeContent">
               <div className="header" style={{ fontFamily: 'Josefin Sans, sans-serif' }}>{item?.name}</div>
+
               <div className="meta">
                 <div>Servings: {item?.servings}</div>
                 <Rating

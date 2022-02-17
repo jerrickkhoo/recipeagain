@@ -11,12 +11,19 @@ const Card = ({ currentUser, recipeID, isLoggedIn }) => {
   //const { recipeID } = useParams();
   const [currentRecipe, setCurrentRecipe] = useState({});
   const [currentUserisAuthor, setCurrentUserisAuthor] = useState(false);
+    const [status, setStatus] = useState("");
+
 
   const fetchCurrentRecipe = async () => {
+    setStatus("pending");
     const foundRecipe = await axios.get(`/api/recipes/${recipeID}`);
-    console.log('foundRecipe',foundRecipe.data.data)
-    const foundAuthor = foundRecipe.data.data?.author?._id ??'deleted user'
+
+    setStatus("complete");
+    console.log('foundRecipe',foundRecipe)
+    const foundAuthor = foundRecipe.data.data?.author?._id ?? 'deleted user'
+
     console.log('foundauthor',foundAuthor)
+
     //console.log('test',foundRecipe.data.data.author._id===currentUser._id)
     setCurrentRecipe(foundRecipe.data.data);
     setCurrentUserisAuthor(foundAuthor===currentUser._id)
@@ -26,6 +33,15 @@ const Card = ({ currentUser, recipeID, isLoggedIn }) => {
   }, []);
 
   console.log(currentRecipe);
+
+  if (status === "pending") {
+    return "LOADING";
+  }
+
+  if (status === "error") {
+    return "NO DATA FOUND";
+  }
+  
 
   const ingredients = currentRecipe?.ingredients?.map((item, index) => {
     return (
@@ -72,8 +88,8 @@ const Card = ({ currentUser, recipeID, isLoggedIn }) => {
       <div className="cardHeader" style={{ paddingTop: "50px" }}>
         {/* <img className="headerBackground" src={currentRecipe?.image} alt="" /> */}
         <div className="headerBackground">
-          <div class="column">
-            <div class="ui fluid image" id="resize">
+          <div class="column" id="resize">
+            <div class="ui fluid image">
               <a className="ui left corner label">
                 <AddToFavoriteBttn
                   recipeID={recipeID}
@@ -103,7 +119,9 @@ const Card = ({ currentUser, recipeID, isLoggedIn }) => {
             </div>
           </div>
           {/* // ) : null} */}
-          <h3 id="font2">recipe by {currentRecipe?.author?.username ?? "deleted user"}</h3>
+          <h3 id="font2">
+            recipe by {currentRecipe?.author?.username ?? "deleted user"}
+          </h3>
           <h3 id="font2">
             on {dayjs(currentRecipe?.createdAt).format("DD-MMM-YYYY")}
           </h3>
