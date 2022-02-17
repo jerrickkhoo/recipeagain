@@ -204,7 +204,7 @@ const RecipeCreatePage = ({currentUser}) => {
         <div id="homebanner">
           <h1 className="titles">New Recipe</h1>
         </div>
-        <div className="home" id="newrecipe" style={{ paddingBottom: "50px" }}>
+        <div className="newrecipe" style={{ paddingBottom: "50px" }}>
           <div style={{ paddingBottom: "100px" }}></div>
           <form className="ui form" onSubmit={handleSubmit}>
             <div className="field">
@@ -262,6 +262,7 @@ const RecipeCreatePage = ({currentUser}) => {
                 placeholder="eg. 4"
                 value={newRecipe.servings}
                 onChange={handleChange}
+                id="newrecipe"
               />
               <br />
               <br />
@@ -273,6 +274,7 @@ const RecipeCreatePage = ({currentUser}) => {
                 placeholder="eg. 30"
                 value={newRecipe.duration}
                 onChange={handleChange}
+                id="newrecipe"
               />
               <br />
               <br />

@@ -1,10 +1,11 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Rating } from "semantic-ui-react";
 
 
 const MyPostPage = ({ currentUser, allRecipes }) => {
+  const navigate = useNavigate();
 
   const [currPosts, setCurrPosts] = useState([])
   const [ratings, setRatings] = useState({});
@@ -40,6 +41,13 @@ useEffect(() => {
   }
 }, [allRecipes]);
 
+
+const deleteRecipe = async (recipeID, recipeName) => {
+await axios.delete(`/api/recipes/${recipeID}`);
+alert(`${recipeName} deleted`)
+navigate('/myposts')
+};
+
   const postArray = currPosts.map((item, index) => {
     return (
       <div className="homediv" key={index}>
@@ -55,11 +63,14 @@ useEffect(() => {
             <div className="content" id="homeContent">
               <div
                 className="header"
-                style={{ fontFamily: "Josefin Sans, sans-serif" }}
+                style={{
+                  fontFamily: "Josefin Sans, sans-serif",
+                  textAlign: "center",
+                }}
               >
                 {item?.name}
               </div>
-              <div className="meta">
+              <div className="meta" style={{ textAlign: "center" }}>
                 <div>Servings: {item?.servings}</div>
                 <Rating
                   icon="star"
@@ -68,6 +79,11 @@ useEffect(() => {
                   disabled
                 />
                 <div>{item?.description}</div>
+                <i
+                  id="deleterecipe"
+                  class="trash alternate outline icon"
+                  onClick={() => deleteRecipe(item._id, item.name)}
+                ></i>
               </div>
             </div>
           </div>

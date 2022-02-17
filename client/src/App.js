@@ -15,7 +15,7 @@ import Join from "./components/Join";
 import MyAccount from "./components/MyAccount";
 import Login2 from "./components/Login2";
 import AllCards from "./components/AllCards";
-import SearchResults from "./components/SearchResults";
+import SearchResultsName from "./components/SearchResultsName";
 import Search from "./components/Search";
 
 import MyPostPage from "./pages/MyPostPage";
@@ -103,6 +103,23 @@ function App() {
                 ></i>
                 <div style={{ color: "gold" }} className="font">
                   New Recipe
+                </div>
+              </Link>
+            </div>
+            <div
+              className="navbar"
+              style={{
+                display: isLoggedIn ? "block" : "none",
+                whiteSpace: "nowrap",
+              }}
+            >
+              <Link className="item" to="/myposts">
+                <i
+                  style={{ color: "gold" }}
+                  class="lemon icon"
+                ></i>
+                <div style={{ color: "gold" }} className="font">
+                  My Recipes
                 </div>
               </Link>
             </div>
@@ -237,7 +254,7 @@ function App() {
           <Route
             path="/search/:searchID"
             element={
-              <SearchResults
+              <SearchResultsName
                 searchQuery={searchQuery}
                 setSearchQuery={setSearchQuery}
                 allRecipes={allRecipes}
@@ -245,6 +262,7 @@ function App() {
               />
             }
           />
+
           <Route
             path="/tags/:tagID"
             element={

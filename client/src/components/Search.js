@@ -10,7 +10,11 @@ const Search = (props) => {
     setSearchQuery(e.target.value);
   }
 
-  function handleClick() {
+  function handleClick () {
+    handleClickName();
+  }
+
+  function handleClickName() {
     navigate(`/search/${searchQuery}`);
   }
 
