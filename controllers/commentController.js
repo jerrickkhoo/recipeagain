@@ -2,8 +2,18 @@ const express = require("express");
 const router = express.Router();
 const Comment = require("../models/comments.js");
 
+//MIDDLEWARE
+const isLoggedIn = (req, res, next) => {
+  if (req.session.currentUser) {
+    return next()
+  } else {
+    //res.redirect("/login")
+    res.status(401).json({ status: "not ok", message: "please login to be able to post a comment"});
+  }
+}
+
 //!create
-router.post("/new", async (req, res) => {
+router.post("/new",isLoggedIn, async (req, res) => {
   const userId = req.body?.userId;
   const recipeId = req.body?.recipeId;
   try {
@@ -27,7 +37,7 @@ router.post("/new", async (req, res) => {
 });
 
 //!delete
-router.put("/delete/:id", async (req, res) => {
+router.put("/delete/:id",isLoggedIn, async (req, res) => {
   const { id } = req.params;
   try {
     const editedComment = await Comment.findByIdAndUpdate(id, {comment:req.body.comment, deleted:true}, {
@@ -61,7 +71,7 @@ router.put("/delete/:id", async (req, res) => {
 // });
 
 //!update
-router.put("/:id", async (req, res) => {
+router.put("/:id",isLoggedIn, async (req, res) => {
   const { id } = req.params;
   try {
     const editedComment = await Comment.findByIdAndUpdate(id, {comment:req.body.comment, edited:true}, {

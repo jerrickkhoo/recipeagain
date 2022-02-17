@@ -4,8 +4,18 @@ const Rating = require("../models/ratings.js");
 const Recipe = require("../models/recipes.js");
 const User = require("../models/users.js");
 
+//MIDDLEWARE
+const isLoggedIn = (req, res, next) => {
+  if (req.session.currentUser) {
+    return next()
+  } else {
+    //res.redirect("/login")
+    res.status(401).json({ status: "not ok", message: "please login"});
+  }
+}
+
 //!create
-router.post("/new", async (req, res) => {
+router.post("/new",isLoggedIn, async (req, res) => {
   console.log("calling new", req.body);
   const userId = req.body?.userId;
   const recipeId = req.body?.recipeId;
@@ -39,7 +49,7 @@ router.post("/new", async (req, res) => {
 });
 
 //!delete
-router.delete("/:id", async (req, res) => {
+router.delete("/:id",isLoggedIn, async (req, res) => {
   const { id } = req.params;
   try {
     const deletedRating = await Rating.findByIdAndDelete(id);
@@ -54,7 +64,7 @@ router.delete("/:id", async (req, res) => {
 });
 
 //!update
-router.put("/", async (req, res) => {
+router.put("/",isLoggedIn, async (req, res) => {
   console.log("req body", req.body);
   const { id, rating } = req.body;
   try {
