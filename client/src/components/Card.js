@@ -15,7 +15,7 @@ const Card = ({ currentUser, recipeID, isLoggedIn }) => {
   const fetchCurrentRecipe = async () => {
     const foundRecipe = await axios.get(`/api/recipes/${recipeID}`);
     console.log('foundRecipe',foundRecipe.data.data)
-    const foundAuthor = (foundRecipe.data.data?.author?._id)?foundRecipe.data.data?.author?._id:'deleted user'
+    const foundAuthor = foundRecipe.data.data?.author?._id ??'deleted user'
     console.log('foundauthor',foundAuthor)
     //console.log('test',foundRecipe.data.data.author._id===currentUser._id)
     setCurrentRecipe(foundRecipe.data.data);
@@ -103,7 +103,7 @@ const Card = ({ currentUser, recipeID, isLoggedIn }) => {
             </div>
           </div>
           {/* // ) : null} */}
-          <h3 id="font2">recipe by {(currentRecipe?.author?.username)?currentRecipe?.author?.username:'deleted user'}</h3>
+          <h3 id="font2">recipe by {currentRecipe?.author?.username ?? "deleted user"}</h3>
           <h3 id="font2">
             on {dayjs(currentRecipe?.createdAt).format("DD-MMM-YYYY")}
           </h3>
