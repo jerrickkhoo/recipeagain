@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { LoginValidationSchema } from "./validation";
 
 const Login2 = ({currentUser, setCurrentUser, setIsLoggedIn}) => {
   const navigate = useNavigate();
@@ -10,7 +10,13 @@ const Login2 = ({currentUser, setCurrentUser, setIsLoggedIn}) => {
       email: e.target.email.value,
       password: e.target.password.value,
     };
-
+    const {error} = LoginValidationSchema.validate(user)
+    console.log("FEjoierror",error)
+    if(error){
+      alert(error)
+      return
+    } 
+    //passing passing FE val, send request to BE
     await axios.post("/api/users/login", user)
     .then((response) => {
         // localStorage.setItem("user", JSON.stringify(response?.data?.data));
@@ -20,9 +26,9 @@ const Login2 = ({currentUser, setCurrentUser, setIsLoggedIn}) => {
         // console.log(currentUser)
         navigate("/myaccount");
     })
-    .catch((error) => {
+    .catch((err) => {
         //console.log("joierro",error);
-        alert(error.response.data.message);
+        alert(err.response.data.message);
     });
 };
   

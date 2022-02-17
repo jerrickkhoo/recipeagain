@@ -57,34 +57,41 @@ router.post("/join", async (req, res) => {
   }
 });
 
-
 //Log in log out, this needs to be above other routes that use params
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
-  try {
-    const foundUser = await User.findOne({ email: email });
-    console.log('foundUser', foundUser)
-    if (!foundUser) {
-      res.status(400).json({ status: "not ok", message: "Email And/Or Password Is Invalid" })
-    } else {
-      const result = await bcrypt.compare(password, foundUser.password);
-      if (result) {
-        req.session.currentUser = foundUser;
-        res.status(200).json({ status: "ok", message: "user is loggedin", data: foundUser })
-      } else {
-        req.session.currentUser = null;
-        res
-          .status(400)
-          .json({
-            status: "not ok",
-            message: "Email And/Or Password Is Invalid",
-          });
+
+  //validate req.body 
+  const {error}=LoginValidationSchema.validate(req.body)
+  console.log('joierror',error)
+  if(error){
+    res.status(400).json({ status: "not ok", message: "Email And/Or Password are not in correct format" })
+  } else{ //then check username and password against database
+      try {
+        const foundUser = await User.findOne({ email: email });
+        console.log('foundUser', foundUser)
+        if (!foundUser) {
+          res.status(400).json({ status: "not ok", message: "Email And/Or Password do not match" })
+        } else {
+          const result = await bcrypt.compare(password, foundUser.password);
+          if (result) {
+            req.session.currentUser = foundUser;
+            res.status(200).json({ status: "ok", message: "user is loggedin", data: foundUser })
+          } else {
+            req.session.currentUser = null;
+            res
+              .status(400)
+              .json({
+                status: "not ok",
+                message: "Email And/Or Password Is Invalid",
+              });
+          }
+        }
+        } catch (error) {
+        res.status(400).json({ status: "not ok", message: "Fail To Log In User ", error: error });
+        }
       }
-    }
-  } catch (error) {
-    res.status(400).json({ status: "not ok", message: "Fail To Log In User ", error: error });
   }
-}
 );
 
 router.post("/logout", (req, res) => {
