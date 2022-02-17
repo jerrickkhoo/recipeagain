@@ -163,11 +163,11 @@ Search{
 }
 
 #searchbar{
-  display: flex;
-  margin: 0 auto;
-  flex-wrap: wrap;
-  width: 50%;
-  margin-top:100px;
+width:50%;
+margin:0 auto;
+margin-bottom:100px;
+justify-content: center;
+
 
 }
 
@@ -222,9 +222,8 @@ display: flex;
 }
 
 .advancedsearch{
-  padding-top: 70px;
+  padding-top: 150px;
   display: flex;
-  width: 20%;
   margin:auto;
   text-align: center;
   justify-content: center;
