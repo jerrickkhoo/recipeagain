@@ -12,7 +12,7 @@ const RecipeShowPage = ({currentUser, isLoggedIn}) => {
         <div style={{textAlign:'center'}}>
             
             <Card currentUser={currentUser} recipeID ={recipeID} isLoggedIn={isLoggedIn}/>
-            <div className='comments'>
+            <div id='comments-container-container'>
             <Comments currentUser={currentUser} recipeID ={recipeID} />
             </div>
         </div>

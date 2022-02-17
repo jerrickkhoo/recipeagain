@@ -179,11 +179,19 @@ Search{
 
 }
 
+#comments-container-container{
+  width: 100vw;
+  background-color: gold;
+}
 
-.comments{
+#comments-container{
 margin: auto;
-padding: 20px 0 50px 420px;
-background-color: gold;
+width: 100vw;
+padding-top: 15px;
+padding-bottom: 15px;
+padding-left: 10px;
+
+text-align: left;
 }
 
 
