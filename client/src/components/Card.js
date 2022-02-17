@@ -102,7 +102,7 @@ const Card = ({ currentUser, recipeID, isLoggedIn }) => {
             </div>
           </div>
           {/* // ) : null} */}
-          <h3 id="font2">recipe by {currentRecipe?.author?.username}</h3>
+          <h3 id="font2">recipe by {currentRecipe?.author?.username ?? "deleted user"}</h3>
           <h3 id="font2">
             on {dayjs(currentRecipe?.createdAt).format("DD-MMM-YYYY")}
           </h3>
