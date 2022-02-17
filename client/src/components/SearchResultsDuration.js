@@ -14,7 +14,7 @@ const SearchResultsDuration = ({ searchQuery, allRecipes, searchBy }) => {
 
 
   let foundRecipes = recipes.filter(function (recipe) {
-    return recipe.duration==(params.searchID);
+    return recipe.duration<=(params.searchID);
   });
 
   console.log(foundRecipes)
