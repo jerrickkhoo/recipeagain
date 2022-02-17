@@ -27,7 +27,6 @@ const setSearchBy = props.setSearchBy
     }
   
 
-
   return (
     <div className="homepage">
       <div id="homebanner">
