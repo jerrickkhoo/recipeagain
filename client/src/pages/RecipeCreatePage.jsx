@@ -187,8 +187,7 @@ const RecipeCreatePage = ({currentUser}) => {
             return
         }
         //after passing FE val, send post request to BE
-        try {
-            
+        try { 
             const createdRecipe = await axios.post("/api/recipes/new", {
                 name: newRecipe.name,
                 author: currentUser._id, 
@@ -200,15 +199,22 @@ const RecipeCreatePage = ({currentUser}) => {
                 duration: parseInt(newRecipe.duration),
                 tags: newRecipe.tags.split(",").map(tag => tag.trim().toLowerCase()),
             })
-            const updateUser = await axios.put(`/api/users/${currentUser._id}/addPost`,{recipeID:createdRecipe.data.data._id})
+            console.log("createdRecipe",createdRecipe)
+            const updateUser = await axios.put(`/api/users/${currentUser._id}/addPost`
+                                    ,{recipeID:createdRecipe.data.data._id})
             // console.log("createdRecipe", createdRecipe.data.data._id)
             // console.log("updateUser", updateUser)
             alert("Recipe created!");
             navigate(`/recipes/${createdRecipe.data.data._id}`)
 
         } catch (error) {
-            alert("Fail to create recipe, please retry")
-            console.log("BError",error.response)
+            console.log("BError",error.response.status)
+            if (error.response.status===401){
+                alert("you are logged out, please log in")
+                navigate("/login")
+            } else{
+                alert("Fail to create recipe, please retry")
+            }
         }
     };
 

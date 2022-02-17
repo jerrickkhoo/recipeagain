@@ -232,8 +232,13 @@ const RecipeEditPage = (currentUser) => {
             console.log("updatedRecipe", updatedRecipe)
             navigate(`/recipes/${recipeID}`)
         } catch (error) {
+            console.log("BEerror",error.response)
+            if(error.response.status===401){
+                alert("you are logged out, please log in")
+                navigate("/login")
+            } else{
             alert("Fail to update recipe, please retry")
-            console.log(error.response)
+            }
         }
     };
 

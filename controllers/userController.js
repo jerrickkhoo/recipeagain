@@ -11,7 +11,7 @@ const isLoggedIn = (req, res, next) => {
   if (req.session.currentUser) {
     return next()
   } else {
-    res.redirect("/login")
+    res.status(401).json({ status: "not ok", message: "user is not authorized"});
   }
 }
 
