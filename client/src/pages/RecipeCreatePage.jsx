@@ -89,7 +89,7 @@ const RecipeCreatePage = ({currentUser}) => {
             {i === ingreArr.length - 1 ? (
               <button
                 class="ui button"
-                type="submit"
+                type="button"
                 onClick={() => handleAddIngre(i)}
                 style={{ backgroundColor: "green", color: "white" }}
               >
@@ -100,7 +100,7 @@ const RecipeCreatePage = ({currentUser}) => {
 
               <button
                 class="ui button"
-                type="submit"
+                type="button"
                 onClick={() => handleRemoveIngre(i)}
                 style={{ backgroundColor: "red", color: "white" }}
               >
@@ -146,7 +146,7 @@ const RecipeCreatePage = ({currentUser}) => {
             {i === stepArr.length - 1 ? (
               <button
                 class="ui button"
-                type="submit"
+                type="button"
                 onClick={() => handleAddStep(i)}
                 style={{ backgroundColor: "green", color: "white" }}
               >
@@ -156,7 +156,7 @@ const RecipeCreatePage = ({currentUser}) => {
             {stepArr.length > 1 ? (
               <button
                 class="ui button"
-                type="submit"
+                type="button"
                 onClick={() => handleRemoveStep(i)}
                 style={{ backgroundColor: "red", color: "white", marginBottom:'10px' }}
               >
