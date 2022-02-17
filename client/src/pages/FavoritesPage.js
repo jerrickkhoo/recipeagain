@@ -3,13 +3,13 @@ import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Rating } from "semantic-ui-react";
 
-
 const FavoritesPage = ({ currentUser, allRecipes }) => {
-  const navigate = useNavigate()
-  const [favRecipes, setFavRecipes] = useState([])
-    const [ratings, setRatings] = useState({});
+  const navigate = useNavigate();
+  const [favRecipes, setFavRecipes] = useState([]);
+  const [ratings, setRatings] = useState({});
+  const [status, setStatus] = useState("");
 
-  //const [status, setStatus] = useState('') 
+  //const [status, setStatus] = useState('')
 
   const reducer = (prev, curr, index, array) => prev + curr.rating;
   useEffect(() => {
@@ -28,32 +28,39 @@ const FavoritesPage = ({ currentUser, allRecipes }) => {
 
   const fetchFavRecipes = async () => {
     //setStatus('pending')
-    console.log('currentUser', currentUser)
+    console.log("currentUser", currentUser);
+    setStatus("pending");
+
     try {
-      const foundFavRecipes = await axios.get(`/api/users/${currentUser._id}/favorite`)
-      console.log("foundFavRecipes",foundFavRecipes.data.data)
-      setFavRecipes(foundFavRecipes.data.data.favorites)
+      const foundFavRecipes = await axios.get(
+        `/api/users/${currentUser._id}/favorite`
+      );
+      setStatus("complete");
+
+      console.log("foundFavRecipes", foundFavRecipes.data.data);
+      setFavRecipes(foundFavRecipes.data.data.favorites);
       //setStatus('success') //FIXME: set status states cause infinite calls
     } catch (error) {
-      console.log(error)
+      console.log(error);
       //setStatus('error')
     }
-  }
+  };
 
   useEffect(() => {
     if (!currentUser) {
-      navigate('/login')
-    } else
-      fetchFavRecipes()
-  }, [])
+      navigate("/login");
+    } else fetchFavRecipes();
+  }, []);
 
-  console.log('favRecipes', favRecipes)
+  console.log("favRecipes", favRecipes);
 
   const handleClickRvFav = async (recipeID) => {
-    console.log('removedrecipeID', recipeID)
-    await axios.put(`/api/users/${currentUser._id}/removeFavorite`, { recipeID: recipeID })
-    setFavRecipes(favRecipes.filter((fav) => fav._id !== recipeID))
-  }
+    console.log("removedrecipeID", recipeID);
+    await axios.put(`/api/users/${currentUser._id}/removeFavorite`, {
+      recipeID: recipeID,
+    });
+    setFavRecipes(favRecipes.filter((fav) => fav._id !== recipeID));
+  };
 
   const favArray = favRecipes?.map((item, index) => {
     return (
@@ -92,8 +99,15 @@ const FavoritesPage = ({ currentUser, allRecipes }) => {
         </Link>
       </div>
     );
-  })
+  });
 
+  if (status === "pending") {
+    return "LOADING";
+  }
+
+  if (status === "error") {
+    return "NO DATA FOUND";
+  }
 
   return (
     <div style={{ backgroundColor: "lightyellow", paddingBottom: "100%" }}>
@@ -119,7 +133,7 @@ const FavoritesPage = ({ currentUser, allRecipes }) => {
           <h1 className="titles" style={{ textAlign: "center" }}>
             ...
           </h1>
-          
+
           <h1 className="titles" style={{ textAlign: "center" }}>
             ...
           </h1>
@@ -133,7 +147,6 @@ const FavoritesPage = ({ currentUser, allRecipes }) => {
         } */}
     </div>
   );
-
 };
 
 export default FavoritesPage;

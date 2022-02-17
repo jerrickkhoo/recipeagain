@@ -1,25 +1,28 @@
 import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Rating } from "semantic-ui-react";
+
 import axios from "axios";
 
-
-
-const TagsPage = ({allRecipes, setAllRecipes}) => {
+const TagsPage = ({ allRecipes, setAllRecipes }) => {
+const [status, setStatus] = useState("");
   const { tagID } = useParams();
-    const [ratings, setRatings] = useState({});
+  const [ratings, setRatings] = useState({});
 
+  useEffect(() => {
+    const fetchrecipes = async () => {
+      setStatus("pending");
 
- useEffect(() => {
-   const fetchrecipes = async () => {
-     const fetched = await axios.get("/api/recipes");
-     console.log(fetched);
-     setAllRecipes(fetched?.data?.data);
-    //  localStorage.setItem("recipes", JSON.stringify(fetched?.data?.data));
-   };
-   fetchrecipes();
- }, []);
- console.log(allRecipes);   
+      const fetched = await axios.get("/api/recipes");
+      setStatus("complete");
+
+      console.log(fetched);
+      setAllRecipes(fetched?.data?.data);
+      //  localStorage.setItem("recipes", JSON.stringify(fetched?.data?.data));
+    };
+    fetchrecipes();
+  }, []);
+  console.log(allRecipes);
 
   //fetch all recipes and search for recipeID that has tags array that contain the tagID
   const recipes = JSON.parse(localStorage.getItem("recipes"));
@@ -28,7 +31,7 @@ const TagsPage = ({allRecipes, setAllRecipes}) => {
   let relatedRecipes = recipes.filter(function (recipe) {
     return recipe.tags.includes(tagID);
   });
-  console.log(relatedRecipes)
+  console.log(relatedRecipes);
 
   const reducer = (prev, curr, index, array) => prev + curr.rating;
   useEffect(() => {
@@ -45,6 +48,14 @@ const TagsPage = ({allRecipes, setAllRecipes}) => {
     }
   }, [allRecipes]);
 
+  if (status === "pending") {
+    return "LOADING";
+  }
+
+  if (status === "error") {
+    return "NO DATA FOUND";
+  }
+
   const tagRecipes = relatedRecipes.map((item, index) => {
     return (
       <div className="homediv">
@@ -54,7 +65,7 @@ const TagsPage = ({allRecipes, setAllRecipes}) => {
               <img src={item?.image} alt={item?.originalURL} />
             </div>
             <div className="content" id="homeContent">
-              <div className="header" id='font'style={{ textAlign: "center" }}>
+              <div className="header" id="font" style={{ textAlign: "center" }}>
                 {item?.name}
               </div>
               <div className="meta" style={{ textAlign: "center" }}>

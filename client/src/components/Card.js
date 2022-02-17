@@ -11,9 +11,14 @@ const Card = ({ currentUser, recipeID, isLoggedIn }) => {
   //const { recipeID } = useParams();
   const [currentRecipe, setCurrentRecipe] = useState({});
   const [currentUserisAuthor, setCurrentUserisAuthor] = useState(false);
+    const [status, setStatus] = useState("");
+
 
   const fetchCurrentRecipe = async () => {
+    setStatus("pending");
     const foundRecipe = await axios.get(`/api/recipes/${recipeID}`);
+    setStatus("complete");
+
     console.log('foundRecipe',foundRecipe)
     const foundAuthor = foundRecipe.data.data.author._id
     //console.log('test',foundRecipe.data.data.author._id===currentUser._id)
@@ -25,6 +30,15 @@ const Card = ({ currentUser, recipeID, isLoggedIn }) => {
   }, []);
 
   console.log(currentRecipe);
+
+  if (status === "pending") {
+    return "LOADING";
+  }
+
+  if (status === "error") {
+    return "NO DATA FOUND";
+  }
+  
 
   const ingredients = currentRecipe?.ingredients?.map((item, index) => {
     return (
