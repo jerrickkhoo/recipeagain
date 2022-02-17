@@ -20,7 +20,12 @@ const Card = ({ currentUser, recipeID, isLoggedIn }) => {
     setStatus("complete");
 
     console.log('foundRecipe',foundRecipe)
-    const foundAuthor = foundRecipe.data.data.author._id
+
+
+    const foundAuthor = foundRecipe.data.data?.author?._id ?? 'deleted user'
+
+    console.log('foundauthor',foundAuthor)
+
     //console.log('test',foundRecipe.data.data.author._id===currentUser._id)
     setCurrentRecipe(foundRecipe.data.data);
     setCurrentUserisAuthor(foundAuthor===currentUser._id)
