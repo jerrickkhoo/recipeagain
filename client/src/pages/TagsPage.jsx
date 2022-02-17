@@ -54,8 +54,10 @@ const TagsPage = ({allRecipes, setAllRecipes}) => {
               <img src={item?.image} alt={item?.originalURL} />
             </div>
             <div className="content" id="homeContent">
-              <div className="header">{item?.name}</div>
-              <div className="meta">
+              <div className="header" id='font'style={{ textAlign: "center" }}>
+                {item?.name}
+              </div>
+              <div className="meta" style={{ textAlign: "center" }}>
                 <div>Servings: {item?.servings}</div>
                 <Rating
                   icon="star"

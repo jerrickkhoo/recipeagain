@@ -5,38 +5,76 @@ const Search = (props) => {
 
   const searchQuery = props.searchQuery;
   const setSearchQuery = props.setSearchQuery;
+const searchBy = props.searchBy
+const setSearchBy = props.setSearchBy
+
 
   function searchText(e) {
     setSearchQuery(e.target.value);
   }
 
-  function handleClick () {
-    handleClickName();
-  }
+  
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    if(e.target.advsearch.value==='name'){
+    navigate(`/search/byname/${searchQuery}`)}
+    else if(
+      e.target.advsearch.value==='tags'){
+        navigate(`/search/bytags/${searchQuery}`)
+      }else{
+        navigate(`/search/byduration/${searchQuery}`)
+      }
+    }
+  
 
-  function handleClickName() {
-    navigate(`/search/${searchQuery}`);
-  }
 
   return (
     <div className="homepage">
       <div id="homebanner">
         <h1 className="titles">Search</h1>
       </div>
-      <div
-        className="ui action input"
-        id="searchbar"
-      >
-        <input
-          name="s"
-          value={searchQuery}
-          onChange={searchText}
-          type="text"
-          placeholder="Search..."
-        />
-        <button className="ui button yellow" onClick={handleClick} style={{color:'black'}}>
-          Search
-        </button>
+      <div className="ui category search">
+        <div class="ui icon input" id="searchbar">
+          <input
+            className="prompt"
+            name="s"
+            value={searchQuery}
+            onChange={searchText}
+            type="text"
+            placeholder="Search..."
+          />
+        </div>
+        <div class="results"></div>
+      </div>
+      <div className="advancedsearch">
+        <form onSubmit={handleSubmit}>
+          <h3>filter by</h3>
+          <input type="radio" id="searchname" name="advsearch" value="name" />
+          <label style={{ marginRight: "20px" }} htmlFor="searchname">
+            Name
+          </label>
+
+          <input type="radio" id="searchtag" name="advsearch" value="tags" />
+          <label style={{ marginRight: "20px" }} htmlFor="searchtag">
+            Tags
+          </label>
+
+          <input
+            type="radio"
+            id="searchduration"
+            name="advsearch"
+            value="duration"
+          />
+          <label htmlFor="searchduration">Duration(in mins)</label>
+          <br />
+          <button
+            className="ui button yellow"
+            type="submit"
+            style={{ color: "black", marginTop: "20px" }}
+          >
+            Search
+          </button>
+        </form>
       </div>
     </div>
   );

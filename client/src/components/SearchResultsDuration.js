@@ -3,19 +3,22 @@ import { useParams, Link } from "react-router-dom";
 import { Rating } from "semantic-ui-react";
 import axios from "axios";
 
-const SearchResultsTags = ({ searchQuery, allRecipes, searchBy }) => {
+const SearchResultsDuration = ({ searchQuery, allRecipes, searchBy }) => {
   const { recipeID } = useParams();
   const params = useParams();
   const [currentRecipe, setCurrentRecipe] = useState({});
   const [ratings, setRatings] = useState({});
 
-  console.log(searchBy);
-
+  
   const recipes = JSON.parse(localStorage.getItem("recipes"));
+  console.log(recipes);
+
 
   let foundRecipes = recipes.filter(function (recipe) {
-    return recipe.tags.includes(params.searchID);
+    return recipe.duration==(params.searchID);
   });
+
+  console.log(foundRecipes)
 
   const reducer = (prev, curr, index, array) => prev + curr.rating;
   useEffect(() => {
@@ -80,4 +83,4 @@ const SearchResultsTags = ({ searchQuery, allRecipes, searchBy }) => {
   );
 };
 
-export default SearchResultsTags;
+export default SearchResultsDuration;
