@@ -198,7 +198,7 @@ const RecipeCreatePage = ({currentUser}) => {
                 image: newRecipe.image,
                 servings: parseInt(newRecipe.servings),
                 duration: parseInt(newRecipe.duration),
-                tags: newRecipe.tags.split(",").map(tag => tag.trim()),
+                tags: newRecipe.tags.split(",").map(tag => tag.trim().toLowerCase()),
             })
             const updateUser = await axios.put(`/api/users/${currentUser._id}/addPost`,{recipeID:createdRecipe.data.data._id})
             // console.log("createdRecipe", createdRecipe.data.data._id)
