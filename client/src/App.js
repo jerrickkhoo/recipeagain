@@ -15,7 +15,11 @@ import Join from "./components/Join";
 import MyAccount from "./components/MyAccount";
 import Login2 from "./components/Login2";
 import AllCards from "./components/AllCards";
-import SearchResults from "./components/SearchResults";
+import SearchResultsName from "./components/SearchResultsName";
+import SearchResultsTags from "./components/SearchResultsTags";
+import SearchResultsDuration from "./components/SearchResultsDuration";
+
+
 import Search from "./components/Search";
 
 import MyPostPage from "./pages/MyPostPage";
@@ -32,6 +36,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState("");
   const [allRecipes, setAllRecipes] = useState([{}]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [searchBy, setSearchBy] = useState('')
 
   const navigate = useNavigate();
 
@@ -46,6 +51,10 @@ function App() {
   const getIsLoggedIn = (status) => {
     setIsLoggedIn(status);
   };
+
+  const getSearchBy = (search) =>{
+    setSearchBy(search)
+  }
 
   function NotFound() {
     useEffect(() => {
@@ -103,6 +112,20 @@ function App() {
                 ></i>
                 <div style={{ color: "gold" }} className="font">
                   New Recipe
+                </div>
+              </Link>
+            </div>
+            <div
+              className="navbar"
+              style={{
+                display: isLoggedIn ? "block" : "none",
+                whiteSpace: "nowrap",
+              }}
+            >
+              <Link className="item" to="/myposts">
+                <i style={{ color: "gold" }} class="lemon icon"></i>
+                <div style={{ color: "gold" }} className="font">
+                  My Recipes
                 </div>
               </Link>
             </div>
@@ -231,20 +254,51 @@ function App() {
                 setSearchQuery={setSearchQuery}
                 allRecipes={allRecipes}
                 setAllRecipes={getAllRecipes}
+                searchBy={searchBy}
+                setSearchBy={getSearchBy}
               />
             }
           />
           <Route
-            path="/search/:searchID"
+            path="/search/byname/:searchID"
             element={
-              <SearchResults
+              <SearchResultsName
                 searchQuery={searchQuery}
                 setSearchQuery={setSearchQuery}
                 allRecipes={allRecipes}
                 setAllRecipes={getAllRecipes}
+                searchBy={searchBy}
+                setSearchBy={getSearchBy}
               />
             }
           />
+          <Route
+            path="/search/bytags/:searchID"
+            element={
+              <SearchResultsTags
+                searchQuery={searchQuery}
+                setSearchQuery={setSearchQuery}
+                allRecipes={allRecipes}
+                setAllRecipes={getAllRecipes}
+                searchBy={searchBy}
+                setSearchBy={getSearchBy}
+              />
+            }
+          />
+          <Route
+            path="/search/byduration/:searchID"
+            element={
+              <SearchResultsDuration
+                searchQuery={searchQuery}
+                setSearchQuery={setSearchQuery}
+                allRecipes={allRecipes}
+                setAllRecipes={getAllRecipes}
+                searchBy={searchBy}
+                setSearchBy={getSearchBy}
+              />
+            }
+          />
+
           <Route
             path="/tags/:tagID"
             element={

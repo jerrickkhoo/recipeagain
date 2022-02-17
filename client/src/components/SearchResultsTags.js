@@ -3,37 +3,37 @@ import { useParams, Link } from "react-router-dom";
 import { Rating } from "semantic-ui-react";
 import axios from "axios";
 
-const SearchResults = ({ searchQuery, allRecipes }) => {
+const SearchResultsTags = ({ searchQuery, allRecipes, searchBy }) => {
   const { recipeID } = useParams();
   const params = useParams();
   const [currentRecipe, setCurrentRecipe] = useState({});
-const [ratings, setRatings] = useState({});
+  const [ratings, setRatings] = useState({});
 
-  console.log(allRecipes);
+  console.log(searchBy);
 
-     const recipes = JSON.parse(localStorage.getItem("recipes"));
+  const recipes = JSON.parse(localStorage.getItem("recipes"));
 
   let foundRecipes = recipes.filter(function (recipe) {
-    return recipe.name.toLowerCase().split(" ").includes(params.searchID);
+    return recipe.tags.includes(params.searchID);
   });
 
- const reducer = (prev, curr, index, array) => prev + curr.rating;
- useEffect(() => {
-   if (allRecipes !== undefined && allRecipes?.length !== 0) {
-     let returnObj = {};
-     for (const recipe of allRecipes) {
-       console.log(recipe);
-       if (recipe?.ratings?.length !== 0 && recipe?.ratings) {
-         returnObj[`${recipe._id}`] =
-           recipe.ratings.reduce(reducer, 0) / recipe.ratings.length;
-       }
-     }
-     setRatings(returnObj);
-   }
- }, [allRecipes]);
+  const reducer = (prev, curr, index, array) => prev + curr.rating;
+  useEffect(() => {
+    if (allRecipes !== undefined && allRecipes?.length !== 0) {
+      let returnObj = {};
+      for (const recipe of allRecipes) {
+        console.log(recipe);
+        if (recipe?.ratings?.length !== 0 && recipe?.ratings) {
+          returnObj[`${recipe._id}`] =
+            recipe.ratings.reduce(reducer, 0) / recipe.ratings.length;
+        }
+      }
+      setRatings(returnObj);
+    }
+  }, [allRecipes]);
 
-    const searchRecipes = foundRecipes.map((item, index) => {
-      return (
+  const searchRecipes = foundRecipes.map((item, index) => {
+    return (
       <div className="homediv" key={index}>
         <Link to={"/recipes/" + item?._id}>
           <div className="ui card">
@@ -47,11 +47,14 @@ const [ratings, setRatings] = useState({});
             <div className="content" id="homeContent">
               <div
                 className="header"
-                style={{ fontFamily: "Josefin Sans, sans-serif" }}
+                style={{
+                  fontFamily: "Josefin Sans, sans-serif",
+                  textAlign: "center",
+                }}
               >
                 {item?.name}
               </div>
-              <div className="meta">
+              <div className="meta" style={{ textAlign: "center" }}>
                 <div>Servings: {item?.servings}</div>
                 <Rating
                   icon="star"
@@ -66,7 +69,7 @@ const [ratings, setRatings] = useState({});
         </Link>
       </div>
     );
-  })
+  });
   return (
     <div style={{ backgroundColor: "lightyellow", paddingBottom: "100%" }}>
       <div id="homebanner">
@@ -77,4 +80,4 @@ const [ratings, setRatings] = useState({});
   );
 };
 
-export default SearchResults;
+export default SearchResultsTags;
