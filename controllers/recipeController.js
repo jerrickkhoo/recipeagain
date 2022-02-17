@@ -35,7 +35,7 @@ router.get("/", async (req, res) => {
 })
 
 //Create a new recipe 
-router.post("/new", async (req, res) => {
+router.post("/new",isLoggedIn, async (req, res) => {
   //validate req.body
   const input = req.body
   const { error } = NewRecipeValidationSchema.validate({
@@ -69,7 +69,7 @@ router.get("/:id", async (req, res) => {
 });
 
 //DELETE a recipe 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id",isLoggedIn, async (req, res) => {
   try {
     const deletedRecipe = await Recipe.findByIdAndRemove(req.params.id);
     res.status(200).json({ status: "ok", message: "recipe deleted", data: deletedRecipe });
@@ -79,7 +79,7 @@ router.delete("/:id", async (req, res) => {
 });
 
 //UPDATE a recipe details
-router.put("/:id", async (req, res) => {
+router.put("/:id", isLoggedIn,async (req, res) => {
   //validate req.body
   const input = req.body
   const { error } = NewRecipeValidationSchema.validate({

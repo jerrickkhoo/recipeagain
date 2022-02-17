@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { NewRecipeValidationSchema } from "../components/validation";
 
@@ -261,6 +261,7 @@ const RecipeEditPage = (currentUser) => {
                 placeholder="Name"
                 value={newRecipe.name}
                 onChange={handleChange}
+                required
               />
               <br />
               <br />
@@ -274,11 +275,12 @@ const RecipeEditPage = (currentUser) => {
                 placeholder="Describe your recipe"
                 value={newRecipe.description}
                 onChange={handleChange}
+                required
               />
               <br />
               <br />
 
-              <label style={{ fontSize: "20px" }}>Ingredients List*:</label>
+              <label style={{ fontSize: "20px" }}>Ingredients List:</label>
               {ingreFormArray}
 
               <label style={{ fontSize: "20px" }}>Steps:</label>
@@ -343,7 +345,21 @@ const RecipeEditPage = (currentUser) => {
               Submit{" "}
             </button>
           </form>
+          <p>
           Fields with * are required.
+          </p>
+          <Link to="/">
+          <button
+                class="ui button"
+                type="button"
+                style={{
+                    marginBottom: "20px",
+                    backgroundColor: "gray",
+                    color: "white",
+                }}
+            >Cancel
+            </button>
+            </Link>
         </div>
       </div>
     );
