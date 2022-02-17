@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import seed from "../unusedComponents/models/seed_recipes";
 import { Link } from "react-router-dom";
 import { Rating } from "semantic-ui-react";
 import axios from "axios";
@@ -13,7 +12,6 @@ document.head.appendChild(styleLink);
 const Home = ({ allRecipes, setAllRecipes }) => {
   let indexArray = [];
   let randomRecipeArray = [];
-  let randomIndexArray = [];
   const [ratings, setRatings] = useState({});
   useEffect(() => {
     const fetchrecipes = async () => {
@@ -31,7 +29,7 @@ const Home = ({ allRecipes, setAllRecipes }) => {
     if (allRecipes !== undefined && allRecipes?.length !== 0) {
       let returnObj = {};
       for (const recipe of allRecipes) {
-        console.log(recipe);
+        console.log('34',recipe);
         if (recipe?.ratings?.length!==0 && recipe?.ratings) {
           returnObj[`${recipe._id}`] = (recipe.ratings.reduce(
             reducer,0) / recipe.ratings.length
@@ -41,6 +39,8 @@ const Home = ({ allRecipes, setAllRecipes }) => {
       setRatings(returnObj);
     }
   }, [allRecipes]);
+
+  console.log('ratings',ratings)
 
   //arrayOfIndex = [0,1,2,3,4,5,6,7,8]
   for (let i = 0; i < allRecipes.length; i++) {

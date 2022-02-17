@@ -200,11 +200,16 @@ font-family: 'Josefin Sans', sans-serif;
   font-size: 42px;
 }
 
-#newrecipe{
+.newrecipe{
   width: 80%;
   margin: auto;
   text-align: center;
   font-family: 'Josefin Sans', sans-serif;
+
+}
+
+#newrecipe{
+    width: 7%;
 
 }
 
@@ -214,4 +219,21 @@ display: flex;
 
 #accountchild{
   flex:20%
+}
+
+.advancedsearch{
+  padding-top: 70px;
+  display: flex;
+  width: 20%;
+  margin:auto;
+  text-align: center;
+  justify-content: center;
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+#searchname, #searchingredients, #searchtag{
+  padding: 30px;
+  font-family: 'Josefin Sans', sans-serif;
+
+
 }

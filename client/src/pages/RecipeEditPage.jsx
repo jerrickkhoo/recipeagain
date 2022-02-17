@@ -247,7 +247,7 @@ const RecipeEditPage = (currentUser) => {
           class="trash alternate outline icon"
           onClick={handleDelete}
         ></i>
-        <div className="home" id="newrecipe" style={{ paddingBottom: "50px" }}>
+        <div className="newrecipe" style={{ paddingBottom: "50px" }}>
           <div style={{ paddingBottom: "100px" }}></div>
           <form className="ui form" onSubmit={handleSubmit}>
             <div className="field">
@@ -261,7 +261,7 @@ const RecipeEditPage = (currentUser) => {
                 placeholder="Name"
                 value={newRecipe.name}
                 onChange={handleChange}
-               
+                required
               />
               <br />
               <br />
@@ -275,12 +275,12 @@ const RecipeEditPage = (currentUser) => {
                 placeholder="Describe your recipe"
                 value={newRecipe.description}
                 onChange={handleChange}
-               
+                required
               />
               <br />
               <br />
 
-              <label style={{ fontSize: "20px" }}>Ingredients List*:</label>
+              <label style={{ fontSize: "20px" }}>Ingredients List:</label>
               {ingreFormArray}
 
               <label style={{ fontSize: "20px" }}>Steps:</label>
@@ -298,6 +298,7 @@ const RecipeEditPage = (currentUser) => {
 
               <label style={{ fontSize: "20px" }}>Servings (persons):</label>
               <input
+                id="newrecipe"
                 type="number"
                 name="servings"
                 placeholder="eg. 4"
@@ -309,6 +310,7 @@ const RecipeEditPage = (currentUser) => {
 
               <label style={{ fontSize: "20px" }}>Duration (minutes):</label>
               <input
+                id="newrecipe"
                 type="number"
                 name="duration"
                 placeholder="eg. 30"

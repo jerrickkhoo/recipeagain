@@ -70,11 +70,14 @@ const FavoritesPage = ({ currentUser, allRecipes }) => {
             <div className="content" id="homeContent">
               <div
                 className="header"
-                style={{ fontFamily: "Josefin Sans, sans-serif" }}
+                style={{
+                  fontFamily: "Josefin Sans, sans-serif",
+                  textAlign: "center",
+                }}
               >
                 {item?.name}
               </div>
-              <div className="meta">
+              <div className="meta" style={{ textAlign: "center" }}>
                 <div>Servings: {item?.servings}</div>
                 <Rating
                   icon="star"

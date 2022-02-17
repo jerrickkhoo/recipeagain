@@ -86,7 +86,7 @@ const Card = ({ currentUser, recipeID, isLoggedIn }) => {
         </div>
         <div className="headerText">
           <div style={{ whiteSpace: "nowrap" }}>
-            <h1 id="font2" style={{ fontSize: "45px", whiteSpace: "nowrap" }}>
+            <h1 id="font2" style={{ fontSize: "45px", whiteSpace: "initial" }}>
               {currentRecipe?.name}
             </h1>
             <div>
@@ -112,12 +112,20 @@ const Card = ({ currentUser, recipeID, isLoggedIn }) => {
           </a>
           <br />
           <br />
-          <a href className="ui tag label">Servings: {currentRecipe?.servings}</a>
+          <a href className="ui tag label">
+            Servings: {currentRecipe?.servings}
+          </a>
           <h2 id="font2">{currentRecipe?.description}</h2>
           <br />
         </div>
       </div>
       <div className="cardContent">
+        <div className="ingredients" style={{ paddingTop: "20px" }}>
+          <h2 id="font2" style={{ fontSize: "35px" }}>
+            Ingredients:
+          </h2>
+          {ingredients}
+        </div>
         <div className="ingredients" style={{ paddingTop: "20px" }}>
           <h2 id="font2" style={{ fontSize: "35px" }}>
             Steps:
@@ -128,7 +136,7 @@ const Card = ({ currentUser, recipeID, isLoggedIn }) => {
           Give us your feedback
         </h1>
         <RatingButton currentUser={currentUser} />
-        <h2 id='font'>Want more? See our related tags below</h2>
+        <h2 id="font">Want more? See our related tags below</h2>
         {tags}
       </div>
       {/* {currentUserisAuthor ? ( */}

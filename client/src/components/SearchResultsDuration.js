@@ -1,34 +1,24 @@
-import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useParams, Link } from "react-router-dom";
 import { Rating } from "semantic-ui-react";
 import axios from "axios";
 
+const SearchResultsDuration = ({ searchQuery, allRecipes, searchBy }) => {
+  const { recipeID } = useParams();
+  const params = useParams();
+  const [currentRecipe, setCurrentRecipe] = useState({});
+  const [ratings, setRatings] = useState({});
 
-
-const TagsPage = ({allRecipes, setAllRecipes}) => {
-  const { tagID } = useParams();
-    const [ratings, setRatings] = useState({});
-
-
- useEffect(() => {
-   const fetchrecipes = async () => {
-     const fetched = await axios.get("/api/recipes");
-     console.log(fetched);
-     setAllRecipes(fetched?.data?.data);
-    //  localStorage.setItem("recipes", JSON.stringify(fetched?.data?.data));
-   };
-   fetchrecipes();
- }, []);
- console.log(allRecipes);   
-
-  //fetch all recipes and search for recipeID that has tags array that contain the tagID
+  
   const recipes = JSON.parse(localStorage.getItem("recipes"));
   console.log(recipes);
 
-  let relatedRecipes = recipes.filter(function (recipe) {
-    return recipe.tags.includes(tagID);
+
+  let foundRecipes = recipes.filter(function (recipe) {
+    return recipe.duration==(params.searchID);
   });
-  console.log(relatedRecipes)
+
+  console.log(foundRecipes)
 
   const reducer = (prev, curr, index, array) => prev + curr.rating;
   useEffect(() => {
@@ -45,16 +35,26 @@ const TagsPage = ({allRecipes, setAllRecipes}) => {
     }
   }, [allRecipes]);
 
-  const tagRecipes = relatedRecipes.map((item, index) => {
+  const searchRecipes = foundRecipes.map((item, index) => {
     return (
-      <div className="homediv">
-        <Link to={"/recipes/" + item?._id} key={index}>
+      <div className="homediv" key={index}>
+        <Link to={"/recipes/" + item?._id}>
           <div className="ui card">
-            <div className="image">
-              <img src={item?.image} alt={item?.originalURL} />
-            </div>
+            <div
+              className="image"
+              style={{
+                backgroundImage: `url(${item?.image})`,
+                backgroundSize: "100% 100%",
+              }}
+            ></div>
             <div className="content" id="homeContent">
-              <div className="header" id='font'style={{ textAlign: "center" }}>
+              <div
+                className="header"
+                style={{
+                  fontFamily: "Josefin Sans, sans-serif",
+                  textAlign: "center",
+                }}
+              >
                 {item?.name}
               </div>
               <div className="meta" style={{ textAlign: "center" }}>
@@ -73,15 +73,14 @@ const TagsPage = ({allRecipes, setAllRecipes}) => {
       </div>
     );
   });
-
   return (
-    <div className="home">
+    <div style={{ backgroundColor: "lightyellow", paddingBottom: "100%" }}>
       <div id="homebanner">
-        <h1 className="titles">{tagID.toUpperCase()}</h1>
+        <h1 className="titles">Results</h1>
       </div>
-      <div className="randomCards">{tagRecipes}</div>
+      <div className="randomCards">{searchRecipes}</div>
     </div>
   );
 };
 
-export default TagsPage;
+export default SearchResultsDuration;
