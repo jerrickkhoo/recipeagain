@@ -5,50 +5,56 @@ const Search = (props) => {
 
   const searchQuery = props.searchQuery;
   const setSearchQuery = props.setSearchQuery;
-const searchBy = props.searchBy
-const setSearchBy = props.setSearchBy
-
+  const searchBy = props.searchBy;
+  const setSearchBy = props.setSearchBy;
 
   function searchText(e) {
     setSearchQuery(e.target.value);
   }
 
-  
   const handleSubmit = (e) => {
-    e.preventDefault()
-    if(e.target.advsearch.value==='name'){
-    navigate(`/search/byname/${searchQuery}`)}
-    else if(
-      e.target.advsearch.value==='tags'){
-        navigate(`/search/bytags/${searchQuery}`)
-      }else{
-        navigate(`/search/byduration/${searchQuery}`)
-      }
+    e.preventDefault();
+    if (e.target.advsearch.value === "name") {
+      navigate(`/search/byname/${searchQuery}`);
+    } else if (e.target.advsearch.value === "tags") {
+      navigate(`/search/bytags/${searchQuery}`);
+    } else {
+      navigate(`/search/byduration/${searchQuery}`);
     }
-  
+
+
+  };
+
 
   return (
     <div className="homepage">
       <div id="homebanner">
         <h1 className="titles">Search</h1>
       </div>
-      <div className="ui category search">
-        <div class="ui icon input" id="searchbar">
-          <input
-            className="prompt"
-            name="s"
-            value={searchQuery}
-            onChange={searchText}
-            type="text"
-            placeholder="Search..."
-          />
-        </div>
-        <div class="results"></div>
-      </div>
       <div className="advancedsearch">
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} style={{width:'100%'}}>
+          <div className="ui category search">
+            <div class="ui icon input" id="searchbar">
+              <input
+                className="prompt"
+                name="s"
+                value={searchQuery}
+                onChange={searchText}
+                type="text"
+                placeholder="Search..."
+                required
+              />
+            </div>
+            <div class="results"></div>
+          </div>
           <h3>filter by</h3>
-          <input type="radio" id="searchname" name="advsearch" value="name" />
+          <input
+            type="radio"
+            id="searchname"
+            name="advsearch"
+            value="name"
+            checked="checked"
+          />
           <label style={{ marginRight: "20px" }} htmlFor="searchname">
             Name
           </label>

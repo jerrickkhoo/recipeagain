@@ -32,6 +32,7 @@ const [ratings, setRatings] = useState({});
    }
  }, [allRecipes]);
 
+ 
     const searchRecipes = foundRecipes.map((item, index) => {
       return (
       <div className="homediv" key={index}>
@@ -72,7 +73,25 @@ const [ratings, setRatings] = useState({});
       <div id="homebanner">
         <h1 className="titles">Results</h1>
       </div>
-      <div className="randomCards">{searchRecipes}</div>
+      {foundRecipes.length > 0 ? (
+        <div className="randomCards">{searchRecipes}</div>
+      ) : (
+        <div>
+          <h1 className="titles" style={{ textAlign: "center" }}>
+            ...
+          </h1>
+          <h1 className="titles" style={{ textAlign: "center" }}>
+            ...
+          </h1>
+
+          <h1 className="titles" style={{ textAlign: "center" }}>
+            ...
+          </h1>
+          <h1 className="titles" style={{ textAlign: "center" }}>
+            All out of stock.
+          </h1>
+        </div>
+      )}
     </div>
   );
 };

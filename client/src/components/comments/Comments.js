@@ -30,7 +30,7 @@ const Comments = ({ currentUser, recipeID }) => {
         recipeId: recipeID,
         comment: event.target.comment.value,
       });
-      console.log("new comment", res);
+      // console.log("new comment", res);
       setComments([...comments, res.data.data]);
       event.target.comment.value = "";
     } catch (error) {

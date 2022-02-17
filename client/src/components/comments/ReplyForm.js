@@ -11,7 +11,7 @@ const ReplyForm = ({ id, currentUser, children, setChildren,setReplyOpen }) => {
         userId: currentUser._id,
         comment: event.target.comment.value,
       });
-      console.log("new reply", res);
+      // console.log("new reply", res);
       event.target.comment.value = "";
       setChildren([...children, res.data.data]);
       setReplyOpen(false);

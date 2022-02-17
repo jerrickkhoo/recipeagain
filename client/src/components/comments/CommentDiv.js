@@ -26,7 +26,6 @@ const CommentDiv = ({ comment, currentUser, setComments, comments, index, mode="
       const res = await axios.put(URL, {
         comment: event.target.comment.value,
       });
-      console.log("edited comment", res);
       setComments(
         comments.map((ele, i) => (index === i ? res.data.data : ele))
       );
@@ -42,7 +41,6 @@ const CommentDiv = ({ comment, currentUser, setComments, comments, index, mode="
       const res = await axios.put(URL, {
         comment: "*deleted comment*",
       });
-      console.log("deleted comment", res);
       setComments(
         comments.map((ele, i) => (index === i ? res.data.data : ele))
       );
@@ -65,7 +63,6 @@ const CommentDiv = ({ comment, currentUser, setComments, comments, index, mode="
     };
     getReplies(comment._id);
   }, []);
-  console.log("is deleted",comment.deleted);
   return (
     <>
       <div className="comment" key={comment._id}>
