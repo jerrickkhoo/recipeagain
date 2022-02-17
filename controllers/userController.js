@@ -59,14 +59,14 @@ router.post("/join", async (req, res) => {
 
 //Log in log out, this needs to be above other routes that use params
 router.post("/login", async (req, res) => {
-  const { email, password } = req.body;
-
   //validate req.body 
   const {error}=LoginValidationSchema.validate(req.body)
   console.log('joierror',error)
   if(error){
-    res.status(400).json({ status: "not ok", message: "Email And/Or Password are not in correct format" })
-  } else{ //then check username and password against database
+    res.status(400).json({ status: "not ok", message: "Email And/Or Password are not in correct format" },error)
+  } else{ 
+    //then check username and password against database
+      const { email, password } = req.body;
       try {
         const foundUser = await User.findOne({ email: email });
         console.log('foundUser', foundUser)
@@ -87,8 +87,8 @@ router.post("/login", async (req, res) => {
               });
           }
         }
-        } catch (error) {
-        res.status(400).json({ status: "not ok", message: "Fail To Log In User ", error: error });
+        } catch (err) {
+        res.status(400).json({ status: "not ok", message: "Fail To Log In User ", error: err });
         }
       }
   }

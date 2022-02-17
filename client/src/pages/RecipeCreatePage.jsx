@@ -180,6 +180,7 @@ const RecipeCreatePage = ({currentUser}) => {
             description: newRecipe.description,
             servings: newRecipe.servings,
             duration: newRecipe.duration,
+            tags: newRecipe.tags
         })
         if(error){
             alert(error)
@@ -207,7 +208,7 @@ const RecipeCreatePage = ({currentUser}) => {
 
         } catch (error) {
             alert("Fail to create recipe, please retry")
-            console.log(error)
+            console.log("BError",error.response)
         }
     };
 
