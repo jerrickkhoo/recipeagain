@@ -4,6 +4,7 @@ List of features:
 User can register/edit/view/delete their account credentials
 User can log in/out
 User can view all recipes, search based on certain criteria
+Use can click on tag of each recipe to view all recipes with that tag
 
 When loggedin:
 User can create a new recipe

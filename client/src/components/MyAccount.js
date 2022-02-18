@@ -4,8 +4,7 @@ import { useNavigate, Link } from "react-router-dom";
 
 const MyAccount = ({ setCurrentUser, currentUser, setIsLoggedIn, isLoggedIn }) => {
   const navigate = useNavigate();
-    const [status, setStatus] = useState("");
-
+  const [status, setStatus] = useState("");
 
   console.log(currentUser)
   console.log(isLoggedIn)
@@ -14,8 +13,7 @@ const MyAccount = ({ setCurrentUser, currentUser, setIsLoggedIn, isLoggedIn }) =
     const fetchUser = async () => {
           setStatus("pending");
       const fetchedUser = await axios.get(`/api/users/${currentUser?._id}`);
-      setStatus("complete");
-
+          setStatus("complete");
       // sessionStorage.setItem("user", JSON.stringify(fetchedUser?.data?.data));
       console.log(fetchedUser)
     };
@@ -47,9 +45,9 @@ const MyAccount = ({ setCurrentUser, currentUser, setIsLoggedIn, isLoggedIn }) =
     navigate("/edit");
   };
 
-  // const handleNewRecipe = () => {
-  //   navigate("/recipes/new");
-  // };
+  const handleNewRecipe = () => {
+    navigate("/recipes/new");
+  };
 
  if (status === "pending") {
    return "LOADING";
@@ -60,6 +58,7 @@ const MyAccount = ({ setCurrentUser, currentUser, setIsLoggedIn, isLoggedIn }) =
  }
 
   return (
+    
     <div style={{backgroundColor:'lightyellow', paddingBottom:'100%'}}>
       <div id="homebanner">
         <h1 className="titles">My Account</h1>
